@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SpadStorePanel.Core.Models;
 using SpadStorePanel.Core.Utility;
-using SpadStorePanel.Infrastructure.Helpers;
 using SpadStorePanel.Infrastructure.Repositories;
+using SpadStorePanel.Web.Controllers;
 using SpadStorePanel.Web.ViewModels;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 
 namespace SpadStorePanel.Web.Areas.Customer.Controllers
 {
@@ -17,27 +20,28 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private UsersRepository _userRepo;
+        private UsersRepository _usersRepo;
 
         public AuthController()
         {
         }
 
-        public AuthController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UsersRepository userRepo)
+        public AuthController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, UsersRepository userRepo) 
         {
             UserManager = userManager;
             SignInManager = signInManager;
             UserRepo = userRepo;
+            _usersRepo = userRepo;
         }
         public UsersRepository UserRepo
         {
             get
             {
-                return _userRepo ?? new UsersRepository();
+                return _usersRepo ?? new UsersRepository();
             }
             private set
             {
-                _userRepo = value;
+                _usersRepo = value;
             }
         }
         public ApplicationSignInManager SignInManager
@@ -99,9 +103,7 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //return View(model);
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return View(model);
             }
 
             // This doesn't count login failures towards Auth lockout
@@ -111,16 +113,14 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
             {
                 ViewBag.LoginError = "نام کاربری وارد شده صحیح نیست.";
                 //ModelState.AddModelError(string.Empty, "نام کاربری وارد شده صحیح نیست.");
-                //return View(model);
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return View(model);
             }
 
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index","Home",new { area=""}); // Or use returnUrl
+                    return RedirectToLocal("/Customer/Dashboard"); // Or use returnUrl
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -129,9 +129,7 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                 default:
                     ViewBag.LoginError = "نام کاربری یا رمز عبور وارد شده صحیح نیست.";
                     //ModelState.AddModelError("", "نام کاربری وارد شده صحیح نیست.");
-                    //return View(model);
-
-                    return RedirectToAction("Index", "Home", new { area = "" });
+                    return View(model);
             }
         }
 
@@ -153,16 +151,21 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
             if (ModelState.IsValid)
             {
                 #region Check for duplicate username or email
+                if (UserRepo.UserNameExists(model.UserName))
+                {
+                    ViewBag.RegisterError = "نام کاربری قبلا ثبت شده.";
+                    //ModelState.AddModelError("", "نام کاربری قبلا ثبت شده");
+                    return View(model);
+                }
                 if (UserRepo.EmailExists(model.Email))
                 {
                     ViewBag.RegisterError = "ایمیل قبلا ثبت شده.";
                     //ModelState.AddModelError("", "ایمیل قبلا ثبت شده");
-                    //return View(model);
-                    return RedirectToAction("Index", "Home", new { area = "" });
+                    return View(model);
                 }
                 #endregion
 
-                var user = new User { UserName = model.Email, Email = model.Email, FirstName ="مشتری", LastName = "مشتری"};
+                var user = new User { UserName = model.UserName, Email = model.Email, /*FirstName = model.FirstName, LastName = model.LastName*/ };
                 UserRepo.CreateUser(user, model.Password);
                 if (user.Id != null)
                 {
@@ -173,7 +176,8 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                     var customer = new Core.Models.Customer()
                     {
                         UserId = user.Id,
-                        IsDeleted = false
+                        IsDeleted = false,
+                        InsertDate = DateTime.Now
                     };
                     UserRepo.AddCustomer(customer);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -184,13 +188,12 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Auth", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your Auth", "Please confirm your Auth by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home", new { area = "" });
+                    return RedirectToAction("Login", "Auth");
                 }
             }
 
-            //return View(model);
             // If we got this far, something failed, redisplay form
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return View(model);
         }
         //
         // GET: /Auth/ForgotPasswordConfirmation
@@ -221,45 +224,60 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
             base.Dispose(disposing);
         }
 
+        [AllowAnonymous]
+        public ActionResult ResetMyPasswordByEmail()
+        {
+            return View();
+        }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult ResetMyPasswordByEmail(ForgotPasswordViewModel model)
+        {
+            ViewBag.Message = null;
+
+            if (!UserRepo.EmailExists(model.Email.Trim()))
+            {
+                ViewBag.RegisterError = "کاربری با ایمیل وارد شده قبلا ثبت نام نکرده است";
+
+                return View();
+            }
+
+            var user = UserRepo.GetUserByEmail(model.Email.Trim());
+
+            ViewBag.UserId = user.Id;
+
+            return RedirectToAction("ResetMyPassword", new { id = user.Id });
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetMyPassword(string id)
+        {
+            ViewBag.Message = null;
+            ViewBag.UserId = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetMyPassword(ResetMyPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByEmailAsync(model.Email);
-                if (user == null)
+                var validatePassword = await _usersRepo.ValidatePassword(model.OldPassword);
+                if (validatePassword.Succeeded)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    var result = await _usersRepo.SetNewPassword(model.UserId, model.OldPassword, model.Password);
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action(
-                   "ResetPassword", "Account",
-                   new { userId = user.Id, code = code },
-                   protocol: Request.Url.Scheme);
-                var emailForm = new Email.EmailFormModel
-                {
-                    FromName = "SpadStorePanel Way Team",
-                    FromEmail = "SpadStorePanelWayTeam@gmail.com",
-                    ToEmail = user.Email,
-                    Subject = "بروز رسانی رمز عبور",
-                    Message = "با استفاده از این <a href=\"" + callbackUrl + "\">لینک</a> میتوانید رمز عبور خود را بروز رسانی کنید"
-                };
-                await Task.Run(async () => await Email.SendEmail(emailForm));
-                return View("ForgotPasswordConfirmation");
+                ViewBag.Message = "رمز عبور وارد شده صحیح نیست";
+                ViewBag.UserId = model.UserId;
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
@@ -321,4 +339,6 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
         }
         #endregion
     }
+
+   
 }

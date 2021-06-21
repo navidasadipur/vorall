@@ -1,5 +1,7 @@
 ﻿@model List<SpadStorePanel.Core.Models.ProductGroup>
 
+@using Microsoft.AspNet.Identity
+
 <header class="header-3">
     <div class="header-top bg-white">
         <div class="container-fluid">
@@ -12,8 +14,25 @@
                 <div class="col-lg-3 col-sm-9 order-lg-last">
                     <ul class="header-options">
                         <li>
-                            @Html.Action("LoginSection", "Home")
-                            @Html.Action("RegisterSection", "Home")
+                            @if (User.Identity.GetUserName() != "")
+                            {
+                                <span>@User.Identity.GetUserName()</span>
+                                using (Html.BeginForm("LogOff", "Auth", new { area = "Customer" }, FormMethod.Post, null))
+                                {
+                                    <button type="submit" class="btn text-white btn-block btn-sm" style="background-color:red;">خروج</button>
+                                }
+                            }
+                            @*else if (Model.Error != null)
+                                {
+                                    <span style="background-color:red; width: 100px">@Model.Error</span>
+                                    <a href="#test-popup1" ifass="open-popup-link">ورود</a>
+                                }*@
+                            else
+                            {
+                                <a href="/Customer/auth/login" class="open-popup-link">ورود</a>
+                            }
+                            @*@Html.Action("LoginSection", "Home")
+                            @Html.Action("RegisterSection", "Home")*@
                         </li>
                         <li>
                             <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="لیست علاقه مندی ها">
@@ -31,9 +50,9 @@
                 </div>
 
                 <div class="col-lg-7 col-sm-12">
-                    @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form form-sm search_wrap w-100"}))
+                    @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form form-sm search_wrap w-100" }))
                     {
-                        <input class="search-box" placeholder="جستجو..." required="" value="" type="search" name="search"/>
+                        <input class="search-box" placeholder="جستجو..." required="" value="" type="search" name="search" />
                         <button type="submit">جستجو</button>
                     }
                 </div>
@@ -60,19 +79,19 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item active">
-                                    @Html.ActionLink("صفحه اصلی","Index","Home",null,new { @class="nav-link"})
+                                    @Html.ActionLink("صفحه اصلی", "Index", "Home", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("فروشگاه","Index","Shop",null,new { @class="nav-link"})
+                                    @Html.ActionLink("فروشگاه", "Index", "Shop", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("وبلاگ","Index","Blog",null,new {@class="nav-link" })
+                                    @Html.ActionLink("وبلاگ", "Index", "Blog", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("درباره ما","About","Home",null,new {@class="nav-link" })
+                                    @Html.ActionLink("درباره ما", "About", "Home", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("ارتباط با ما","Index","ContactUs",null,new { @class="nav-link"})
+                                    @Html.ActionLink("ارتباط با ما", "Index", "ContactUs", null, new { @class = "nav-link" })
                                 </li>
                             </ul>
                         </div>
@@ -89,7 +108,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <li>
-                                        @Html.ActionLink(item.Title,"GetByCategory","Shop",new {@id=item.Id },null)
+                                        @Html.ActionLink(item.Title, "GetByCategory", "Shop", new { @id = item.Id }, null)
                                     </li>
                                 }
                             </ul>

@@ -110,6 +110,17 @@ namespace SpadStorePanel.Infrastructure.Repositories
         {
             return _context.UserRoles.FirstOrDefault(ur => ur.UserId == userId && ur.RoleId == roleId);
         }
+
+        public User GetUserByPhoneNumber(string phoneNumber)
+        {
+            return _context.Users.FirstOrDefault(u => u.PhoneNumber == phoneNumber && u.IsDeleted == false);
+        }
+
+        public User GetUserByEmail(string Email)
+        {
+            return _context.Users.FirstOrDefault(u => u.Email == Email && u.IsDeleted == false);
+        }
+
         public User DeleteUser(string userId)
         {
             var user = _context.Users.Find(userId);
