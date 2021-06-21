@@ -1,0 +1,99 @@
+﻿@model SpadStorePanel.Web.ViewModels.ContactUsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/pic/contactus.jpg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>ارتباط با ما</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/Home/Index">صفحه اصلی</a></li>
+                        <li><span>ارتباط با ما</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Contact Detail Section -->
+<section class="contact-inner-page pt_large">
+    <div class="container">
+        <div class="row">
+            @Html.Action("FormSection", "ContactUs")
+            <div class="col-lg-4 col-md-12">
+                <div class="contact-details">
+                    <div class="title text-left">
+                        <h4>با ما در تعامل باشید</h4>
+                    </div>
+                    <div class="contact-inner">
+                        <p>تخفیفات ویژه زمستانه را از دست ندهید </p>
+                        <ul class="contact-locations">
+                            <li>
+                                <span class="fa fa-map-marker"></span>
+                                <p>@Model.Address</p>
+                            </li>
+                            <li>
+                                <span class="fa fa-phone"></span>
+                                <p>@Model.Phone</p>
+                            </li>
+                            <li><span class="fa fa-envelope-o"></span><a href="#">@Model.Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Contact Detail Section -->
+<!-- Start Map Section -->
+<section class="pb-0">
+    <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-md-12">
+                @Html.Raw(Model.Map)
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Map Section -->
+
+
+@section script
+{
+    <script>
+        function submitForm() {
+            // Initiate Variables With Form Content
+
+            var email = $("#email").val();
+            var name = $("#first-name").val();
+            var message = $("#description").val();
+            var subject = $("#subject").val();
+            var phone = $("#phone").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/ContactUs/ContactUS",
+                data: "email=" + email + "&name=" + name + "&message=" + message + "&subject=" + subject + "&phone=" + phone,
+                success: function (text) {
+                    if (text == "success") {
+
+                        $("#btnsubmit").css("background-color", "green");
+                        $("#btnsubmit").text("ثبت شد");
+                        $("#email").val("");
+                    } else {
+                        $("#btnsubmit").css("background-color", "red");
+                        $("#btnsubmit").text("خطا");
+                    }
+                }
+            });
+        }
+    </script>
+}

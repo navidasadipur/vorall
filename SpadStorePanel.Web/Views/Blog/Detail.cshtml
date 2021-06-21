@@ -1,0 +1,62 @@
+﻿@model SpadStorePanel.Web.ViewModels.BlogDetailViewModel
+@using SpadStorePanel.Core.Utility
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+@Html.Action("HeaderShareSection", "Home")
+<section class="breadcrumbs-section background_bg" data-img-src="/pic/blog-success.jpg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>جزئیات وبلاگ</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/Home/Index">صفحه اصلی</a></li>
+                        <li><a href="/Blog/Index">وبلاگ</a></li>
+                        <li><span>جزئیات وبلاگ</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="blog_detail-inner-section pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="blog-info">
+                    <div class="news-details">
+                        <h4><a href="#">@Model.Blog.Title</a></h4>
+                        <p class="comments">
+                            ارسال شده توسط <a href="#"><i>@Model.Blog.InsertUser</i></a>@DateFormater.ConvertToPersian(Model.Blog.AddedDate ?? DateTime.Now)
+                            <a href="#"><i class="fa fa-comments"></i> @Model.Comments.Count() نظر</a>
+                        </p>
+                    </div>
+                    <div class="blog-detail-img">
+                        <img height="400px" src="~/Files/ArticleImages/Image/@Model.Blog.Image" align="blog_img5" />
+                    </div>
+                    <div class="blo-detail-text">
+                        <p class="textalign p-1">
+                            @Html.Raw(Model.Blog.Description)
+                        </p>
+                    </div>
+                    <div class="blog-tags">
+                        <span>برچسب ها:</span>
+                        <ul>
+                            @foreach (var item in Model.Tags)
+                            {
+                                <li>
+                                    <p>@item.Title</p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                @Html.Action("NewArticle","Blog")
+                @Html.Action("SendCommentSection", "Blog")
+            </div>
+        </div>
+    </div>
+</section>

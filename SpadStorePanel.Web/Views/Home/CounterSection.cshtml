@@ -1,0 +1,29 @@
+﻿@model List<SpadStorePanel.Core.Models.StaticContentDetail>
+
+<section class="counters-section background_bg" data-img-src="/pic/aboutusbgimg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @foreach (var item in Model)
+                {
+                    <div class="counter-inner">
+                        <span class="counter">@item.ShortDescription</span>
+                        <p>@item.Title</p>
+                    </div>
+                }
+                @*<div class="counter-inner">
+                    <span class="counter">225</span>
+                    <p>برند</p>
+                </div>
+                <div class="counter-inner">
+                    <span class="counter">15</span>
+                    <p>فروشگاه</p>
+                </div>
+                <div class="counter-inner">
+                    <span class="counter">202</span>
+                    <p>مشتری</p>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</section>

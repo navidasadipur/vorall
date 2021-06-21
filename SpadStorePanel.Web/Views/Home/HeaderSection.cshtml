@@ -1,0 +1,97 @@
+﻿@model List<SpadStorePanel.Core.Models.ProductGroup>
+
+<header class="header-3">
+    <div class="header-top bg-white">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-sm-3">
+                    <div class="header-logo">
+                        <a href="index.html"><img src="pic/logo-header.png" alt="logo" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-9 order-lg-last">
+                    <ul class="header-options">
+                        <li>
+                            @Html.Action("LoginSection", "Home")
+                            @Html.Action("RegisterSection", "Home")
+                        </li>
+                        <li class="d-md-none d-sm-block ">
+                            <a href="shop-left-sidebar.html">فروشگاه</a>
+                        </li>
+                        <li class="d-md-none d-sm-block ">
+                            <a href="shop-left-sidebar.html">درباره ما</a>
+                        </li>
+                        @Html.Action("CartSection", "Cookie")
+                    </ul>
+                </div>
+
+                <div class="col-lg-7 col-sm-12">
+                    @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form form-sm search_wrap w-100"}))
+                    {
+                        <input class="search-box" placeholder="جستجو..." required="" value="" type="search" name="search"/>
+                        <button type="submit">جستجو</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-btm border-0 navy-dark-bg h-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9 col-12 m_menu">
+                    <div class="d-lg-none float-left">
+                        <div class="form-captions" id="search">
+                            <button type="submit" class="submit-btn-2">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    @Html.ActionLink("صفحه اصلی","Index","Home",null,new { @class="nav-link"})
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("فروشگاه","Index","Shop",null,new { @class="nav-link"})
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("وبلاگ","Index","Blog",null,new {@class="nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("درباره ما","About","Home",null,new {@class="nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("ارتباط با ما","Index","ContactUs",null,new { @class="nav-link"})
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-5 col-8 ml-auto pr-0">
+                    <div class="menu-wrap position-relative">
+                        <button type="button" class="categories-btn btn-block">
+                            <i class="ion-ios-list-outline"></i><span>دسته بندی ها </span>
+                        </button>
+                        <nav id="mega-dropdown-menu" class="section-shadow">
+                            <ul class="list-unstyled components">
+
+                                @foreach (var item in Model)
+                                {
+                                    <li>
+                                        @Html.ActionLink(item.Title,"GetByCategory","Shop",new {@id=item.Id },null)
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

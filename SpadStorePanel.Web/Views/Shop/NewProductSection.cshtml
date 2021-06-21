@@ -1,0 +1,22 @@
+﻿@model List<SpadStorePanel.Infrastructure.Dtos.Product.ProductWithPriceDto>
+
+<div class="side-quantity-box side-box">
+    <div class="side-box-title">
+        <h6>محصولات اخیر</h6>
+    </div>
+    <div class="side-recent-product">
+        @foreach (var item in Model)
+        {
+
+            <div class="cart-prodect d-flex">
+                <div class="cart-img">
+                    <img src="~/Files/ProductImages/Image/@item.Image" alt="recent-product">
+                </div>
+                <div class="cart-product">
+                    <a href="/Shop/Detail/@item.Id">@item.ShortTitle</a>
+                    <a href="/Shop/Detail/@item.Id" class="cp-comments"><del>@item.Price تومان</del>@item.PriceAfterDiscount</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@model SpadStorePanel.Web.ViewModels.HeaderShareSectionViewModel
+
+<header>
+    <div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="header_list ">
+                        <li>
+                            @Html.Action("LoginSection","Home")
+                            @Html.Action("RegisterSection","Home")
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="header_list float-left d-flex align-items-center justify-content-center">
+
+                        <li>
+                            <a class="d-flex align-items-center justify-content-center" href="mailto:@Model.Email.ShortDescription">
+                                <i class="fa fa-envelope-o m-0 "></i>@Model.Email.ShortDescription
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-flex align-items-center justify-content-center" href="tel:@Model.Phone.ShortDescription">
+                                @Model.Phone.ShortDescription<i class="fa fa-phone m-0 mr-1"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mdl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hm-inner d-sm-flex align-items-center justify-content-between">
+                        <div class="header-logo">
+                            <a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>
+                        </div>
+                        @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form" }))
+                        {
+                            <input class="search-box" placeholder="جستجو..." required value="" type="search" name="search" />
+                            <button type="submit">جستجو</button>
+                        }
+                        @*<form class="header-form">
+            <input class="search-box" placeholder="جستجو..." required value="" type="search" />
+            <button type="submit">جستجو</button>
+        </form>*@
+                        @Html.Action("CartSection", "Cookie")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-btm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="header-logo">
+                            <a href="#"><img src="~/asset/image/logo.png" alt="logo" /></a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    @Html.ActionLink("صفحه اصلی", "Index", "Home", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("فروشگاه", "Index", "Shop", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("وبلاگ", "Index", "Blog", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("درباره ما", "About", "Home", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item active">
+                                    @Html.ActionLink("ارتباط با ما", "Index", "ContactUs", null, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

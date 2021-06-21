@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/pic/about_us2.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>درباره ما</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/Home/Index">صفحه اصلی</a></li>
+                        <li><span>درباره ما</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Contact Detail Section -->
+@Html.Action("AboutSection", "Home")
+<!-- End Contact Detail Section -->
+<!-- Start Contact Detail Section -->
+@Html.Action("CounterSection", "Home")
+<!-- End Contact Detail Section -->
+<!-- Start Event Section-->
+@Html.Action("EventSection", "Home")
+<!-- End Event Section-->
+<!-- Start Review Section -->
+@Html.Action("CustomerCommentSection", "Home")
+<!-- End Review Section -->
+<!-- Start Facility Section-->
+
+@Html.Action("ServiceSection", "Home")
+<!-- End Facility Section-->

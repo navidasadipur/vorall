@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+
+<!-- Start Header Section -->
+@Html.Action("HeaderSection", "Home")
+<!-- End Header Section -->
+<!-- Start Slider Section -->
+@Html.Action("SliderSection", "Home")
+<!-- End Slider Section -->
+<!-- Start Service Section -->
+@Html.Action("ServiceSection", "Home")
+<!-- End Service Section -->
+<!-- Start Deals Section -->
+@Html.Action("DealSection", "Home")
+<!-- End Deals Section -->
+<!-- Start Popular Products Section -->
+@Html.Action("PopularProductSection", "Home")
+<!-- End Popular Products Section -->
+<!-- Start بهترین سالر Section -->
+@Html.Action("BestSellerSection", "Home")
+<!-- End بهترین سالر Section -->
+<!-- Start مجموعه جدید Section -->
+@Html.Action("NewProductSection", "Home")
+<!-- End مجموعه جدید Section -->
+@Html.Action("GetNewsSection", "Home")
+<!-- Start Quickview Popup Section -->
+@Html.Action("PopupSection","Shop")
+@*<div id="pm" class="rounded-pill chasbide alert text-center p-0" role="alert">
+    <span class="text-white">کالا اضافه شد</span>
+    <div class="spinner-grow text-white" role="status">
+    </div>
+</div>*@
+<!-- End Quickview Popup Section -->
+
+
+@section script
+{
+    <script>
+        function submitForm() {
+            // Initiate Variables With Form Content
+
+            var email = $("#email").val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "/ContactUs/GetNews",
+                data: "email=" + email,
+                success: function (text) {
+                    if (text == "success") {
+
+                        $("#btnsubmit").css("background-color", "green");
+                        $("#btnsubmit").text("ثبت شد");
+                        $("#email").val("");
+                    } else {
+                        $("#btnsubmit").css("background-color", "red");
+                        $("#btnsubmit").text("خطا");
+                    }
+                }
+            });
+        }
+    </script>
+}

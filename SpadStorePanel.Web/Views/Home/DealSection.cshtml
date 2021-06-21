@@ -1,0 +1,698 @@
+﻿@model List<SpadStorePanel.Web.ViewModels.ProductViewModel>
+
+<section class="new-collection-section section-shadow bg-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="title">
+                    <h4>پیشنهاد روز</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="carousel_slide6 products-style-2 nav-style-2 owl-carousel owl-theme" data-margin="30"
+                     data-dots="false" data-autoplay="false" data-nav="true" data-loop="false">
+                    @foreach (var item in Model)
+                    {
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="~/Files/ProductImages/Image/@item.Product.Image" alt="product-img" style="height:300px"/>
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="javascript:void(0)" onclick="AddToCart(@item.Product.Id)"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" onclick="wish(@item.Product.Id)" class="product_@item.Product.Id"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link" onclick="GetPopup(@item.Product.Id)"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)" onclick="AddToCompareList(@item.Product.Id)" class="compare_@item.Product.Id"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            @foreach (var x in item.ProductMainFeatures)
+                                            {
+                                                <li>
+                                                    <a href="#" style="background-color:@x.Value"></a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="/Shop/Detail/@item.Product.Id" class="cart-name">@item.Product.ShortTitle</a>
+                                    <div class="product-rate">
+                                        @for (int i = 0; i < item.Product.Rate; i++)
+                                        {
+                                            <i class="ion-android-star"></i>
+                                        }
+                                    </div>
+                                    <p class="cart-price"><del>@item.Product.Price تومان</del>@item.Product.PriceAfterDiscount تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @*<div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products10.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="blue-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>78000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products12.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="white-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="red-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9500 تومان</del>80000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products13.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="orange-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>8000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products15.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>50000 تومان</del>45000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products14.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="blue-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>78000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products16.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="white-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="red-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9500 تومان</del>80000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products4.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="orange-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>8000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products15.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>50000 تومان</del>45000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products9.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="blue-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>78000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products1.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="white-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="red-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9500 تومان</del>80000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products3.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="orange-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>8000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products3.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>50000 تومان</del>45000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products5.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="blue-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="black-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9000 تومان</del>78000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="product-box common-cart-box">
+                                <div class="product-img common-cart-img">
+                                    <img src="pic/products7.jpg" alt="product-img" />
+                                    <div class="hover-option">
+                                        <ul class="hover-icon">
+                                            <li>
+                                                <a href="shop-left-sidebar.html"><i class="fa fa-shopping-cart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-heart"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#test-popup3" class="quickview-popup-link"><i class="fa fa-eye"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                            </li>
+                                        </ul>
+                                        <ul class="product-color">
+                                            <li>
+                                                <a href="#" class="white-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="yellow-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="pink-dot"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="red-dot"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-info common-cart-info">
+                                    <a href="product-detail.html" class="cart-name">وسایل جانبی</a>
+                                    <div class="product-rate">
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+                                        <i class="ion-android-star"></i>
+
+                                        <i class="ion-android-star-half"></i>
+                                    </div>
+                                    <p class="cart-price"><del>9500 تومان</del>80000 تومان</p>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

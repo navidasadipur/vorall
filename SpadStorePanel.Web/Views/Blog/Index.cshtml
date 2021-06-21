@@ -1,0 +1,168 @@
+﻿@model List<SpadStorePanel.Web.ViewModels.BlogViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/pic/blog-success.jpg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>جزئیات وبلاگ</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/Home/Index">صفحه اصلی</a></li>
+                        <li><a href="/Blog/Index">وبلاگ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start Blog Detail Section -->
+<section class="blog_with_sidebar-inner-section pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="row inner-row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="news-box box-1">
+                                <div class="news-img">
+                                    <img width="300px" height="300px" src="~/Files/ArticleImages/Image/@item.Blog.Image" alt="news-img">
+                                    <div class="date-box text-center text-uppercase">
+                                        <h5>@item.Date</h5>
+                                    </div>
+                                </div>
+                                <div class="news-info text-center">
+                                    <h5><a href="/Blog/Detail/@item.Blog.Id">@item.Blog.Title</a></h5>
+                                    <p class="comments">ارسال شده توسط <a href="#"><i>@item.Blog.InsertUser</i></a></p>
+                                    <p class="news-text">@item.Blog.ShortDescription</p>
+                                    @Html.ActionLink("ادامه مطلب", "Detail", "Blog", new { @id = item.Blog.Id }, new { @class = "read-more" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                @{
+                                    int c = @ViewBag.PageCount;
+                                }
+                                @for (int i = 0; i < c; i++)
+                                {
+                                    <li>
+                                        @Html.ActionLink((i + 1).ToString(), "Index", "Blog", new { @page = i + 1 }, new { @class = "pageNumber" })
+                                    </li>
+                                }
+                                @if (c != 0)
+                                {
+                                    <li><a onclick="myFunction()" id="next" aria-label="Next" style="color:#fff"><i class="fa fa-angle-right"></i></a></li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first">
+                <div class="blog-sidebar">
+                    @Html.Action("CategorySection", "Blog")
+                    <div class="side-newslatter-box side-box">
+                        <div class="newslatter-inner-box">
+                            <div class="side-box-title">
+                                <h6>خبرنامه</h6>
+                            </div>
+                            <form class="side-newslatter-form">
+                                <input required="" id="email" class="form-control" placeholder="ایمیل خود را وارد کنید" value="" type="email">
+                                <button type="button" onclick="submitForm()" class="newslatter-bnt"><i class="fa fa-envelope" id="btnsubmit"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    @Html.Action("NewBlogSection", "Blog")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Blog Deta-->
+
+@section script
+{
+    <script>
+        function submitForm() {
+            // Initiate Variables With Form Content
+
+            var email = $("#email").val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "/ContactUs/GetNews",
+                data: "email=" + email,
+                success: function (text) {
+                    if (text == "success") {
+
+                        $("#btnsubmit").css("color", "green");
+                        $("#email").val("");
+                    } else {
+                        $("#btnsubmit").css("color", "red");
+                    }
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = urlParams.get('page');
+        if (page == null) {
+            var items = document.getElementsByClassName("pageNumber");
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].textContent == 1) {
+                    items[i].style.backgroundColor = '#2ab7ca';
+                    items[i].style.color = '#fff';
+                }
+            }
+
+        }
+        else {
+            var items = document.getElementsByClassName("pageNumber");
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].textContent == page) {
+                    items[i].style.backgroundColor = '#2ab7ca';
+                    items[i].style.color = '#fff';
+                    items[i].classList.add("active");
+                }
+            }
+        }
+
+        function myFunction() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            if (page == null) {
+                var p = Number(1) + 1;
+                window.location.href = '/Blog?page=' + p;
+            }
+            else {
+                var p = Number(page) + 1;
+                window.location.href = '/Blog?page=' + p;
+            }
+        }
+
+
+        var pageCount = document.getElementsByClassName("pageNumber").length;
+        if (Number(page) == pageCount) {
+            document.getElementById("next").style.display = "none";
+        }
+
+    </script>
+
+}

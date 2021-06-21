@@ -1,0 +1,78 @@
+﻿@using Kendo.Mvc.UI
+@using SpadStorePanel.Infrastructure.Helpers
+@model SpadStorePanel.Core.WebService.Model.ArrayOfProductDATA
+@{
+    ViewBag.Title = "محصولات";
+}
+
+<link href="~/asset/dataTable/responsive.bootstrap.min.css" rel="stylesheet" />
+<input type="hidden" id="nav_active" value="product_control">
+<input type="hidden" id="nav_item_active" value="products">
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                @ViewBag.Title
+                <span class="d-block text-muted pt-2 font-size-sm">ویرایش محصولات</span>
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <a href="/Admin/Products/Create" class="btn btn-primary font-weight-bolder">
+                <span class="svg-icon svg-icon-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect x="0" y="0" width="24" height="24" />
+                            <circle fill="#000000" cx="9" cy="15" r="6" />
+                            <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                        </g>
+                    </svg>
+                </span>	رکورد جدید
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>کد کالا</th>
+                    <th>نام کالا</th>
+                    <th>قیمت</th>
+                    <th>موجودی</th>
+                    <th>دستورات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProductDATA)
+                {
+                <tr>
+                    <td>@item.ProductCode</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.SalePrice</td>
+                    <td>@item.Exist</td>
+                    <td>
+                        <a class="btn text-white" style="background-color:#3699FF;" href="/Admin/Products/Edit/@item.ProductCode">ویرایش</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>کد کالا</th>
+                    <th>نام کالا</th>
+                    <th>قیمت</th>
+                    <th>موجودی</th>
+                    <th>دستورات</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/asset/dataTable/jquery.dataTables.min.js"></script>
+<script src="~/asset/dataTable/dataTables.bootstrap4.min.js"></script>
+<script src="~/asset/dataTable/dataTables.responsive.min.js"></script>
+<script src="~/asset/dataTable/datatable.js"></script>
+
+}

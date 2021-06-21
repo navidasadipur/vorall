@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Favicon Icon Css -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/asset/image/favicon-32x32.png" />
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="~/asset/css/animate.css" type="text/css" />
+    <!-- Font Css -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+    <link href="~/asset/stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"
+          rel="stylesheet" />
+    <link href="~/asset/css/ionicons.min.css" type="text/css" rel="stylesheet" />
+    <!-- Owl Css -->
+    <link href="~/asset/css/owl.carousel.min.css" type="text/css" rel="stylesheet" />
+    <link href="~/asset/css/owl.theme.default.min.css" type="text/css" rel="stylesheet" />
+    <!-- Magnific Popup Css -->
+    <link href="~/asset/css/magnific-popup.css" type="text/css" rel="stylesheet" />
+    <!-- Bootstrap Css -->
+    <link href="~/asset/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <!-- Price Filter Css -->
+    <link href="~/asset/css/jquery-ui.css" type="text/css" rel="stylesheet" />
+    <!-- Scrollbar Css -->
+    <link href="~/asset/css/mCustomScrollbar.min.css" type="text/css" rel="stylesheet" />
+    <!-- Select2 Css -->
+    <link href="~/asset/css/select2.min.css" type="text/css" rel="stylesheet" />
+    <!-- main css -->
+    <link href="~/asset/css/style.css" type="text/css" rel="stylesheet" />
+    <link href="~/asset/css/responsive.css" type="text/css" rel="stylesheet" />
+    <title>صفحه اصلی</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106310707-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "UA-106310707-1", {
+            anonymize_ip: true
+        });
+    </script>
+
+    <!-- Start of StatCounter Code -->
+    <script>
+        var sc_project = 11921154;
+        var sc_security = "6c07f98b";
+        var scJsHost = (("https:" == document.location.protocol) ?
+            "https://secure." : "http://www.");
+        //-->
+
+        document.write("<sc" + "ript src='" + scJsHost + "statcounter.com/counter/counter.js'></" + "script>");</script>
+    <!-- End of StatCounter Code -->
+</head>
+<body>
+    <div id="preloader">
+        <div class="loading_wrap">
+            <img src="~/asset/image/loader_logo.png" alt="logo" />
+        </div>
+    </div>
+    <!-- LOADER -->
+    @RenderBody()
+
+    <button type="button" class="btn btn-info btn-lg text-white" id="compare">مقایسه</button>
+
+    <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
+
+
+    @Html.Action("FooterSection", "Home")
+    <!-- Jquery js -->
+    <script src="~/asset/js/jquery.min.js" type="text/javascript"></script>
+    <!-- popper.min js -->
+    <script src="~/asset/js/popper.min.js" type="text/javascript"></script>
+    <!-- Bootstrap js -->
+    <script src="~/asset/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- Magnific Popup js -->
+    <script src="~/asset/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+    <!-- Map js -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7TypZFTl4Z3gVtikNOdGSfNTpnmq-ahQ"
+            type="text/javascript"></script>
+    <!-- Owl js -->
+    <script src="~/asset/js/owl.carousel.min.js" type="text/javascript"></script>
+    <!-- Countdown js -->
+    <script src="~/asset/js/countdown.min.js" type="text/jscript"></script>
+    <!-- Counter js -->
+    <script src="~/asset/js/jquery.countup.js" type="text/javascript"></script>
+    <!-- waypoint js -->
+    <script src="~/asset/js/waypoint.js" type="text/javascript"></script>
+    <!-- Select2 js -->
+    <script src="~/asset/js/select2.min.js" type="text/javascript"></script>
+    <!-- Price Slider js -->
+    <script src="~/asset/js/jquery-price-slider.js" type="text/javascript"></script>
+    <!-- jquery.elevatezoom js -->
+    <script src="~/asset/js/jquery.elevatezoom.js" type="text/javascript"></script>
+    <!-- imagesloaded.pkgd.min js -->
+    <script src="~/asset/js/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+    <!-- isotope.min js -->
+    <script src="~/asset/js/isotope.min.js" type="text/javascript"></script>
+    <!-- jquery.fitvids js -->
+    <script src="~/asset/js/jquery.fitvids.js" type="text/javascript"></script>
+    <!-- mCustomScrollbar.concat.min js -->
+    <script src="~/asset/js/mCustomScrollbar.concat.min.js" type="text/javascript"></script>
+    <!-- Custom css -->
+    <script src="~/asset/js/custom.js" type="text/javascript"></script>
+
+    @RenderSection("script", required: false)
+
+    <script>
+        var compareList = [];
+
+        function AddToCompareList(id) {
+            if (!compareList.includes(id)) {
+                var t = ".compare_" + id;
+                $(t).css("color", "red");
+
+                if (compareList.length < 5) {
+                    compareList.push(id);
+
+
+                    if (compareList.length != 0) {
+                        $("#compare").show();
+                        $("#compare").text("مقایسه" + "(" + compareList.length + ")");
+                    }
+                    else {
+                        $("#compare").hide();
+                        $("#compare").text("مقایسه");
+                    }
+                }
+                else
+                {
+                    alert("لیست مقایسه بیشتر از 4 مورد است");
+                }
+            }
+            else
+            {
+                compareList.pop(id);
+                var t = ".compare_" + id;
+                $(t).css("color", "white");
+                if (compareList.length != 0) {
+                    $("#compare").show();
+                    $("#compare").text("مقایسه" + "(" + compareList.length + ")");
+                }
+                else {
+                    $("#compare").hide();
+                    $("#compare").text("مقایسه");
+                }
+            }
+        }
+
+
+        $("#compare").click(function () {
+            var items="";
+            for (var i = 0; i < compareList.length;i++)
+            {
+                if (i == compareList.length - 1) {
+                    items += compareList[i];
+                }
+                else
+                {
+                    items += compareList[i] + "-";
+                }
+            }
+            window.location.href = "/Shop/Compare?CompareList=" + items;
+        });
+        
+
+
+        if (window.location.pathname == "/" || window.location.pathname.toLowerCase() == "/home/index" || window.location.pathname.toLowerCase() == "/home") {
+            $("body").addClass("theme-3");
+        }
+
+        GetWishList();
+
+        function wish(id) {
+            var t = ".product_" + id;
+
+            if ($(t).css("color") == "rgb(255, 0, 0)") {
+                removeFromWishList(id);
+            }
+            else {
+                AddToWishList(id);
+            }
+        }
+
+        function AddToWishList(id) {
+            $("#loading").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Cookie/AddToWishList?productId=' + id,
+                success: function (data) {
+                    GetWishList();
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                    $("#loading").fadeOut(1000);
+                }
+            });
+        }
+
+
+        function removeFromWishList(id) {
+            $("#loading").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Cookie/RemoveFromWishList?productId=' + id,
+                success: function (data) {
+                    var t = ".product_" + id;
+                    $(t).css("color", "white");
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                    $("#loading").fadeOut(1000);
+                }
+            });
+        }
+
+        function GetWishList() {
+            $.ajax({
+                type: 'GET',
+                url: '/Cookie/WishListTable',
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    for (var i = 0; i < obj.WishListItems.length; i++) {
+                        var t = ".product_" + obj.WishListItems[i].Id;
+                        $(t).css("color", "red");
+                    }
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        function AddToCart(id, mainFeature) {
+            $("#preloader").show();
+            var mainFeatureId = null;
+            if (mainFeature != null) {
+                mainFeatureId = mainFeature;
+            }
+            if (mainFeatureId === null) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cookie/AddToCart?productId=' + id,
+                    success: function (data) {
+                        GetCart();
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    },
+                    complete: function () {
+                        $("#preloader").fadeOut(1000);
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cookie/AddToCart?productId=' + id + '&mainFeatureId=' + mainFeatureId,
+                    success: function (data) {
+                        GetCart();
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    },
+                    complete: function () {
+                        $("#preloader").fadeOut(1000);
+                    }
+                });
+            }
+        }
+
+
+        function GetCart() {
+            $.ajax({
+                type: 'GET',
+                url: '/Cookie/CartSection',
+                success: function (data) {
+                    $("#cartSection").html(data);
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                }
+            });
+            if ($("#CartTable") !== undefined) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Cookie/CartTable',
+                    success: function (data) {
+                        $("#CartTable").html(data);
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    },
+                    complete: function () {
+                    }
+                });
+            }
+        }
+
+        function RemoveFromCart(id, mainFeatureId, complete) {
+            $("#preloader").show();
+            $.ajax({
+                type: 'POST',
+                url: '/Cookie/RemoveFromCart?productId=' + id + '&mainFeatureId=' + mainFeatureId + '&complete=' + complete,
+                success: function (data) {
+                    GetCart();
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                    $("#preloader").fadeOut(1000);
+                }
+            });
+        }
+
+
+        function GetPopup(id) {
+            $("#preloader").show();
+            $.ajax({
+                type: 'Get',
+                url: '/Shop/PopupData/'+id,
+                success: function (data) {
+                    $(".pop").html(data);
+                    $(".pop").removeClass("mfp-hide");
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                     $("#preloader").fadeOut(1000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,32 @@
+﻿@model List<SpadStorePanel.Core.Models.StaticContentDetail>
+
+  <!-- Start Event Section-->
+<section class="event-section pt_large">
+    <div class="container">
+        <div class="row">
+            @for (int i = 0; i < 3; i++)
+            {
+                <div class="col-md-4">
+                    <div class="event-box box-1">
+                        <div class="event-icon">
+                            @switch (i)
+                            {
+                                case 0:<span class="ion-code-download"></span>
+                                    break;
+                                case 1: <span class="ion-model-s"></span>
+                                    break;
+                                case 2: <span class="ion-model-s"></span>
+                                    break;
+                            }
+                        </div>
+                        <p class="event-title">@Model[1].Title</p>
+                        <p class="event-text textalign">
+                            @Model[i].ShortDescription
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Event Section-->

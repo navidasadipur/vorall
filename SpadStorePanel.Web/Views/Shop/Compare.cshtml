@@ -1,0 +1,112 @@
+﻿@model List<SpadStorePanel.Web.ViewModels.ProductDetailViewModel>
+@{
+    ViewBag.Title = "Compare";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/asset/image/compare.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>مقایسه کنید</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/Home/Index">صفحه اصلی</a></li>
+                        <li><a href="#">فروشگاه</a></li>
+                        <li><span>مقایسه کنید</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="compare-section pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="compare-box table-responsive">
+                    <table class="table table-bordered text-center">
+                        <tbody>
+                            <tr class="row-1">
+                                <td class="row-title">
+                                    <p> تصاویر محصول</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-img"><img src="/Files/ProductImages/Image/@item.Product.Image" alt="compare-img" style="250px"></td>
+                                }
+                            </tr>
+                            <tr class="row-2">
+                                <td class="row-title">
+                                    <p>نام محصول</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="product-name"><a href="/Shop/Detail/@item.Product.Id">@item.Product.Title</a></td>
+                                }
+                            </tr>
+                            <tr class="row-3">
+                                <td class="row-title">
+                                    <p>قیمت</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="product-rate"><span>@item.Price تومان</span></td>
+                                }
+                            </tr>
+                            <tr class="row-4">
+                                <td class="row-title">
+                                    <p>توضیحات</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-text">
+                                        <p class="textalign">
+                                            @item.Product.ShortDescription
+                                        </p>
+                                    </td>
+                                }
+                            </tr>
+                            <tr class="row-5">
+                                <td class="row-title">
+                                    <p>رنگ</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    foreach (var item2 in item.ProductMainFeatures)
+                                    {
+                                        <td class="row-color">
+                                            <a href="#" style="background-color:@item2.Value;width:30px;height:30px;border-radius:100%;"></a>
+                                        </td>
+                                    }
+
+                                }
+                            </tr>
+                            <tr class="row-8">
+                                <td class="row-title"></td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-btn"><a href="javascript:void(0)" onclick="AddToCart(@item.Product.Id)" class="btn-primary">افزودن به سبد خرید</a></td>
+                                }
+                            </tr>
+                            <tr class="row-9">
+                                <td class="row-title"></td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-options">
+                                        <ul class="hover-icon">
+                                            <li><a href="javascript:void(0)" onclick="wish(@item.Product.Id)" class="product_@item.Product.Id"><i class="fa fa-heart"></i></a></li>
+                                        </ul>
+                                    </td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

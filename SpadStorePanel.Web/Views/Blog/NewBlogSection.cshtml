@@ -1,0 +1,48 @@
+﻿@model List<SpadStorePanel.Web.ViewModels.BlogViewModel>
+
+<div class="side-quantity-box side-box">
+    <div class="side-box-title">
+        <h6>اخبار اخیر</h6>
+    </div>
+    <div class="side-recent-product">
+        @foreach (var item in Model)
+        {
+            <div class="cart-prodect d-flex">
+                <div class="cart-img">
+                    <img src="~/Files/ArticleImages/Image/@item.Blog.Image" alt="recent-product">
+                </div>
+                <div class="cart-product">
+                    @Html.ActionLink(item.Blog.Title, "Detail", "Blog", new { @id = item.Blog.Id }, null)
+                    <a href="/Blog/Detail/@item.Blog.Id" class="cp-comments"><i class="fa fa-calendar" aria-hidden="true"></i> @item.Date</a>
+                </div>
+            </div>
+        }
+        @*<div class="cart-prodect d-flex">
+            <div class="cart-img">
+                <img src="pic/products12.jpg" alt="recent-product">
+            </div>
+            <div class="cart-product">
+                <a href="blog-detail.html">آموزش استفاده از محصولات</a>
+                <a href="blog-detail.html" class="cp-comments"><i class="fa fa-comments"></i> 5 نظر</a>
+            </div>
+        </div>
+        <div class="cart-prodect d-flex">
+            <div class="cart-img">
+                <img src="pic/products13.jpg" alt="recent-product">
+            </div>
+            <div class="cart-product">
+                <a href="blog-detail.html">آموزش استفاده از محصولات</a>
+                <a href="blog-detail.html" class="cp-comments"><i class="fa fa-comments"></i> 5 نظر</a>
+            </div>
+        </div>
+        <div class="cart-prodect d-flex">
+            <div class="cart-img">
+                <img src="pic/products16.jpg" alt="recent-product">
+            </div>
+            <div class="cart-product">
+                <a href="blog-detail.html">آموزش استفاده از محصولات</a>
+                <a href="blog-detail.html" class="cp-comments"><i class="fa fa-comments"></i> 5 نظر</a>
+            </div>
+        </div>*@
+    </div>
+</div>

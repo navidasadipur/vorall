@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Error404";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+
+@Html.Action("HeaderShareSection", "Home")
+<section class="error-banner background_bg" data-img-src="/asset/image/error-bc.jpg">
+    <div class="error_info">
+        <div class="container">
+            <div class="row justify-content-end align-items-center">
+                <div class="col-md-6">
+                    <div class="error-box text-center">
+                        <div class="arror-img">
+                            <img src="~/asset/image/404-img.png" alt="404-img">
+                        </div>
+                        <p class="error-text"> صفحه موردنظر یافت نشد! @Html.ActionLink("بازگشت به صفحه اصلی", "Index", "Home", null,null)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

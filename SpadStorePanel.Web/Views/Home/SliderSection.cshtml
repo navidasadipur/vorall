@@ -1,0 +1,67 @@
+﻿@model List<SpadStorePanel.Core.Models.StaticContentDetail>
+
+
+<section class="slider slider-type-2 p-0 mx-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 slider-width">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                <div class="carousel-item active slider-area background_bg" data-img-src="/Files/StaticContentImages/Image/@Model[i].Image">
+                                    <div class="banner_slide_content">
+                                        <div class="slider-caption text-left">
+                                            <h1 class="animation" data-animation="fadeInDown" data-animation-delay="0.2s">
+                                                @Model[i].Title
+                                            </h1>
+                                            <p class="animation" data-animation="fadeInUp" data-animation-delay="0.6s">
+                                                @Model[i].ShortDescription
+                                            </p>
+                                            <a href="@Model[i].Link" class="btn btn-primary animation" data-animation="fadeInUp"
+                                               data-animation-delay="1s">اکنون خرید کنید</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="carousel-item slider-area background_bg" data-img-src="/Files/StaticContentImages/Image/@Model[i].Image">
+                                    <div class="banner_slide_content">
+                                        <div class="slider-caption text-left">
+                                            <h1 class="animation" data-animation="fadeInDown" data-animation-delay="0.2s">
+                                                @Model[i].Title
+                                            </h1>
+                                            <p class="animation" data-animation="fadeInUp" data-animation-delay="0.6s">
+                                                @Model[i].ShortDescription
+                                            </p>
+                                            <a href="@Model[i].Link" class="btn btn-primary animation" data-animation="fadeInUp"
+                                               data-animation-delay="1s">اکنون خرید کنید</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                    </div>
+                    <ol class="carousel-indicators">
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            if (i == 0)
+                            {
+                                <li data-target="#carouselExampleControls" data-slide-to="@i" class="active"></li>
+
+                            }
+                            else
+                            {
+                                <li data-target="#carouselExampleControls" data-slide-to="@i"></li>
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

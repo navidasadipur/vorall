@@ -1,0 +1,40 @@
+﻿<div class="col-lg-8 col-md-12">
+    <div class="contact-inputs">
+        <div class="title text-left">
+            <h4>دیدگاهتان را با ما در میان بگذارید</h4>
+        </div>
+        <form method="post" name="enq" class="contact-form form-with-label">
+            <div class="input-1">
+                <label>نام<span>*</span></label>
+                <input required="" class="form-control" id="first-name" placeholder="نام خود را وارد کنید" value=""
+                       type="text">
+            </div>
+            <div class="input-2">
+                <label>ایمیل<span>*</span></label>
+                <input required="" class="form-control" id="email" placeholder="ایمیل خود را وارد کنید" value=""
+                       type="email">
+            </div>
+            <div class="input-3">
+                <label>شماره تلفن<span>*</span></label>
+                <input required="" class="form-control" id="phone" placeholder="شماره تلفن خود را وارد کنید" value=""
+                       type="text">
+            </div>
+            <div class="input-4">
+                <label>موضوع<span>*</span></label>
+                <input required="" class="form-control" id="subject" placeholder="موضوع خود را وارد کنید" value=""
+                       type="text">
+            </div>
+            <div class="input-5">
+                <label>دیدگاهتان <span>*</span></label>
+                <textarea required="" rows="3" class="form-control" id="description"
+                          placeholder="دیدگاه شما"></textarea>
+            </div>
+            <div class="submit-btn">
+                <button type="submit" id="submitButton" class="btn btn-primary" onclick="submitForm()">ارسال</button>
+            </div>
+            <div class="col-md-12">
+                <div id="alert-msg" class="alert-msg text-center"></div>
+            </div>
+        </form>
+    </div>
+</div>

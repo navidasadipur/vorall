@@ -1,0 +1,21 @@
+﻿@model SpadStorePanel.Core.Models.StaticContentDetail
+
+<section class="aboutus-inner-page pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="about-info-img">
+                    <img src="~/Files/StaticContentImages/Image/@Model.Image" alt="about-img" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="about-info">
+                    <p class="textalign">
+                        @Model.ShortDescription
+                    </p>
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

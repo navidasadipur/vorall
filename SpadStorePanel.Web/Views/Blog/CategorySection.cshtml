@@ -1,0 +1,17 @@
+﻿@model List<SpadStorePanel.Core.Models.ArticleCategory>
+
+<div class="side-quantity-box side-box">
+    <div class="side-box-title">
+        <h6>دسته بندی</h6>
+    </div>
+    <div class="quantity-box-detail">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    @Html.ActionLink(item.Title, "GetByCategory", "Blog", new { @id = item.Id }, null)
+                </li>
+            }
+        </ul>
+    </div>
+</div>

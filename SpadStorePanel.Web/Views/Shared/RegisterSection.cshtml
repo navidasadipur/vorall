@@ -1,0 +1,42 @@
+﻿@model SpadStorePanel.Web.ViewModels.RegisterViewModel
+
+<div id="test-popup2" class="white-popup lr-popup mfp-hide">
+    <h4>ثبت نام</h4>
+    @using (Html.BeginForm("Register", "Auth", new { area = "Customer" }, FormMethod.Post, new { @class = "subscribe-popup-form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.TextBoxFor(x => x.Email, null, new { @name = "email", @type = "email", @placeholder = "ایمیل خود را وارد کنید" })
+
+        @Html.TextBoxFor(x => x.Password, null, new { @type = "password", @placeholder = "رمز عبور خود را وارد کنید" })
+
+        @Html.TextBoxFor(x => x.ConfirmPassword, null, new { @type = "password", @placeholder = "رمز عبور خود را وارد کنید" })
+
+        <div class="form-check">
+            <label>
+                تمام شرایط و قوانین را میپذیرم
+                <input class="defult-check" type="checkbox" checked="checked" />
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <button class="btn btn-primary" title="Subscribe" type="submit">
+            ثبت نام
+        </button>
+    }
+    @*<form class="subscribe-popup-form" method="post" action="#">
+        <input name="input" required type="input" placeholder="نام خود را وارد کنید" />
+        <input name="email" required type="email" placeholder="ایمیل خود را وارد کنید" />
+        <input name="password" required type="password" placeholder="رمز عبور خود را وارد کنید" />
+        <input name="password" required type="password" placeholder="تکرار دوباره رمز عبور" />
+        <div class="form-check">
+            <label>
+                تمام شرایط و قوانین را میپذیرم
+                <input class="defult-check" type="checkbox" checked="checked" />
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <button class="btn btn-primary" title="Subscribe" type="button">
+            ثبت نام
+        </button>
+    </form>*@
+</div>

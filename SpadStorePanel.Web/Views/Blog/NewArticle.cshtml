@@ -1,0 +1,30 @@
+﻿@model List<SpadStorePanel.Web.ViewModels.BlogViewModel>
+
+    <div class="latest-posts">
+        <div class="title">
+            <h4>مطالب اخیر</h4>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 col-sm-6">
+                    <div class="latest-posts-box news-box box-1">
+                        <div class="news-img">
+                            <img src="~/Files/ArticleImages/Image/@item.Blog.Image" alt="news-img" />
+                            <div class="date-box text-center text-uppercase">
+                                <h5>@item.Date</h5>
+                            </div>
+                        </div>
+                        <div class="news-info text-center">
+                            <h5>
+                                <a href="/Blog/Detail/@item.Blog.Id">@item.Blog.Title</a>
+                            </h5>
+                            <p class="comments">
+                                ارسال شده توسط <a href="#"><i>@item.Blog.InsertUser</i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

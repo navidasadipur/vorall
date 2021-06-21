@@ -1,0 +1,148 @@
+﻿@model SpadStorePanel.Web.ViewModels.FooterViewModel
+
+<!-- Start Footer Section -->
+<footer class="m-0 p-0 footer-style-2">
+    <div class="footer-top bg-white border-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-sm-7 mr-3">
+                    <div class="footer_widget">
+                        <div class="footer-logo fb-title">
+                            <a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>
+                        </div>
+                        <div class="fb-iner mb-4">
+                            <p class="textalign">
+                                فروشگاه اسفدیاری ارایه دهنده بهترین محصولات جانبی موبایل
+                            </p>
+                        </div>
+                        <div class="footer-social social_dark">
+                            <h6 class="fb-title">ما را دنبال کنید</h6>
+                            <ul>
+                                <li>
+                                    <a href="@Model._SocialLinks.Facebook"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="@Model._SocialLinks.twitter"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="@Model._SocialLinks.Linkdin"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a href="@Model._SocialLinks.Pintrest"><i class="fa fa-pinterest-p"></i></a>
+                                </li>
+                                <li>
+                                    <a href="@Model._SocialLinks.GooglePlus"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-7 text-center">
+                    @*<img src="~/pic/namad.png" alt="namad">*@
+                </div>
+                <div class="col-md-4 col-sm-7 float-left mr-3 text-center d-flex justify-content-between align-items-baseline">
+
+                    <div class="footer_widget">
+                        <h6 class="fb-title">اطلاعات</h6>
+                        <div class="fb-iner">
+                            <ul class="footer-links">
+                                <li>
+                                    @Html.ActionLink("شرکت ما", "Index", "ContactUs", null, null)
+                                </li>
+                                <li><a href="#">تماس با ما</a></li>
+                                <li><a href="#">خدمات ما</a></li>
+                                <li><a href="#">همکاران ما</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="footer_widget ">
+                        <h6 class="fb-title">دسترسی سریع</h6>
+                        <div class="fb-iner">
+                            <ul class="footer-links">
+                                <li>
+                                    @Html.ActionLink("بلاگ","Index","Blog",null,null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("فروشگاه", "Index", "Shop", null, null)
+                                </li>
+                                <li>
+                                    @Html.ActionLink("سوالات متداول","Index","Faquestion",null,null)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="footer_widget">
+                        <h6 class="fb-title">پشتیبانی</h6>
+                        <div class="fb-iner">
+                            <ul class="footer-links">
+                                <li>
+                                    @Html.ActionLink("قوانین ارسال", "SendingRule", "Home")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("قوانین بازگردانی", "Recovery", "Home")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("حریم خصوصی", "privacy", "Home")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("شرایط و قوانین", "Law", "Home")
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-btm bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <div class="contact-wrap">
+                            <p>@Model.Address</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="contact-wrap">
+                            <p>@Model.Phone</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <div class="contact-wrap">
+                            <a href="#">@Model.Email</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-last navy-dark-bg">
+        <div class="container">
+            <div class="copyright text-center">
+                <p>
+                    © 2020 <a href="https://spad.co">اسپاد</a> تمام حقوق مادی و معنوی سایت محفوظ می باشد.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer Section -->

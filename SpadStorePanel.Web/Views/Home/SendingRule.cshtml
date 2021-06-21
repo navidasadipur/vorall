@@ -1,0 +1,26 @@
+﻿@model SpadStorePanel.Core.Models.StaticContentDetail
+@{
+    ViewBag.Title = "SendingRule";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+@Html.Action("BreadCrumbSection", "Home")
+
+<section class="contact-inner-page pt_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="contact-details">
+                    <div class="title text-left">
+                        <h4>@Model.Title</h4>
+                    </div>
+                    <div class="contact-inner">
+                        @Html.Raw(Model.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

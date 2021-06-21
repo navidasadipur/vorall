@@ -1,0 +1,191 @@
+﻿@model List<SpadStorePanel.Core.Models.Faq>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/asset/image/pd-breadcrumbs-img.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>سوالات متداول</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/Home/Index">صفحه اصلی</a></li>
+                        <li><span>پرسش و پاسخ</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div id="accordion" class="accordion accordion_style1">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <div class="card-header" id="heading-@item.Id">
+                                <h6 class="mb-0">
+                                    <a data-toggle="collapse" href="#collapse-@item.Id" aria-expanded="true" aria-controls="collapse-@item.Id">
+                                        @item.Question
+                                    </a>
+                                </h6>
+                            </div>
+                            <div id="collapse-@item.Id" class="collapse show" aria-labelledby="heading-@item.Id" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        @item.Answer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @*<div class="card">
+                            <div class="card-header" id="heading-One">
+                                <h6 class="mb-0">
+                                    <a data-toggle="collapse" href="#collapse-One" aria-expanded="true" aria-controls="collapse-One">
+                                        لورم
+                                        ایپسوم چیست؟
+                                    </a>
+                                </h6>
+                            </div>
+                            <div id="collapse-One" class="collapse show" aria-labelledby="heading-One" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        لورم ايپسوم متن ساختگی با توليد سادگی نامفهوم از صنعت چاپ، و با
+                                        استفاده از طراحان گرافيک است، چاپگرها و متون بلکه روزنامه و مجله
+                                        در ستون و سطرآنچنان که لازم است، و براي شرايط فعلی تکنولوژی مورد
+                                        نياز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                                        کتابهای زيادی در شصت و سه درصد گذشته حال و آينده، شناخت فراوان
+                                        جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بيشتری را
+                                        برای طراحان رايانه ای علی الخصوص طراحان خلاقی، و فرهنگ پيشرو در
+                                        زبان فارسی ايجاد کرد
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-Two">
+                                <h6 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-Two" aria-expanded="false"
+                                       aria-controls="collapse-Two">
+                                        لورم ایپسوم چیست؟
+                                    </a>
+                                </h6>
+                            </div>
+                            <div id="collapse-Two" class="collapse" aria-labelledby="heading-Two" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        لورم ايپسوم متن ساختگی با توليد سادگی نامفهوم از صنعت چاپ، و با
+                                        استفاده از طراحان گرافيک است، چاپگرها و متون بلکه روزنامه و مجله
+                                        در ستون و سطرآنچنان که لازم است، و براي شرايط فعلی تکنولوژی مورد
+                                        نياز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                                        کتابهای زيادی در شصت و سه درصد گذشته حال و آينده، شناخت فراوان
+                                        جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بيشتری را
+                                        برای طراحان رايانه ای علی الخصوص طراحان خلاقی، و فرهنگ پيشرو در
+                                        زبان فارسی ايجاد کرد
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-Three">
+                                <h6 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-Three" aria-expanded="false"
+                                       aria-controls="collapse-Three">لورم ایپسوم چیست؟</a>
+                                </h6>
+                            </div>
+                            <div id="collapse-Three" class="collapse" aria-labelledby="heading-Three" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        لورم ايپسوم متن ساختگی با توليد سادگی نامفهوم از صنعت چاپ، و با
+                                        استفاده از طراحان گرافيک است، چاپگرها و متون بلکه روزنامه و مجله
+                                        در ستون و سطرآنچنان که لازم است، و براي شرايط فعلی تکنولوژی مورد
+                                        نياز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                                        کتابهای زيادی در شصت و سه درصد گذشته حال و آينده، شناخت فراوان
+                                        جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بيشتری را
+                                        برای طراحان رايانه ای علی الخصوص طراحان خلاقی، و فرهنگ پيشرو در
+                                        زبان فارسی ايجاد کرد
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-Four">
+                                <h6 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-Four" aria-expanded="false"
+                                       aria-controls="collapse-Four">لورم ایپسوم چیست؟</a>
+                                </h6>
+                            </div>
+                            <div id="collapse-Four" class="collapse" aria-labelledby="heading-Four" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        لورم ايپسوم متن ساختگی با توليد سادگی نامفهوم از صنعت چاپ، و با
+                                        استفاده از طراحان گرافيک است، چاپگرها و متون بلکه روزنامه و مجله
+                                        در ستون و سطرآنچنان که لازم است، و براي شرايط فعلی تکنولوژی مورد
+                                        نياز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                                        کتابهای زيادی در شصت و سه درصد گذشته حال و آينده، شناخت فراوان
+                                        جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بيشتری را
+                                        برای طراحان رايانه ای علی الخصوص طراحان خلاقی، و فرهنگ پيشرو در
+                                        زبان فارسی ايجاد کرد
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-Five">
+                                <h6 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-Five" aria-expanded="false"
+                                       aria-controls="collapse-Five">لورم ایپسوم چیست؟</a>
+                                </h6>
+                            </div>
+                            <div id="collapse-Five" class="collapse" aria-labelledby="heading-Five" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        لورم ايپسوم متن ساختگی با توليد سادگی نامفهوم از صنعت چاپ، و با
+                                        استفاده از طراحان گرافيک است، چاپگرها و متون بلکه روزنامه و مجله
+                                        در ستون و سطرآنچنان که لازم است، و براي شرايط فعلی تکنولوژی مورد
+                                        نياز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                                        کتابهای زيادی در شصت و سه درصد گذشته حال و آينده، شناخت فراوان
+                                        جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بيشتری را
+                                        برای طراحان رايانه ای علی الخصوص طراحان خلاقی، و فرهنگ پيشرو در
+                                        زبان فارسی ايجاد کرد
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading-six">
+                                <h6 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-six" aria-expanded="false"
+                                       aria-controls="collapse-six">لورم ایپسوم چیست؟</a>
+                                </h6>
+                            </div>
+                            <div id="collapse-six" class="collapse" aria-labelledby="heading-six" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="textalign">
+                                        لورم ايپسوم متن ساختگی با توليد سادگی نامفهوم از صنعت چاپ، و با
+                                        استفاده از طراحان گرافيک است، چاپگرها و متون بلکه روزنامه و مجله
+                                        در ستون و سطرآنچنان که لازم است، و براي شرايط فعلی تکنولوژی مورد
+                                        نياز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد،
+                                        کتابهای زيادی در شصت و سه درصد گذشته حال و آينده، شناخت فراوان
+                                        جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بيشتری را
+                                        برای طراحان رايانه ای علی الخصوص طراحان خلاقی، و فرهنگ پيشرو در
+                                        زبان فارسی ايجاد کرد
+                                    </p>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

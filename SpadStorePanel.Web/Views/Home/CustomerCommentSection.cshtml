@@ -1,0 +1,30 @@
+﻿@model List<SpadStorePanel.Core.Models.StaticContentDetail>
+
+
+<section class="review-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="carousel_slide1 review-slider bg_red same-nav owl-carousel owl-theme owl-loaded owl-drag">
+                    @foreach (var item in Model)
+                    {
+                        <div class="item review-box">
+                            <div class="client-img">
+                                <img src="~/Files/StaticContentImages/Image/@item.Image" alt="client-img" />
+                            </div>
+                            <div class="client-text">
+                                <div class="quote-icon">
+                                    <img src="~/asset/image/quote-icon.png" alt="quote-icon" />
+                                </div>
+                                <p>
+                                    @item.ShortDescription
+                                </p>
+                                <a href="#">@item.Title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
