@@ -4,15 +4,24 @@
 @if (User.Identity.GetUserName() != "")
 {
     <span>@User.Identity.GetUserName()</span>
-    using (Html.BeginForm("LogOff","Auth",new { area="Customer" },FormMethod.Post,null))
+    using (Html.BeginForm("LogOff", "Auth", new { area = "Customer" }, FormMethod.Post, null))
     {
-<button type="submit" class="btn text-white btn-block btn-sm" style="background-color:red;">خروج</button>
+        <button type="submit" class="btn text-white btn-block btn-sm" style="background-color:red;">خروج</button>
     }
-    
+}
+else if (ViewBag.RegisterError != null)
+{
+    <span style="background-color:red; width: 100px">@ViewBag.RegisterError</span>
+    <a href="#test-popup1" ifass="open-popup-link">ورود</a>
+}
+else if (ViewBag.LoginError != null)
+{
+    <span style="background-color:red; width: 100px">@ViewBag.LoginError</span>
+    <a href="#test-popup1" ifass="open-popup-link">ورود</a>
 }
 else
 {
-    <a href="#test-popup1" class="open-popup-link">ورود</a>
+<a href="#test-popup1" class="open-popup-link">ورود</a>
 }
 
 <div id="test-popup1" class="white-popup lr-popup mfp-hide text-center">
@@ -49,7 +58,20 @@ else
                 ورود
             </button>
         </form>*@
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <h6 style="margin-top:50px">حساب کاربری ندارید؟</h6>
     <a href="#test-popup2" class="sign-up open-popup-link">برای ثبت نام کلیک کنید</a>
 </div>
+
+
+@*else if (ViewBag.RegisterError != null)
+    {
+    <span style="background-color:red; width: 100px">@ViewBag.RegisterError</span>
+    <a href="#test-popup1" ifass="open-popup-link">ورود</a>
+    }
+    else if (ViewBag.LoginError != null)
+    {
+    <span style="background-color:red; width: 100px">@ViewBag.LoginError</span>
+    <a href="#test-popup1" ifass="open-popup-link">ورود</a>
+    }*@

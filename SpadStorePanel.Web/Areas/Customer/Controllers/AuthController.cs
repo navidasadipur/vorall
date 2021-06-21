@@ -99,7 +99,9 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                //return View(model);
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             // This doesn't count login failures towards Auth lockout
@@ -109,7 +111,9 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
             {
                 ViewBag.LoginError = "نام کاربری وارد شده صحیح نیست.";
                 //ModelState.AddModelError(string.Empty, "نام کاربری وارد شده صحیح نیست.");
-                return View(model);
+                //return View(model);
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
@@ -125,7 +129,9 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                 default:
                     ViewBag.LoginError = "نام کاربری یا رمز عبور وارد شده صحیح نیست.";
                     //ModelState.AddModelError("", "نام کاربری وارد شده صحیح نیست.");
-                    return View(model);
+                    //return View(model);
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
 
@@ -151,7 +157,8 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                 {
                     ViewBag.RegisterError = "ایمیل قبلا ثبت شده.";
                     //ModelState.AddModelError("", "ایمیل قبلا ثبت شده");
-                    return View(model);
+                    //return View(model);
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 #endregion
 
@@ -181,8 +188,9 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                 }
             }
 
+            //return View(model);
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
         //
         // GET: /Auth/ForgotPasswordConfirmation

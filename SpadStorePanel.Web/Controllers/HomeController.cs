@@ -267,7 +267,5 @@ namespace SpadStorePanel.Web.Controllers
         }
 
 
-
-
     }
 }
