@@ -42,6 +42,7 @@ namespace SpadStorePanel.Web.ViewModels
         [Display(Name = "نام خانوادگی")]
         public string LastName { get; set; }
         [Display(Name = "نام کاربری")]
+        [Required(ErrorMessage = "{0} را وارد کنید")]
         public string UserName { get; set; }
         [Display(Name = "ایمیل")]
         [Required(ErrorMessage = "{0} را وارد کنید")]

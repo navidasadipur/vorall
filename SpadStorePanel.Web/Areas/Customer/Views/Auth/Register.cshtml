@@ -1,7 +1,8 @@
 ﻿@model SpadStorePanel.Web.ViewModels.RegisterCustomerViewModel
 @{
     ViewBag.Title = "ثبت نام";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
 
@@ -197,79 +198,109 @@
     </main><!-- End .main -->*@
 
 
-<!-- start page-title -->
-<section class="page-title">
-    <div class="container">
-        <div class="row">
-            <div class="col col-xs-12">
-                <h2>@ViewBag.Title</h2>
-            </div>
-        </div> <!-- end row -->
-    </div> <!-- end container -->
-</section>
-<!-- end page-title -->
-<!-- start blog-single-section -->
-<section class="form-section">
-    <div class="container">
-        <div class="row">
-            <div class="col col-md-8 col-md-offset-2">
-                @if (!string.IsNullOrEmpty(ViewBag.LoginError))
-                {
-                    <div class="container margin-top-50">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="alert alert-warning">
-                                    <span class="text-danger">@ViewBag.LoginError</span>
+@*<!-- start page-title -->
+    <section class="page-title">
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <h2>@ViewBag.Title</h2>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+    <!-- start blog-single-section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-8 col-md-offset-2">
+                    @if (!string.IsNullOrEmpty(ViewBag.LoginError))
+                    {
+                        <div class="container margin-top-50">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="alert alert-warning">
+                                        <span class="text-danger">@ViewBag.LoginError</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
-                <div class="comment-respond form-box">
-                    <h3 class="form-title">ثبت نام</h3>
-                    @*<form method="post" id="commentform" class="comment-form">*@
-                    @using (Html.BeginForm("Register", "Auth", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "form", @class = "comment-form", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="recruitment-form">
-                            <div class="flex-form-login">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "نام کاربری", autocomplete = "off" })
-                                @Html.ValidationMessageFor(m => m.UserName, "")
-                            </div>
-                            <div class="flex-form-login">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "ایمیل", autocomplete = "off", @type = "email" })
-                                @Html.ValidationMessageFor(m => m.Email, "")
-                            </div>
-                            <div class="flex-form-login">
-                                @*<input placeholder="رمز عبور" type="password">*@
-                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "رمز عبور", @type = "Password", autocomplete = "off" })
-                                @Html.ValidationMessageFor(m => m.Password, "")
-                            </div>
-                            <div class="flex-form-login">
-                                @*<input placeholder="تکرار رمز عبور" type="password">*@
-                                @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "تکرار رمز عبور", @type = "Password", autocomplete = "off" })
-                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "")
-                            </div>
-                        </div>
-
-                        <div class="form-submit btn-form">
-                            <input id="submit" value="ثبت نام" type="submit">
-                        </div>
                     }
+                    <div class="comment-respond form-box">
+                        <h3 class="form-title">ثبت نام</h3>
+                        @using (Html.BeginForm("Register", "Auth", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "form", @class = "comment-form", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="recruitment-form">
+                                <div class="flex-form-login">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "نام کاربری", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "")
+                                </div>
+                                <div class="flex-form-login">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "ایمیل", autocomplete = "off", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "")
+                                </div>
+                                <div class="flex-form-login">
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "رمز عبور", @type = "Password", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.Password, "")
+                                </div>
+                                <div class="flex-form-login">
+                                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "تکرار رمز عبور", @type = "Password", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "")
+                                </div>
+                            </div>
 
-                    <div class="recruitment-form form-link">
-                        <div class="flex-form">
-                            <a href="Admin/Customer/Auth/Login">حساب کاربری دارم</a>
+                            <div class="form-submit btn-form">
+                                <input id="submit" value="ثبت نام" type="submit">
+                            </div>
+                        }
+
+                        <div class="recruitment-form form-link">
+                            <div class="flex-form">
+                                <a href="Admin/Customer/Auth/Login">حساب کاربری دارم</a>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- end container -->
-</section>
-<!-- end blog-single-section -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end blog-single-section -->*@
 
+
+<div id="test-popup2" class="white-popup lr-popup text-center">
+    <h4>ثبت نام</h4>
+    @using (Html.BeginForm("Register", "Auth", new { area = "Customer" }, FormMethod.Post, new { @id = "form", @class = "subscribe-popup-form", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "نام کاربری خود را وارد کنید", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.UserName, "")
+
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "ایمیل خود را وارد کنید", autocomplete = "off", @type = "email" })
+        @Html.ValidationMessageFor(m => m.Email, "")
+
+        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "رمز عبور خود را وارد کنید", @type = "Password", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.Password, "")
+
+        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "تکرار رمز عبوررمز عبور خود را وارد کنید", @type = "Password", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword, "")
+
+        <div class="form-check">
+            <label>
+                تمام شرایط و قوانین را میپذیرم
+                <input class="defult-check" type="checkbox" checked="checked" disabled />
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <button class="btn btn-primary" title="Subscribe" type="submit">
+            ثبت نام
+        </button>
+    }
+<h6 style="margin-top:50px">حساب کاربری دارید؟</h6>
+<a href="/Customer/Auth/Login" class="sign-up">برای ورود کلیک کنید</a>
+</div>
 
 
 <style>
@@ -280,6 +311,6 @@
 <script>
     $.validator.unobtrusive.parse("#form");
 </script>
-@section scripts {
+@section script {
     @Scripts.Render("~/bundles/jqueryval")
 }
