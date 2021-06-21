@@ -93,17 +93,14 @@
 @using (Html.BeginForm("Login", "Auth", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "comment-form", role = "login-form", id = "form" }))
 {
     @Html.AntiForgeryToken()
-    @*<form method="post" id="commentform" class="comment-form">*@
 
     <div class="recruitment-form">
         <div class="flex-form-login">
-            @*<input placeholder="نام کاربری " type="text">*@
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "نام کاربری" })
             @Html.ValidationMessageFor(m => m.UserName, "")
         </div>
 
         <div class="flex-form-login">
-            @*<input placeholder="رمز عبور" type="password">*@
             @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password", @placeholder = "رمز عبور" })
             @Html.ValidationMessageFor(m => m.Password, "")
         </div>
@@ -118,8 +115,20 @@
 @using (Html.BeginForm("Login", "Auth", new { area = "Customer" }, FormMethod.Post, new { @class = "subscribe-popup-form" }))
 {
     @Html.AntiForgeryToken()
-    @Html.TextBoxFor(x => x.UserName, null, new { @name = "email", @type = "email", @placeholder = "ایمیل خود را وارد کنید" })
-    @Html.TextBoxFor(x => x.Password, null, new { @name = "password", @type = "password", @placeholder = "رمز عبور خود را وارد کنید" })
+
+    <div class="flex-form-login">
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "نام کاربری خود را وارد کنید" })
+        @Html.ValidationMessageFor(m => m.UserName, "")
+    </div>
+
+    <div class="flex-form-login">
+        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @type = "password", @placeholder = "رمز عبور خود را وارد کنید" })
+        @Html.ValidationMessageFor(m => m.Password, "")
+    </div>
+
+
+    @*@Html.TextBoxFor(x => x.UserName, null, new { @name = "email", @type = "email", @placeholder = "نام کاربری خود را وارد کنید" })
+    @Html.TextBoxFor(x => x.Password, null, new { @name = "password", @type = "password", @placeholder = "رمز عبور خود را وارد کنید" })*@
     <div class="form-check text-left">
         <label>
             مرا بخاطر بسپار
