@@ -6,14 +6,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <ul class="header_list ">
-                        <li>
+                    <ul class="header_list row">
+                        <li class="col-12">
                             @if (User.Identity.GetUserName() != "")
                             {
-                                <span>@User.Identity.GetUserName()</span>
+
                                 using (Html.BeginForm("LogOff", "Auth", new { area = "Customer" }, FormMethod.Post, null))
                                 {
-                                    <button type="submit" class="btn text-white btn-block btn-sm" style="background-color:red;">خروج</button>
+                                <div class="col-md-12">
+                                    <span style="color:white;">@User.Identity.GetUserName()</span>
+                                    <button type="submit" class="btn text-white  btn-sm d-inline" style="background-color:red;">خروج</button>
+                                </div>
                                 }
                             }
                             @*else if (Model.Error != null)
