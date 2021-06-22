@@ -17,5 +17,10 @@ namespace SpadStorePanel.Infrastructure.Repositories
             _context = context;
             _logger = logger;
         }
+
+        public ContactForm GetContatctFormByEmail(string email)
+        {
+            return _context.ContactForms.Where(cf => cf.IsDeleted == false && cf.Email == email).FirstOrDefault();
+        }
     }
 }

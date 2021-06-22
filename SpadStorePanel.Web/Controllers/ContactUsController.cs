@@ -16,7 +16,7 @@ namespace SpadStorePanel.Web.Controllers
         private readonly ContactFormsRepository _contactFormsRepository;
 
         public ContactUsController(StaticContentDetailsRepository staticContentDetailsRepository
-        ,ContactFormsRepository contactFormsRepository)
+        , ContactFormsRepository contactFormsRepository)
         {
             _contactFormsRepository = contactFormsRepository;
 
@@ -47,17 +47,38 @@ namespace SpadStorePanel.Web.Controllers
         [HttpPost]
         public string GetNews(ContactForm form)
         {
+            var contactForm = _contactFormsRepository.GetContatctFormByEmail(form.Email);
             try
             {
-                form.Name = "_";
-                form.Message = "دریافت خبرنامه";
-                form.Phone = "_";
+                if (contactForm == null)
+                {
 
-                form.IsDeleted = false;
-                form.InsertUser = "_";
+                    form.Name = "فرم دریافت خبرنامه";
+                    form.Message = "دریافت خبرنامه";
+                    form.Phone = "_";
 
-                _contactFormsRepository.Add(form);
-                return "success";
+                    form.IsDeleted = false;
+                    form.InsertUser = "_";
+
+                    _contactFormsRepository.Add(form);
+                    return "success";
+                }
+                else if (contactForm.Name != "فرم دریافت خبرنامه")
+                {
+                    form.Name = "فرم دریافت خبرنامه";
+                    form.Message = "دریافت خبرنامه";
+                    form.Phone = "_";
+
+                    form.IsDeleted = false;
+                    form.InsertUser = "_";
+
+                    _contactFormsRepository.Add(form);
+                    return "success";
+                }
+                else
+                {
+                    return "fail";
+                }
             }
             catch
             {
@@ -65,7 +86,6 @@ namespace SpadStorePanel.Web.Controllers
             }
 
         }
-
 
         [HttpPost]
         public string ContactUS(ContactForm form)
