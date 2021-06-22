@@ -5000,6 +5000,8 @@
     <Content Include="Views\Shop\PopupSection.cshtml" />
     <Content Include="Views\Shop\Compare.cshtml" />
     <Content Include="Views\Blog\NewArticle.cshtml" />
+    <Content Include="Views\Shop\Cart.cshtml" />
+    <Content Include="Views\Shop\CartTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -266,5 +266,26 @@ namespace SpadStorePanel.Web.Controllers
 
             return PartialView("PopupSection",vm);
         }
+
+        public ActionResult Cart()
+        {
+            ViewBag.BanerImage = _staticContentDetailsRepository.GetStaticContentDetail(13).Image;
+
+            return View();
+        }
+        public ActionResult CartTable()
+        {
+            var cartModel = new CartModel();
+
+            HttpCookie cartCookie = Request.Cookies["cart"] ?? new HttpCookie("cart");
+
+            if (!string.IsNullOrEmpty(cartCookie.Values["cart"]))
+            {
+                string cartJsonStr = cartCookie.Values["cart"];
+                cartModel = new CartModel(cartJsonStr);
+            }
+
+            return PartialView(cartModel);
+        }
     }
 }
