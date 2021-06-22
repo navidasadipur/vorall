@@ -1,27 +1,28 @@
 ﻿@model SpadStorePanel.Web.ViewModels.CartModel
 @{
     ViewBag.Title = "سبد خرید";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 @*<div class="contant">
-    <div id="banner-part" class="banner inner-banner">
-        <div class="container">
-            <div class="bread-crumb-main">
-                <h1 class="banner-title">سبد خرید</h1>
-                <div class="breadcrumb">
-                    <ul class="inline">
-                        <li><a href="/">خانه</a></li>
-                        <li>سبد خرید</li>
-                    </ul>
+        <div id="banner-part" class="banner inner-banner">
+            <div class="container">
+                <div class="bread-crumb-main">
+                    <h1 class="banner-title">سبد خرید</h1>
+                    <div class="breadcrumb">
+                        <ul class="inline">
+                            <li><a href="/">خانه</a></li>
+                            <li>سبد خرید</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="ptb-100">
-        <div id="CartTable">
-            @Html.Action("CartTable", "Shop", new { area = "" })
+        <div class="ptb-100">
+            <div id="CartTable">
+                @Html.Action("CartTable", "Shop", new { area = "" })
+            </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 <main class="main">
@@ -46,3 +47,66 @@
         </div><!-- End .cart -->
     </div><!-- End .page-content -->
 </main><!-- End .main -->
+
+
+
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/Content/client/pic/about_us2.jpg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>@ViewBag.Title</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">صفحه اصلی</a></li>
+                        <li><a href="/Shop">فروشگاه</a></li>
+                        <li><span>@ViewBag.Title</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Cart Section -->
+@Html.Action("CartTable", "Shop", new { area = "" })
+<!-- End Cart Section -->
+<!-- Start Cart Box Section -->
+<section class="cart-box-section pb_large">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-lg-4 col-md-6">
+                <div class="cart-inner-box box-1 text-center">
+                    <div class="ci-title">
+                        <h6>کد تخفیف</h6>
+                    </div>
+                    <div class="ci-caption">
+                        <p>کد تخفیف خود را وارد کنید</p>
+                        <form>
+                            <input required="" class="form-control" type="text" placeholder="کد تخفیف">
+                            <button class="btn btn-secondary" type="submit">اعمال کد تخفیف</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="cart-inner-box box-2 text-center">
+                    <div class="ci-title">
+                        <h6>جمع صورتحساب</h6>
+                    </div>
+                    <div class="ci-caption">
+                        <ul>
+                            <li>مجموع <span>30000 تومان</span></li>
+                            <li>جمع کل <span>40000 تومان</span></li>
+
+                        </ul>
+                    </div>
+                    <div class="ci-btn">
+                        <a href="checkout.html" class="btn btn-primary btn-block rounded-0">پرداخت آنلاین</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Cart Box Section -->
