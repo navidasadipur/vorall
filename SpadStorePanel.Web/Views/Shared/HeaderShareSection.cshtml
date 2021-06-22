@@ -1,4 +1,5 @@
 ﻿@model SpadStorePanel.Web.ViewModels.HeaderShareSectionViewModel
+@using Microsoft.AspNet.Identity
 
 <header>
     <div class="header-top">
@@ -7,8 +8,25 @@
                 <div class="col-md-6">
                     <ul class="header_list ">
                         <li>
-                            @Html.Action("LoginSection","Home")
-                            @Html.Action("RegisterSection","Home")
+                            @if (User.Identity.GetUserName() != "")
+                            {
+                                <span>@User.Identity.GetUserName()</span>
+                                using (Html.BeginForm("LogOff", "Auth", new { area = "Customer" }, FormMethod.Post, null))
+                                {
+                                    <button type="submit" class="btn text-white btn-block btn-sm" style="background-color:red;">خروج</button>
+                                }
+                            }
+                            @*else if (Model.Error != null)
+                                {
+                                    <span style="background-color:red; width: 100px">@Model.Error</span>
+                                    <a href="#test-popup1" ifass="open-popup-link">ورود</a>
+                                }*@
+                            else
+                            {
+                                <a href="/Customer/Auth/Login" class="">ورود</a>
+                            }
+                            @*@Html.Action("LoginSection", "Home")*@
+                            @*@Html.Action("RegisterSection","Home")*@
                         </li>
                     </ul>
                 </div>
@@ -44,9 +62,9 @@
                             <button type="submit">جستجو</button>
                         }
                         @*<form class="header-form">
-            <input class="search-box" placeholder="جستجو..." required value="" type="search" />
-            <button type="submit">جستجو</button>
-        </form>*@
+                                <input class="search-box" placeholder="جستجو..." required value="" type="search" />
+                                <button type="submit">جستجو</button>
+                            </form>*@
                         @Html.Action("CartSection", "Cookie")
                     </div>
                 </div>
