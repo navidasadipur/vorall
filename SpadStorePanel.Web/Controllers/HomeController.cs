@@ -4,6 +4,7 @@ using SpadStorePanel.Infrastructure.Services;
 using SpadStorePanel.Web.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SpadStorePanel.Web.Controllers
@@ -266,6 +267,20 @@ namespace SpadStorePanel.Web.Controllers
             return PartialView("RegisterSection");
         }
 
+        public ActionResult WishListSection()
+        {
+            var wishListModel = new WishListModel();
+
+            HttpCookie cartCookie = Request.Cookies["wishList"] ?? new HttpCookie("wishList");
+
+            if (!string.IsNullOrEmpty(cartCookie.Values["wishList"]))
+            {
+                string cartJsonStr = cartCookie.Values["wishList"];
+                wishListModel = new WishListModel(cartJsonStr);
+            }
+
+            return PartialView(wishListModel);
+        }
 
     }
 }

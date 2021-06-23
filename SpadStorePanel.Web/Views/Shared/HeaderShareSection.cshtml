@@ -68,15 +68,13 @@
             <input class="search-box" placeholder="جستجو..." required value="" type="search" />
             <button type="submit">جستجو</button>
         </form>*@
-                        <div class="header-logo">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="لیست علاقه مندی ها">
-                                <i class="ion-android-favorite"></i>
-                            </a>
-                            @*<a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>*@
+                        <div class="header-logo" id="wishListSection">
+                            @Html.Action("WishListSection", "Home")
+                        <div id="wishListSection">
+
+                            @Html.Action("CartSection", "Cookie")
                         </div>
-                        @Html.Action("CartSection", "Cookie")
                     </div>
-                </div>
             </div>
         </div>
     </div>

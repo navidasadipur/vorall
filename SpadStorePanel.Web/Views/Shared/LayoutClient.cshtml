@@ -130,13 +130,11 @@
                         $("#compare").text("مقایسه");
                     }
                 }
-                else
-                {
+                else {
                     alert("لیست مقایسه بیشتر از 4 مورد است");
                 }
             }
-            else
-            {
+            else {
                 compareList.pop(id);
                 var t = ".compare_" + id;
                 $(t).css("color", "white");
@@ -153,20 +151,18 @@
 
 
         $("#compare").click(function () {
-            var items="";
-            for (var i = 0; i < compareList.length;i++)
-            {
+            var items = "";
+            for (var i = 0; i < compareList.length; i++) {
                 if (i == compareList.length - 1) {
                     items += compareList[i];
                 }
-                else
-                {
+                else {
                     items += compareList[i] + "-";
                 }
             }
             window.location.href = "/Shop/Compare?CompareList=" + items;
         });
-        
+
 
 
         if (window.location.pathname == "/" || window.location.pathname.toLowerCase() == "/home/index" || window.location.pathname.toLowerCase() == "/home") {
@@ -213,6 +209,7 @@
                 success: function (data) {
                     var t = ".product_" + id;
                     $(t).css("color", "white");
+                    GetWishList();
                 },
                 error: function (data) {
                     console.log("error");
@@ -244,6 +241,43 @@
                 }
             });
         }
+
+        //function GetWishList() {
+        //    $.ajax({
+        //        type: 'GET',
+        //        url: '/Home/WishListSection',
+        //        success: function (data) {
+        //            var obj = JSON.parse(data);
+        //                                console.log(obj);
+        //            for (var i = 0; i < obj.WishListItems.length; i++) {
+        //                var t = ".product_" + obj.WishListItems[i].Id;
+        //                $(t).css("color", "red");
+        //            }
+        //            $("#wishListSection").html(data);
+        //        },
+        //        error: function (data) {
+        //            console.log("error");
+        //            console.log(data);
+        //        },
+        //        complete: function () {
+        //        }
+        //    });
+        //    if ($("#wishListTable") !== undefined) {
+        //        $.ajax({
+        //            type: 'GET',
+        //            url: '/Cookie/WishListTable',
+        //            success: function (data) {
+        //                $("#WishListTable").html(data);
+        //            },
+        //            error: function (data) {
+        //                console.log("error");
+        //                console.log(data);
+        //            },
+        //            complete: function () {
+        //            }
+        //        });
+        //    }
+        //}
 
         function AddToCart(id, mainFeature) {
             $("#preloader").show();
@@ -339,7 +373,7 @@
             $("#preloader").show();
             $.ajax({
                 type: 'Get',
-                url: '/Shop/PopupData/'+id,
+                url: '/Shop/PopupData/' + id,
                 success: function (data) {
                     $(".pop").html(data);
                     $(".pop").removeClass("mfp-hide");
@@ -349,7 +383,7 @@
                     console.log(data);
                 },
                 complete: function () {
-                     $("#preloader").fadeOut(1000);
+                    $("#preloader").fadeOut(1000);
                 }
             });
         }

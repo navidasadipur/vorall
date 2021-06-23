@@ -1,0 +1,199 @@
+﻿@model SpadStorePanel.Web.ViewModels.WishListModel
+
+@*<a href="#" class="buy">
+         <span>
+             @if (Model.CartItems != null && Model.CartItems.Any())
+             {
+                 <small class="cart-notification">@Model.CartItems.Count</small>
+             }
+         </span>
+        @{
+                 var count = 0;
+                 long price = 0;
+                 if (Model.CartItems != null && Model.CartItems.Any())
+                 {
+                     count = Model.CartItems.Count;
+                     price = Model.TotalPrice;
+                 }
+
+                 var strPrice = price.ToString("##,###");
+                 if (string.IsNullOrEmpty(strPrice))
+                 {
+                     strPrice = "0";
+                 }
+             }
+             <small class="header-small">@count - @strPrice تومان</small>
+    </a>
+
+    <div class="cart-dropdown header-link-dropdown">
+            @if (Model.CartItems != null && Model.CartItems.Any())
+            {
+                <ul class="cart-list link-dropdown-list">
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <li class="mini_cart_item">
+                            <a class="close-cart" href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'true')"><i class="fa fa-times-circle"></i></a>
+                            <figure>
+                                <a href="/Shop/Product/@item.Id" class="pull-right">
+                                    <img alt="@item.ProductName" src="~/Files/ProductImages/Thumb/@item.Image">
+                                </a>
+                                <figcaption>
+                                    <span>
+                                        <a class="cartproductname" href="/Shop/Product/@item.Id">@item.ProductName</a>
+                                    </span>
+                                    <p class="cart-price">@item.Price.ToString("##,###") تومان</p>
+                                    <div class="product-qty">
+                                        <label>تعداد</label>
+                                        <span class="custom-qty" style="justify-content: space-around">
+                                            <a href="javascript:void(0)" onclick="AddToCart(@item.Id,@item.MainFeatureId, event)" style="color: #F22A59; margin: 0 10px; font-size: 1rem">+</a>
+                                            <span>@item.Quantity</span>
+                                            <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'false', event)" style="color: #F22A59; margin: 0 10px; font-size: 1rem">-</a>
+                                        </span>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </li>
+                    }
+                </ul>
+                <p class="cart-sub-totle">
+                    <span class="pull-right">مبلغ کل</span>
+                    <span class="pull-left">
+                        <strong class="price-box cart-total-price">@Model.TotalPrice.ToString("##,###") تومان</strong>
+                    </span>
+                </p>
+                <div class="clearfix"></div>
+                <div class="mt-20" style="display: flex; justify-content: space-around">
+                    <a href="/Shop/Cart" class="btn-color btn">سبد خرید</a>
+                    <a href="/Shop/Checkout" class="btn-color btn">پرداخت </a>
+                </div>
+            }
+            else
+            {
+                <h4 style="margin: 0 auto;text-align:center">سبد خرید شما خالی است</h4>
+            }
+        </div>*@
+
+
+
+
+
+@*<a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false" data-display="static">
+        <i class="icon-shopping-cart"></i>
+        @{
+                        /**/
+
+                        var count = 0;
+                        long price = 0;
+                        if (Model.CartItems != null && Model.CartItems.Any())
+                        {
+                            foreach (var item in Model.CartItems)
+                            {
+                                count += item.Quantity;
+                            }
+
+                            price = Model.TotalPrice;
+                        }
+
+                        var strPrice = price.ToString("##,###");
+                        if (string.IsNullOrEmpty(strPrice))
+                        {
+                            strPrice = "0";
+                        }
+        }
+        @if (Model.CartItems != null && Model.CartItems.Any())
+        {
+            <span class="cart-count">@count</span>
+
+            <span class="cart-txt">@strPrice تومان</span>
+        }
+    </a>
+
+
+    <div class="dropdown-menu dropdown-menu-right">
+
+        @if (Model.CartItems != null && Model.CartItems.Any())
+        {
+            <div class="dropdown-cart-products">
+
+                @foreach (var item in Model.CartItems)
+                {
+
+                    <div class="product">
+                        <div class="product-cart-details">
+                            <h4 class="product-title">
+                                <a href="/Shop/Product/@item.Id">@item.ProductName</a>
+                            </h4>
+
+                            <span class="cart-product-info">
+                                <span class="cart-product-qty">@item.Quantity x </span>
+                                @item.Price.ToString("##,###") تومان
+                            </span>
+                        </div><!-- End .product-cart-details -->
+
+                        <figure class="product-image-container">
+                            <a href="/Shop/Product/@item.Id" class="product-image">
+                                <img src="~/Files/ProductImages/Thumb/@item.Image" alt="@item.ProductName">
+                            </a>
+                        </figure>
+                        <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id, @item.MainFeatureId, 'false', event)" class="btn-remove" title="حذف محصول"><i class="icon-close"></i></a>
+
+                    </div><!-- End .product -->
+                }
+
+                @*<div class="product">
+                        <div class="product-cart-details">
+                            <h4 class="product-title">
+                                <a href="product.html">قرص </a>
+                            </h4>
+
+                            <span class="cart-product-info">
+                                <span class="cart-product-qty">1 x </span>
+                                76,000 تومان
+                            </span>
+                        </div><!-- End .product-cart-details -->
+
+                        <figure class="product-image-container">
+                            <a href="product.html" class="product-image">
+                                <img src="./Content/client/assets/images/products/cart/product-2.jpg" alt="محصول">
+                            </a>
+                        </figure>
+                        <a href="#" class="btn-remove" title="حذف محصول"><i class="icon-close"></i></a>
+                    </div><!-- End .product -->
+            </div><!-- End .cart-product -->
+
+            <div class="dropdown-cart-total">
+                <span>مجموع</span>
+
+                <span class="cart-total-price">@Model.TotalPrice.ToString("##,###") تومان</span>
+            </div><!-- End .dropdown-cart-total -->
+
+            <div class="dropdown-cart-action">
+                <a href="/Shop/Cart" class="btn btn-primary">مشاهده سبد خرید</a>
+                <a href="/Shop/Checkout" class="btn btn-outline-primary-2">
+                    <span>پرداخت</span><i class="icon-long-arrow-left"></i>
+                </a>
+            </div><!-- End .dropdown-cart-total -->
+        }
+        else
+        {
+            <h4 style="margin: 0 auto;text-align:center" ><a href="/Shop/Cart" class="btn btn-primary">سبد خرید شما خالی است</a></h4>
+        }
+    </div><!-- End .dropdown-menu -->*@
+
+@*<a href="/shop/wishlist" class="wishlist-link">
+    <i class="icon-heart-o"></i>
+    @if (Model.WishListItems != null)
+    {
+        <span class="wishlist-count">@Model.WishListItems.Count()</span>
+    }
+</a>*@
+
+    <a href="/Cookie/WishList" data-toggle="tooltip" data-placement="top" title="" data-original-title="لیست علاقه مندی ها">
+        <i class="ion-android-favorite"></i>
+        @if (Model.WishListItems != null)
+        {
+            <span class="wishlist-count">@Model.WishListItems.Count()</span>
+        }
+    </a>
+    @*<a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>*@
