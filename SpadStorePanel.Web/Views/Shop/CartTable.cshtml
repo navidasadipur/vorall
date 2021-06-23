@@ -2,120 +2,120 @@
 
 
 @*<div class="container">
-    <div class="cart-item-table commun-table">
-        <div class="table-responsive">
-            <table class="table border mb-0">
-                <thead>
-                    <tr>
-                        <th>تصویر</th>
-                        <th>نام محصول</th>
-                        <th>قیمت</th>
-                        <th>تعداد</th>
+        <div class="cart-item-table commun-table">
+            <div class="table-responsive">
+                <table class="table border mb-0">
+                    <thead>
+                        <tr>
+                            <th>تصویر</th>
+                            <th>نام محصول</th>
+                            <th>قیمت</th>
+                            <th>تعداد</th>
 
-                        <th>حذف</th>
-                    </tr>
-                </thead>
-                <tbody class="cartItemContainer">
-                    @foreach (var item in Model.CartItems)
-                    {
-                        <tr class="cartRows">
-                            <td>
-                                <a href="product-page.html">
-                                    <div class="product-image">
-                                        <img alt="@item.ProductName" src="/Files/ProductImages/Thumb/@item.Image">
-                                    </div>
-                                </a>
-                            </td>
-                            <td>
-                                <div class="product-title">
-                                    <a href="/Shop/Product/@item.Id">@item.ProductName</a>
-                                </div>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>
-                                        <div class="base-price price-box">
-                                            <span class="price">@item.Price.ToString("##,###") تومان</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <div class="input-box">
-                                    <span class="custom-qty" style="justify-content: space-around">
-                                        <a href="javascript:void(0)" onclick="AddToCart(@item.Id,@item.MainFeatureId)" style="color: #F22A59; margin: 0 15px; font-size: 1.4rem">+</a>
-                                        <span style="font-size: 1.5rem">@item.Quantity</span>
-                                        <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'false')" style="color: #F22A59; margin: 0 15px; font-size: 2rem">-</a>
-                                    </span>
-                                </div>
-                            </td>
-
-                            <td>
-                                <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'true')" class="btn small btn-color">
-                                    <i title="Remove Item From Cart" data-id="100" class="fa fa-trash cart-remove-item"></i>
-                                </a>
-                            </td>
+                            <th>حذف</th>
                         </tr>
+                    </thead>
+                    <tbody class="cartItemContainer">
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr class="cartRows">
+                                <td>
+                                    <a href="product-page.html">
+                                        <div class="product-image">
+                                            <img alt="@item.ProductName" src="/Files/ProductImages/Thumb/@item.Image">
+                                        </div>
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="product-title">
+                                        <a href="/Shop/Product/@item.Id">@item.ProductName</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <div class="base-price price-box">
+                                                <span class="price">@item.Price.ToString("##,###") تومان</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <div class="input-box">
+                                        <span class="custom-qty" style="justify-content: space-around">
+                                            <a href="javascript:void(0)" onclick="AddToCart(@item.Id,@item.MainFeatureId)" style="color: #F22A59; margin: 0 15px; font-size: 1.4rem">+</a>
+                                            <span style="font-size: 1.5rem">@item.Quantity</span>
+                                            <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'false')" style="color: #F22A59; margin: 0 15px; font-size: 2rem">-</a>
+                                        </span>
+                                    </div>
+                                </td>
 
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <hr>
-    <div class="mtb-30">
-        <div class="row">
-            <div class="col-md-6 mb-sm-20">
+                                <td>
+                                    <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'true')" class="btn small btn-color">
+                                        <i title="Remove Item From Cart" data-id="100" class="fa fa-trash cart-remove-item"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div class="col-md-6">
-                <div class="cart-total-table commun-table">
-                    <div class="table-responsive">
-                        <table class="table border">
-                            <thead>
-                                <tr>
-                                    <th colspan="2">مبلغ کل</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>مبلغ کل</td>
-                                    <td>
-                                        <div class="price-box">
-                                            <span class="price pricecarttotal">@Model.TotalPrice.ToString("##,###") تومان</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>هزینه ارسال</td>
-                                    <td>
-                                        <div class="price-box">
-                                            <span class="price">0</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>مبلغ قابل پرداخت</b></td>
-                                    <td>
-                                        <div class="price-box">
-                                            <span class="price pricecarttotal"><b>@Model.TotalPrice.ToString("##,###") تومان</b></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+        </div>
+        <hr>
+        <div class="mtb-30">
+            <div class="row">
+                <div class="col-md-6 mb-sm-20">
+                </div>
+                <div class="col-md-6">
+                    <div class="cart-total-table commun-table">
+                        <div class="table-responsive">
+                            <table class="table border">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">مبلغ کل</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>مبلغ کل</td>
+                                        <td>
+                                            <div class="price-box">
+                                                <span class="price pricecarttotal">@Model.TotalPrice.ToString("##,###") تومان</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>هزینه ارسال</td>
+                                        <td>
+                                            <div class="price-box">
+                                                <span class="price">0</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>مبلغ قابل پرداخت</b></td>
+                                        <td>
+                                            <div class="price-box">
+                                                <span class="price pricecarttotal"><b>@Model.TotalPrice.ToString("##,###") تومان</b></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="left-side float-none-xs">
+                        <a href="/Shop/Checkout" class="btn btn-color">ثبت نهایی</a>
                     </div>
                 </div>
-                <div class="left-side float-none-xs">
-                    <a href="/Shop/Checkout" class="btn btn-color">ثبت نهایی</a>
-                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 
-<div class="container">
+
     <div class="row">
         <div class="col-lg-9">
             <table class="table table-cart table-mobile">
@@ -152,10 +152,10 @@
                                 <td class="price-col">@item.Price.ToString("##,###") تومان</td>
                                 <td class="quantity-col">
                                     @*<div class="cart-product-quantity">
-                                    <input type="number" class="form-control" value="1" min="1" max="10"
-                                           step="1" data-decimals="0" required>
+                                            <input type="number" class="form-control" value="1" min="1" max="10"
+                                                   step="1" data-decimals="0" required>
 
-                                </div> End .cart-product-quantity*@
+                                        </div> End .cart-product-quantity*@
                                     <div class="input-box">
                                         <span class="custom-qty" style="justify-content: space-around">
                                             <a href="javascript:void(0)" onclick="AddToCart(@item.Id,@item.MainFeatureId)" style="color: #F22A59; margin: 0 15px; font-size: 1.4rem">+</a>
@@ -178,55 +178,9 @@
                         <h4 style="margin: 0 auto;text-align:center"><a href="/Shop" class="btn btn-primary">سبد خرید شما خالی است <br /> فروشگاه</a></h4>
                     }
 
-                    @*<tr>
-                    <td class="product-col">
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="#">
-                                    <img width="60px" height="60px" src="/content/client/pic/p7.jpg"
-                                         alt="تصویر محصول">
-                                </a>
-                            </figure>
-
-                            <h3 class="product-title">
-                                <a href="#">قرص آمواکسید</a>
-                            </h3><!-- End .product-title -->
-                        </div><!-- End .product -->
-                    </td>
-                    <td class="price-col">76,000</td>
-                    <td class="quantity-col">
-                        <div class="cart-product-quantity">
-                            <input type="number" class="form-control" value="2" min="1" max="10"
-                                   step="1" data-decimals="0" required>
-                        </div><!-- End .cart-product-quantity -->
-                    </td>
-                    <td class="total-col">152,000</td>
-                    <td class="remove-col">
-                        <button class="btn-remove">
-                            <i class="icon-close"></i>
-                        </button>
-                    </td>
-                </tr>*@
                 </tbody>
             </table><!-- End .table table-wishlist -->
-            @*<div class="cart-bottom">
-           <div class="cart-discount">
-                <form action="#">
-                    <div class="input-group">
-                        <input type="text" class="form-control" required placeholder="کد تخفیف">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary-2" type="submit">
-                                <i class="icon-long-arrow-left"></i>
-                            </button>
-                        </div><!-- .End .input-group-append -->
-                    </div><!-- End .input-group -->
-                </form>
-            </div><!-- End .cart-discount -->
 
-            <a href="#" class="btn btn-outline-dark-2">
-                <span>به روز رسانی سبد خرید</span><i class="icon-refresh"></i>
-            </a>
-        </div><!-- End .cart-bottom -->*@
         </div><!-- End .col-lg-9 -->
         <aside class="col-lg-3">
             <div class="summary summary-cart">
@@ -238,54 +192,6 @@
                             <td>جمع کل سبد خرید : </td>
                             <td class="text-left">@Model.TotalPrice.ToString("##,###") تومان</td>
                         </tr><!-- End .summary-subtotal -->
-                        @*<tr class="summary-shipping">
-                            <td>شیوه ارسال : </td>
-                            <td>&nbsp;</td>
-                        </tr>
-
-                        <tr class="summary-shipping-row">
-                            <td>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="free-shipping" name="shipping"
-                                           class="custom-control-input">
-                                    <label class="custom-control-label" for="free-shipping">
-                                        ارسال
-                                        رایگان
-                                    </label>
-                                </div><!-- End .custom-control -->
-                            </td>
-                            <td class="text-left">0,000 تومان</td>
-                        </tr><!-- End .summary-shipping-row -->
-
-                        <tr class="summary-shipping-row">
-                            <td>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="standart-shipping" name="shipping"
-                                           class="custom-control-input">
-                                    <label class="custom-control-label" for="standart-shipping">
-                                        پست
-                                        سفارشی :
-                                    </label>
-                                </div><!-- End .custom-control -->
-                            </td>
-                            <td class="text-left">10,000 تومان</td>
-                        </tr><!-- End .summary-shipping-row -->
-
-                        <tr class="summary-shipping-row">
-                            <td>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="express-shipping" name="shipping"
-                                           class="custom-control-input">
-                                    <label class="custom-control-label" for="express-shipping">
-                                        پست
-                                        پیشتاز :
-                                    </label>
-                                </div><!-- End .custom-control -->
-                            </td>
-                            <td class="text-left">20,000 تومان</td>
-                        </tr><!-- End .summary-shipping-row -->*@
-
-
 
                         <tr class="summary-total">
                             <td>مبلغ قابل پرداخت :</td>
@@ -308,10 +214,19 @@
             </a>
         </aside><!-- End .col-lg-3 -->
     </div><!-- End .row -->
-</div><!-- End .container -->
 
 
+@{
+    int i = 0;
 
+    if (Model?.CartItems != null && Model.CartItems.Any())
+    {
+        foreach (var item in Model.CartItems)
+        {
+            i += @item.Quantity;
+        }
+    }
+}
 
 <section class="cart-section pt_large">
     <div class="container">
@@ -342,29 +257,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                            <tr class="row-2">
-                                <td class="row-close close-1" data-title="حذف"><a href="#"><i class="ion-close-circled"></i></a></td>
-                                <td class="row-img"><img src="image/cart-inner-img-1.jpg" alt="cart-img"></td>
-                                <td class="product-name" data-title="محصول "><a href="#">بلوز مجلسی سارا</a></td>
-                                <td class="product-price" data-title="قیمت ">
-                                    <p>78000 تومان</p>
-                                </td>
-                                <td class="product-quantity" data-title="تعداد ">
-                                    <div class="quantity_filter">
-                                        <input type="button" value="-" class="minus">
-                                        <input class="quantity-number qty" type="text" value="2" min="1" max="10">
-                                        <input type="button" value="+" class="plus">
-                                    </div>
-                                </td>
-                                <td class="product-total" data-title="افزودن به سبد خرید">
-                                    <p>15600 تومان</p>
-                                </td>
-                                <td class="row-close close-2" data-title="حذف"><a href="#"><i class="ion-close-circled"></i></a></td>
-                            </tr>
+                            @if (Model?.CartItems != null && Model.CartItems.Any())
+                            {
+                                foreach (var item in Model.CartItems)
+                                {
+                                    <tr class="row-2">
+                                        <td class="row-close close-1" data-title="حذف"><a href="#"><i class="ion-close-circled"></i></a></td>
+                                        <td class="row-img"><img src="~/Files/ProductImages/Thumb/@item.Image" alt="@item.ProductName-img"></td>
+                                        <td class="product-name" data-title="محصول "><a href="#">@item.ProductName</a></td>
+                                        <td class="product-price" data-title="قیمت ">
+                                            <p>@item.Price.ToString("##,###") تومان</p>
+                                        </td>
+                                        <td class="product-quantity" data-title="تعداد ">
+                                            <div class="quantity_filter">
+                                                <input href="javascript:void(0)" onclick="RemoveFromCart(@item.Id,@item.MainFeatureId, 'false')" type="button" value="-" class="minus">
+                                                <input class="quantity-number qty" type="text" value="@item.Quantity" min="1" max="10">
+                                                <input href="javascript:void(0)" onclick="AddToCart(@item.Id,@item.MainFeatureId)" type="button" value="+" class="plus">
+                                            </div>
+                                        </td>
+                                        <td class="product-total" data-title="افزودن به سبد خرید">
+                                            <p>@{ var totalOneProduct = item.Quantity * item.Price;} @totalOneProduct.ToString("##,###") تومان</p>
+                                        </td>
+                                        <td class="row-close close-2" data-title="حذف"><a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id, @item.MainFeatureId, 'true')"><i class="ion-close-circled"></i></a></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <h4 style="margin: 0 auto;text-align:center"><a href="/Shop" class="btn btn-primary">سبد خرید شما خالی است <br /> فروشگاه</a></h4>
+                            }
                             <tr class="row-3">
                                 <td class="row-close close-1" data-title="حذف "><a href="#"><i class="ion-close-circled"></i></a></td>
-                                <td class="row-img"><img src="image/cart-inner-img-2.jpg" alt="cart-img"></td>
+                                <td class="row-img"><img src="/asset/image/cart-inner-img-2.jpg" alt="cart-img"></td>
                                 <td class="product-name" data-title="محصول "><a href="#">لباس مجلسی مشکی</a></td>
                                 <td class="product-price" data-title="قیمت ">
                                     <p>80000 تومان</p>
@@ -387,7 +311,7 @@
                             <tr>
                                 <td colspan="12">
                                     <ul class="table-btn">
-                                        <li><a href="shop.html" class="btn btn-secondary"><i class="fa fa-chevron-left"></i>ادامه خرید </a></li>
+                                        <li><a href="/Shop" class="btn btn-secondary"><i class="fa fa-chevron-left"></i>ادامه خرید </a></li>
                                         <li><a href="#" class="btn btn-primary"><i class="fa fa-refresh"></i> بروزرسانی سبد خرید</a></li>
                                     </ul>
                                 </td>
