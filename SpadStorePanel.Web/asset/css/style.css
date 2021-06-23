@@ -519,14 +519,31 @@ iframe {
   padding-left: 8px;
   font-size: 18px;
 }
+
+
 .nav-fixed .header-btm {
   position: fixed;
   right: 0;
   left: 0;
-  top: 0;
+  top: 80px;
 }
+.nav-fixed .header-mdl {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
+
+.nav-fixed .bg-white {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+
 .nav-fixed.no-sticky .header-btm {
-  position: relative;
+    position: relative;
 }
 .cart-box {
   position: absolute;
