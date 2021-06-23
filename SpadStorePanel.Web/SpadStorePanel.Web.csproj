@@ -5289,6 +5289,9 @@
     <Content Include="Views\Shop\CartTable.cshtml" />
     <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Shop\CheckoutForm.cshtml" />
+    <Content Include="Views\Shop\ConfirmOrder.cshtml" />
+    <Content Include="Views\Shop\WishList.cshtml" />
+    <Content Include="Views\Shop\WishListTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

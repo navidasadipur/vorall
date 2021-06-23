@@ -260,6 +260,13 @@ namespace SpadStorePanel.Web.Controllers
             }
         }
 
+        public ActionResult WishList()
+        {
+            ViewBag.BanerImage = _staticContentRepo.GetStaticContentDetail(13).Image;
+
+            return View();
+        }
+
         public string WishListTable()
         {
             var wishListModel = new WishListModel();
