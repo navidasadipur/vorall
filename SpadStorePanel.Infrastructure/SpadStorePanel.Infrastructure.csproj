@@ -77,6 +77,10 @@
     <Compile Include="Migrations\202105061521417_p.Designer.cs">
       <DependentUpon>202105061521417_p.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106230821002_AddDiscountCodeModelAndAddSomePropertiesToInvoice.cs" />
+    <Compile Include="Migrations\202106230821002_AddDiscountCodeModelAndAddSomePropertiesToInvoice.Designer.cs">
+      <DependentUpon>202106230821002_AddDiscountCodeModelAndAddSomePropertiesToInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,18 +106,13 @@
     <Compile Include="Repositories\ProductGroupsRepository.cs" />
     <Compile Include="Repositories\ProductMainFeaturesRepository.cs" />
     <Compile Include="Repositories\ProductsRepository.cs" />
+    <Compile Include="Repositories\ShoppingRepository.cs" />
     <Compile Include="Repositories\StaticContentDetailsRepository.cs" />
     <Compile Include="Repositories\StaticContentsRepository.cs" />
     <Compile Include="Repositories\StaticContentTypes.cs" />
     <Compile Include="Repositories\SubFeaturesRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
     <Compile Include="Services\ProductServices.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SpadStorePanel.Core\SpadStorePanel.Core.csproj">
-      <Project>{c6ed4c15-b766-4891-82c7-c1a59b6b30d6}</Project>
-      <Name>SpadStorePanel.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -126,7 +125,15 @@
     <EmbeddedResource Include="Migrations\202105061521417_p.resx">
       <DependentUpon>202105061521417_p.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106230821002_AddDiscountCodeModelAndAddSomePropertiesToInvoice.resx">
+      <DependentUpon>202106230821002_AddDiscountCodeModelAndAddSomePropertiesToInvoice.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SpadStorePanel.Core\SpadStorePanel.Core.csproj">
+      <Project>{c6ed4c15-b766-4891-82c7-c1a59b6b30d6}</Project>
+      <Name>SpadStorePanel.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

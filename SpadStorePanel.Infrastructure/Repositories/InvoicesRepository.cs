@@ -30,6 +30,16 @@ namespace SpadStorePanel.Infrastructure.Repositories
                 return _context.Invoices.Include(i => i.Customer.User).Where(i => i.IsDeleted == false).Include(i => i.InvoiceItems).FirstOrDefault(i => i.Id == invoiceId);
             }
 
+            public Invoice GetInvoice(string invoiceNumber)
+            {
+                return _context.Invoices.Include(i => i.Customer.User).Include(i => i.InvoiceItems).Include(i => i.DiscountCode).FirstOrDefault(i => i.InvoiceNumber == invoiceNumber);
+            }
+
+            public Invoice GetInvoice(string invoiceNumber, int customerId)
+            {
+                return _context.Invoices.Include(i => i.Customer.User).Include(i => i.InvoiceItems).Include(i => i.DiscountCode).FirstOrDefault(i => i.InvoiceNumber == invoiceNumber && i.CustomerId == customerId);
+            }
+
             public string GetInvoiceItemsMainFeature(int invoiceItemId)
             {
                 var invoiceItem = _context.InvoiceItems.Find(invoiceItemId);
@@ -84,6 +94,20 @@ namespace SpadStorePanel.Infrastructure.Repositories
             {
                 return _context.Invoices.Include(i => i.GeoDivision).FirstOrDefault(i => i.Id == id);
             }
+
+        public Invoice GetLatestInvoice(int customerId)
+        {
+            Invoice invoice = null;
+            try
+            {
+                invoice = _context.Invoices.Include(i => i.Customer.User).Include(i => i.InvoiceItems).Include(i => i.DiscountCode).OrderByDescending(i => i.AddedDate).Where(i => i.CustomerId == customerId).ToList()[0];
+            }
+            catch
+            {
+
+            }
+            return invoice;
         }
+    }
     
 }

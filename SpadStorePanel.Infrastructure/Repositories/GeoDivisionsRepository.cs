@@ -21,5 +21,10 @@ namespace SpadStorePanel.Infrastructure.Repositories
         {
             return _context.GeoDivisions.Where(g => g.IsDeleted == false && g.GeoDivisionType == type).ToList();
         }
+
+        public string GetGeoDevisionTitle(int id)
+        {
+            return _context.GeoDivisions.FirstOrDefault(g => g.IsDeleted == false && g.Id == id).Title;
+        }
     }
 }
