@@ -25,6 +25,7 @@ namespace SpadStorePanel.Infrastructure
         public DbSet<Log> Logs { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<DiscountCode> DiscountCodes { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Invoice> Invoices { get; set; }

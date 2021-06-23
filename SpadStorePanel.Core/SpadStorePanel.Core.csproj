@@ -89,6 +89,7 @@
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Discount.cs" />
+    <Compile Include="Models\DiscountCode.cs" />
     <Compile Include="Models\EPayment.cs" />
     <Compile Include="Models\EPaymentLog.cs" />
     <Compile Include="Models\Faq.cs" />
