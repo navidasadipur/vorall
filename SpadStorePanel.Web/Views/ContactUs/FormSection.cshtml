@@ -1,40 +1,101 @@
-﻿<div class="col-lg-8 col-md-12">
+﻿@model SpadStorePanel.Core.Models.ContactForm
+
+<div class="col-lg-8 col-md-12">
     <div class="contact-inputs">
         <div class="title text-left">
             <h4>دیدگاهتان را با ما در میان بگذارید</h4>
         </div>
-        <form method="post" name="enq" class="contact-form form-with-label">
+        @*<form method="post" name="enq" class="contact-form form-with-label">*@
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", @class = "contact-form form-with-label" }))
+        {
             <div class="input-1">
-                <label>نام<span>*</span></label>
-                <input required="" class="form-control" id="first-name" placeholder="نام خود را وارد کنید" value=""
-                       type="text">
+                @*<label>نام<span>*</span></label>
+                    <input required="" class="form-control" id="first-name" placeholder="نام خود را وارد کنید" value=""
+                           type="text">*@
+                <label for="cname">نام<span>*</span></label>
+                <input type="text" class="form-control" id="cname" name="Name"
+                       placeholder="نام خود را وارد کنید *" required>
             </div>
             <div class="input-2">
-                <label>ایمیل<span>*</span></label>
-                <input required="" class="form-control" id="email" placeholder="ایمیل خود را وارد کنید" value=""
-                       type="email">
-            </div>
-            <div class="input-3">
-                <label>شماره تلفن<span>*</span></label>
-                <input required="" class="form-control" id="phone" placeholder="شماره تلفن خود را وارد کنید" value=""
-                       type="text">
-            </div>
-            <div class="input-4">
-                <label>موضوع<span>*</span></label>
-                <input required="" class="form-control" id="subject" placeholder="موضوع خود را وارد کنید" value=""
-                       type="text">
+                @*<label>ایمیل<span>*</span></label>
+                    <input required="" class="form-control" id="email" placeholder="ایمیل خود را وارد کنید" value=""
+                           type="email">*@
+                <label for="cemail">ایمیل<span>*</span></label>
+                <input type="email" class="form-control" id="cemail" name="Email"
+                       placeholder="ایمیل خود را وارد کنید *" required>
             </div>
             <div class="input-5">
-                <label>دیدگاهتان <span>*</span></label>
-                <textarea required="" rows="3" class="form-control" id="description"
-                          placeholder="دیدگاه شما"></textarea>
+                @*<label>شماره تلفن<span>*</span></label>
+                    <input required="" class="form-control" id="phone" placeholder="شماره تلفن خود را وارد کنید" value=""
+                           type="text">*@
+                <label for="cphone">شماره تلفن<span>*</span></label>
+                <input type="tel" class="form-control" id="cphone" name="Phone"
+                       placeholder="شماره تلفن خود را وارد کنید">
+            </div>
+            @*<div class="input-4">
+                    <label>موضوع<span>*</span></label>
+                    <input required="" class="form-control" id="subject" placeholder="موضوع خود را وارد کنید" value=""
+                           type="text">
+                </div>*@
+            <div class="input-5">
+                @*<label>دیدگاهتان <span>*</span></label>
+                    <textarea required="" rows="3" class="form-control" id="description"
+                              placeholder="دیدگاه شما"></textarea>*@
+                <label for="cmessage">دیدگاهتان<span>*</span></label>
+                <textarea class="form-control" @*cols="30" rows="4"*@ rows="3" id="cmessage" required name="Message"
+                          placeholder="دیدگاه شما *"></textarea>
             </div>
             <div class="submit-btn">
-                <button type="submit" id="submitButton" class="btn btn-primary" onclick="submitForm()">ارسال</button>
+                @*<button type="submit" id="submitButton" class="btn btn-primary" onclick="submitForm()">ارسال</button>*@
+                <button type="submit" class="btn btn-primary">
+                    <span>تایید و ارسال</span>
+                    @*<i class="icon-long-arrow-left"></i>*@
+                </button>
             </div>
             <div class="col-md-12">
                 <div id="alert-msg" class="alert-msg text-center"></div>
             </div>
-        </form>
+        }
+        @*</form>*@
     </div>
 </div>
+
+
+@*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", @class = "contact-form mb-2" }))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="cname" class="sr-only">نام</label>
+                <input type="text" class="form-control" id="cname" name="Name"
+                       placeholder="نام خود را وارد کنید *" required>
+            </div><!-- End .col-sm-4 -->
+
+            <div class="col-sm-4">
+                <label for="cemail" class="sr-only">ایمیل</label>
+                <input type="email" class="form-control" id="cemail" name="Email"
+                       placeholder="ایمیل خود را وارد کنید *" required>
+            </div><!-- End .col-sm-4 -->
+
+            <div class="col-sm-4">
+                <label for="cphone" class="sr-only">شماره موبایل</label>
+                <input type="tel" class="form-control" id="cphone" name="Phone"
+                       placeholder="شماره موبایل خود را وارد کنید">
+            </div><!-- End .col-sm-4 -->
+        </div><!-- End .row -->
+
+        <label for="cmessage" class="sr-only">پیام</label>
+        <textarea class="form-control" cols="30" rows="4" id="cmessage" required name="Message"
+                  placeholder="متن پیام شما *"></textarea>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                <span>تایید و ارسال</span>
+                <i class="icon-long-arrow-left"></i>
+            </button>
+        </div><!-- End .text-center -->
+    }*@
+
+
+<script>
+    $.validator.unobtrusive.parse("#form");
+</script>

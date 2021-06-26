@@ -5293,6 +5293,7 @@
     <Content Include="Views\Cookie\WishList.cshtml" />
     <Content Include="Views\Cookie\WishListTable.cshtml" />
     <Content Include="Views\Home\WishListSection.cshtml" />
+    <Content Include="Views\ContactUs\ContactUsSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

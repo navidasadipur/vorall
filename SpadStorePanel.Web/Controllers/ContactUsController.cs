@@ -1,4 +1,5 @@
 ﻿using SpadStorePanel.Core.Models;
+using SpadStorePanel.Core.Utility;
 using SpadStorePanel.Infrastructure.Repositories;
 using SpadStorePanel.Web.ViewModels;
 using System;
@@ -28,20 +29,55 @@ namespace SpadStorePanel.Web.Controllers
         {
             ContactUsViewModel model = new ContactUsViewModel();
 
-            model.Phone = _staticContentDetailsRepository.Get(9).ShortDescription;
+            model.Phone = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Phone).ShortDescription;
 
-            model.Email = _staticContentDetailsRepository.Get(8).ShortDescription;
+            model.Email = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Email).ShortDescription;
 
-            model.Address = _staticContentDetailsRepository.Get(10).ShortDescription;
+            model.Address = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Address).ShortDescription;
 
-            model.Map = _staticContentDetailsRepository.Get(7).Description;
+            model.Map = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Map).Description;
+
+            ViewBag.SidebarShortDescription = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ContactUsBackImageAndContent).ShortDescription;
+
+            ViewBag.SidebarDescription = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ContactUsBackImageAndContent).Description;
+
+            ViewBag.HeaderImage = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ContactUsBackImageAndContent).Image;
 
             return View(model);
         }
 
         public ActionResult FormSection()
         {
-            return PartialView("FormSection");
+            var model = new ContactForm();
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public ActionResult FormSection(ContactForm form)
+        {
+            //try
+            //{
+            //    _contactFormsRepository.Add(form);
+            //    return "success";
+            //}
+            //catch
+            //{
+            //    return "fail";
+            //}
+            if (ModelState.IsValid)
+            {
+                _contactFormsRepository.Add(form);
+                return RedirectToAction("ContactUsSummary");
+            }
+            return RedirectToAction("Contact");
+        }
+
+        public ActionResult ContactUsSummary()
+        {
+            ViewBag.HeaderImage = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ContactUsBackImageAndContent).Image;
+
+            return View();
         }
 
         [HttpPost]
@@ -79,21 +115,6 @@ namespace SpadStorePanel.Web.Controllers
                 {
                     return "fail";
                 }
-            }
-            catch
-            {
-                return "fail";
-            }
-
-        }
-
-        [HttpPost]
-        public string ContactUS(ContactForm form)
-        {
-            try
-            {
-                _contactFormsRepository.Add(form);
-                return "success";
             }
             catch
             {
