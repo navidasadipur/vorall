@@ -37,12 +37,15 @@ namespace SpadStorePanel.Web.Controllers
         public ActionResult Index(int page=0)
         {
             List<BlogViewModel> list = new List<BlogViewModel>();
+            var take = 9;
+            var skip = (page + 1) * take - take;
+            var count = 0;
 
             float d = _articlesRepository.GetAll().Count() / 3f;
 
             ViewBag.PageCount = (int)Math.Ceiling(d);
 
-            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Skip((page - 1) * 3).Take(3).ToList();
+            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Skip(skip).Take(take).ToList();
 
             foreach (var item in test)
             {
@@ -57,11 +60,11 @@ namespace SpadStorePanel.Web.Controllers
             return View(list);
         }
 
-        public ActionResult NewBlogSection()
+        public ActionResult NewBlogSection(int take)
         {
             List<BlogViewModel> list = new List<BlogViewModel>();
 
-            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Take(3).ToList();
+            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Take(take).ToList();
 
             foreach (var item in test)
             {
@@ -71,8 +74,6 @@ namespace SpadStorePanel.Web.Controllers
                     Date = DateFormater.ConvertToPersian(item.AddedDate ?? DateTime.Now)
                 });
             }
-
-
 
             return PartialView("NewBlogSection",list);
         }
@@ -100,11 +101,11 @@ namespace SpadStorePanel.Web.Controllers
             return PartialView("SendCommentSection");
         }
 
-        public ActionResult NewArticle()
+        public ActionResult NewArticle(int take)
         {
             List<BlogViewModel> list = new List<BlogViewModel>();
 
-            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Take(3).ToList();
+            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Take(take).ToList();
 
             foreach (var item in test)
             {

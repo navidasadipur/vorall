@@ -35,7 +35,7 @@
                         </p>
                     </div>
                     <div class="blog-detail-img">
-                        <img height="400px" src="~/Files/ArticleImages/Image/@Model.Blog.Image" align="blog_img5" />
+                        <img src="~/Files/ArticleImages/Image/@Model.Blog.Image" align="blog_img5" />
                     </div>
                     <div class="blo-detail-text">
                         <p class="textalign p-1">
@@ -54,7 +54,7 @@
                         </ul>
                     </div>
                 </div>
-                @Html.Action("NewArticle","Blog")
+                @Html.Action("NewArticle","Blog", new { take = 3 })
                 @Html.Action("SendCommentSection", "Blog")
             </div>
         </div>
