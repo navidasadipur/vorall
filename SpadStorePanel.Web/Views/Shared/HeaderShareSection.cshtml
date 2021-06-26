@@ -1,115 +1,459 @@
 ﻿@model SpadStorePanel.Web.ViewModels.HeaderShareSectionViewModel
 @using Microsoft.AspNet.Identity
 
-<header>
-    <div class="header-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <ul class="header_list row">
-                        <li class="col-12">
-                            @if (User.Identity.GetUserName() != "")
-                            {
-
-                                using (Html.BeginForm("LogOff", "Auth", new { area = "Customer" }, FormMethod.Post, null))
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="header_list row">
+                            <li class="col-12">
+                                @if (User.Identity.GetUserName() != "")
                                 {
-                                <div class="col-md-12">
-                                    <span style="color:white;">@User.Identity.GetUserName()</span>
-                                    <button type="submit" class="btn text-white  btn-sm d-inline" style="background-color:red;">خروج</button>
-                                </div>
+
+                                    using (Html.BeginForm("LogOff", "Auth", new { area = "Customer" }, FormMethod.Post, null))
+                                    {
+                                        <div class="col-md-12">
+                                            <span style="color:white;">@User.Identity.GetUserName()</span>
+                                            <button type="submit" class="btn text-white  btn-sm d-inline" style="background-color:red;">خروج</button>
+                                        </div>
+                                    }
                                 }
-                            }
-                            @*else if (Model.Error != null)
+                                @*else if (Model.Error != null)
                                 {
                                     <span style="background-color:red; width: 100px">@Model.Error</span>
                                     <a href="#test-popup1" ifass="open-popup-link">ورود</a>
                                 }*@
-                            else
-                            {
-                                <a href="/Customer/Auth/Login" class="">ورود</a>
-                            }
-                            @*@Html.Action("LoginSection", "Home")*@
-                            @*@Html.Action("RegisterSection","Home")*@
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul class="header_list float-left d-flex align-items-center justify-content-center">
+                                else
+                                {
+                                    <a href="/Customer/Auth/Login" class="">ورود</a>
+                                }
+                                @*@Html.Action("LoginSection", "Home")*@
+                                @*@Html.Action("RegisterSection","Home")*@
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="header_list float-left d-flex align-items-center justify-content-center">
 
-                        <li>
-                            <a class="d-flex align-items-center justify-content-center" href="mailto:@Model.Email.ShortDescription">
-                                <i class="fa fa-envelope-o m-0 "></i>@Model.Email.ShortDescription
-                            </a>
-                        </li>
-                        <li>
-                            <a class="d-flex align-items-center justify-content-center" href="tel:@Model.Phone.ShortDescription">
-                                @Model.Phone.ShortDescription<i class="fa fa-phone m-0 mr-1"></i>
-                            </a>
-                        </li>
-                    </ul>
+                            <li>
+                                <a class="d-flex align-items-center justify-content-center" href="mailto:@Model.Email.ShortDescription">
+                                    <i class="fa fa-envelope-o m-0 "></i>@Model.Email.ShortDescription
+                                </a>
+                            </li>
+                            <li>
+                                <a class="d-flex align-items-center justify-content-center" href="tel:@Model.Phone.ShortDescription">
+                                    @Model.Phone.ShortDescription<i class="fa fa-phone m-0 mr-1"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="header-mdl">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="hm-inner d-sm-flex align-items-center justify-content-between">
-                        <div class="header-logo">
-                            <a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>
-                        </div>
-                        @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form" }))
-                        {
-                            <input class="search-box" placeholder="جستجو..." required value="" type="search" name="search" />
-                            <button type="submit">جستجو</button>
-                        }
-                        @*<form class="header-form">
-            <input class="search-box" placeholder="جستجو..." required value="" type="search" />
-            <button type="submit">جستجو</button>
-        </form>*@
-                        <div class="header-logo" id="wishListSection">
-                            @Html.Action("WishListSection", "Home")
-                            <div class="header-cart" id="cartSection">
+        <div class="header-mdl">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hm-inner d-sm-flex align-items-center justify-content-between">
+                            <div class="header-logo">
+                                <a href="index.html"><img src="/Files/StaticContentImages/Image/@ViewBag.Logo" alt="logo" /></a>
+                            </div>
+                            @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form" }))
+                            {
+                                <input class="search-box" placeholder="جستجو..." required value="" type="search" name="search" />
+                                <button type="submit">جستجو</button>
+                            }
+                            @*<form class="header-form">
+                <input class="search-box" placeholder="جستجو..." required value="" type="search" />
+                <button type="submit">جستجو</button>
+            </form>*@
+                            <div class="header-logo" id="wishListSection">
+                                @Html.Action("WishListSection", "Home")
+                                <div class="header-cart" id="cartSection">
 
-                                @Html.Action("CartSection", "Cookie")
+                                    @Html.Action("CartSection", "Cookie")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-lg-none mm_icon">
+                            <div class="form-captions" id="search">
+                                <button type="submit" class="submit-btn-2">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                            <button class="navbar-toggler"
+                                    type="button"
+                                    data-toggle="collapse"
+                                    data-target="#navbarSupportedContent"
+                                    aria-controls="navbarSupportedContent"
+                                    aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-btm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <div class="header-logo">
+                                <a href="#"><img src="/Files/StaticContentImages/Image/@ViewBag.Logo" alt="logo" /></a>
+                            </div>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item ">
+                                        @Html.ActionLink("صفحه اصلی", "Index", "Home", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("فروشگاه", "Index", "Shop", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("وبلاگ", "Index", "Blog", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("درباره ما", "About", "Home", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item active">
+                                        @Html.ActionLink("ارتباط با ما", "Index", "ContactUs", null, new { @class = "nav-link" })
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+        @*<div class="header-mdl">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="hm-inner d-sm-flex align-items-center justify-content-between">
+                            <div class="header-logo">
+                                <a href="index.html"><img src="image/logo.png" alt="logo" /></a>
+                            </div>
+                            <form class="header-form">
+                                <input class="search-box" placeholder="جستجو..." required value="" type="search" />
+                                <button type="submit">جستجو</button>
+                            </form>
+                            <div class="header-right">
+                                <div class="header-cart">
+                                    <a href="#">
+                                        <div class="cart-icon">
+                                            <img src="image/cart-icon.png" alt="cart-icon" />
+                                            <span>02</span>
+                                        </div>
+                                        230 تومان<i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <div class="cart-box">
+                                        <div class="cart-info">
+                                            <div class="cart-prodect d-flex">
+                                                <div class="cart-img">
+                                                    <img src="image/cart-img-1.png" alt="cart-img" />
+                                                </div>
+                                                <div class="cart-product">
+                                                    <a href="#">تی شرت نارنجی یاسین</a>
+                                                    <p>80 تومان</p>
+                                                </div>
+                                                <a href="#" class="close-icon d-flex align-items-center">
+                                                    <i class="ion-close"></i>
+                                                </a>
+                                            </div>
+                                            <div class="cart-prodect d-flex">
+                                                <div class="cart-img">
+                                                    <img src="image/cart-img-2.png" alt="cart-img" />
+                                                </div>
+                                                <div class="cart-product">
+                                                    <a href="#">رو مانتویی ندا</a>
+                                                    <p>100 تومان</p>
+                                                </div>
+                                                <a href="#" class="close-icon d-flex align-items-center">
+                                                    <i class="ion-close"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="price-prodect d-flex align-items-center justify-content-between">
+                                            <p class="total">جمع صورتحساب</p>
+                                            <p class="total-price">180 تومان</p>
+                                        </div>
+                                        <div class="cart-btn">
+                                            <a href="cart.html" class="btn btn-primary">افزودن به سبد خرید</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-lg-none mm_icon">
+                                    <div class="form-captions" id="search">
+                                        <button type="submit" class="submit-btn-2">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                    <button class="navbar-toggler"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#navbarSupportedContent"
+                                            aria-controls="navbarSupportedContent"
+                                            aria-expanded="false"
+                                            aria-label="Toggle navigation">
+                                        <i class="fa fa-bars"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="header-btm">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <div class="header-logo">
-                            <a href="#"><img src="~/asset/image/logo.png" alt="logo" /></a>
-                        </div>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav">
-                                <li class="nav-item ">
-                                    @Html.ActionLink("صفحه اصلی", "Index", "Home", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("فروشگاه", "Index", "Shop", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("وبلاگ", "Index", "Blog", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("درباره ما", "About", "Home", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item active">
-                                    @Html.ActionLink("ارتباط با ما", "Index", "ContactUs", null, new { @class = "nav-link" })
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+        <div class="header-btm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <div class="header-logo">
+                                <a href="#"><img src="image/logo.png" alt="logo" /></a>
+                            </div>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggler" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            صفحات اصلی<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <div class="sub-menu dropdown-menu">
+                                            <ul class="all-menu">
+                                                <li><a href="index.html">صفحه اصلی 1</a></li>
+                                                <li><a href="index-2.html">صفحه اصلی 2</a></li>
+                                                <li><a href="index-3.html">صفحه اصلی 3</a></li>
+                                                <li><a href="index-4.html">صفحه اصلی 4</a></li>
+                                                <li><a href="index-5.html">صفحه اصلی 5</a></li>
+                                                <li><a href="index-6.html">صفحه اصلی 6</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="about-us.html">درباره ما</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggler" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            صفحات<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <div class="sub-menu dropdown-menu">
+                                            <ul class="all-menu">
+                                                <li><a href="error-404.html">صفحه 404</a></li>
+                                                <li><a href="faq.html">پرسش و پاسخ</a></li>
+                                                <li><a href="coming-soon.html">به زودی</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link dropdown-toggler" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            فروشگاه<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <div class="sub-menu mega-menu dropdown-menu">
+                                            <ul class="d-lg-flex">
+                                                <li class="submenu-links dropdown col-lg-3">
+                                                    <a href="#" class="menu-title dropdown-toggler" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        صفحات فروشگاه<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <ul class="all-menu dropdown-menu">
+                                                        <li>
+                                                            <a href="shop-list.html">
+                                                                مشاهده لیست فروشگاه
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="shop-grid.html">مشاهده قالب فروشگاه</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="shop-three-columns.html">فروشگاه 3 ستون</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="shop-four-columns.html">فروشگاه 4 ستون</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="shop-left-sidebar.html">خرید نوار کناری چپ</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="shop-right-sidebar.html">خرید نوار کناری راست</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="submenu-links dropdown col-lg-3">
+                                                    <a href="#"
+                                                       class="menu-title dropdown-toggler"
+                                                       role="button"
+                                                       data-toggle="dropdown"
+                                                       aria-haspopup="true"
+                                                       aria-expanded="false">
+                                                        جزئیات محصولات<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <ul class="all-menu dropdown-menu">
+                                                        <li>
+                                                            <a href="product-detail.html">محصولات پیش فرض</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="product-detail-left-sidebar.html">نوار کناری سمت چپ محصول</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="product-detail-right-sidebar.html">نوار کناری سمت راست محصول</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="submenu-links dropdown col-lg-3">
+                                                    <a href="#"
+                                                       class="menu-title dropdown-toggler"
+                                                       role="button"
+                                                       data-toggle="dropdown"
+                                                       aria-haspopup="true"
+                                                       aria-expanded="false">
+                                                        اضافی<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <ul class="all-menu dropdown-menu">
+                                                        <li><a href="cart.html">سبد خرید</a></li>
+                                                        <li><a href="checkout.html">وارسی</a></li>
+                                                        <li><a href="compare.html">مقایسه کنید</a></li>
+                                                        <li><a href="my-account.html">حساب من</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="submenu-img col-lg-3">
+                                                    <a href="#"><img src="image/header-banner.jpg" alt="banner" /></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="nav-link dropdown-toggler" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            وبلاگ<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <div class="sub-menu dropdown-menu">
+                                            <ul class="all-menu">
+                                                <li>
+                                                    <a class="dropdown-toggler" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        طرح وبلاگ<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <div class="sub-menu dropdown-menu">
+                                                        <ul class="all-menu">
+                                                            <li>
+                                                                <a href="blog-standard-fullwidth.html">پهنای باند استاندارد بلاگ</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-standard-left-sidebar.html">نوار کناری استاندارد بلاگ</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-standard-right-sidebar.html">نوار کناری راست وبلاگ</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-three-columns.html">
+                                                                    وبلاگ 3 ستون
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-four-columns.html">وبلاگ 4 ستون</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-grid-left-sidebar.html">قالب نوار کناری چپ</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-grid-right-sidebar.html">قالب نوار کناری ر است</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-toggler"
+                                                       href="#"
+                                                       role="button"
+                                                       data-toggle="dropdown"
+                                                       aria-haspopup="true"
+                                                       aria-expanded="false">
+                                                        قالب وبلاگ<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <div class="sub-menu dropdown-menu">
+                                                        <ul class="all-menu">
+                                                            <li>
+                                                                <a href="blog-masonry-three-columns.html">قالب 3 ستون</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-masonry-four-columns.html">قالب 4 ستون</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-masonry-left-sidebar.html">
+                                                                    نوار کناری چپ قالب
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-masonry-right-sidebar.html">نوار کناری راست قالب</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-toggler"
+                                                       href="#"
+                                                       role="button"
+                                                       data-toggle="dropdown"
+                                                       aria-haspopup="true"
+                                                       aria-expanded="false">
+                                                        لیست وبلاگ<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <div class="sub-menu dropdown-menu">
+                                                        <ul class="all-menu">
+                                                            <li>
+                                                                <a href="blog-list-left-sidebar.html">
+                                                                    لیست نوارکناری چپ
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-list-right-sidebar.html">لیست نوار کناری راست</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-toggler"
+                                                       href="#"
+                                                       role="button"
+                                                       data-toggle="dropdown"
+                                                       aria-haspopup="true"
+                                                       aria-expanded="false">
+                                                        وبلاگ تک<i class="fa fa-angle-down"></i><i class="fa fa-angle-right"></i>
+                                                    </a>
+                                                    <div class="sub-menu dropdown-menu">
+                                                        <ul class="all-menu">
+                                                            <li><a href="blog-detail.html">تبلیغات</a></li>
+                                                            <li>
+                                                                <a href="blog-detail-left-sidebar.html">نوار کناری سمت چپ</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-detail-right-sidebar.html">نوار کناری سمت راست</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-detail-slider.html">اسلایدر پست</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-detail-video.html">پست ویدیویی</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="blog-detail-audio.html">ارسال صوتی</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="contact.html">ارتباط با ما</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>*@
+<!-- End Header Section -->

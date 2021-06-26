@@ -1,4 +1,5 @@
 ﻿using SpadStorePanel.Core.Models;
+using SpadStorePanel.Core.Utility;
 using SpadStorePanel.Infrastructure.Repositories;
 using SpadStorePanel.Infrastructure.Services;
 using SpadStorePanel.Web.ViewModels;
@@ -165,6 +166,8 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult HeaderSection()
         {
+            ViewBag.Logo = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Logo).Image;
+
             return PartialView("HeaderSection", _productGroupsRepository.GetAll());
         }
 
@@ -176,8 +179,11 @@ namespace SpadStorePanel.Web.Controllers
         public ActionResult HeaderShareSection()
         {
             HeaderShareSectionViewModel model = new HeaderShareSectionViewModel();
-            model.Email = _staticContentDetailsRepository.Get(8);
-            model.Phone = _staticContentDetailsRepository.Get(9);
+            model.Email = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Email);
+            model.Phone = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Phone);
+
+            ViewBag.Logo = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Logo).Image;
+
             return PartialView("HeaderShareSection", model);
         }
 
@@ -185,11 +191,11 @@ namespace SpadStorePanel.Web.Controllers
         {
             List<StaticContentDetail> List = new List<StaticContentDetail>()
             {
-                _staticContentDetailsRepository.Get(25),
+                _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.BrandCounter),
 
-                _staticContentDetailsRepository.Get(26),
+                _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.StoreCounter),
 
-                _staticContentDetailsRepository.Get(27),
+                _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.CustomerCounter),
             };
 
             return PartialView("CounterSection", List);

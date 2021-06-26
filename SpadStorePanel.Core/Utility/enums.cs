@@ -24,9 +24,9 @@ namespace SpadStorePanel.Core.Utility
         WorkingHours = 1008,
         Youtube = 29,
         Instagram = 28,
-        Twitter = 27,
+        //Twitter = 27,
         Pinterest = 30,
-        Facebook = 26,
+        //Facebook = 26,
         linkedin = 33,
         BlogImage = 1013,
         ContactUsBackImageAndContent = 2,
@@ -39,9 +39,13 @@ namespace SpadStorePanel.Core.Utility
         Phone = 9,
         Map = 7,
 
+        BrandCounter = 25,
+        StoreCounter = 26,
+        CustomerCounter = 27,
+
         DiscountNews = 5027,
 
-        Logo = 14,
+        Logo = 34,
         //BackGroundImage = 2,
         //NewsBackImage = 8,
 
