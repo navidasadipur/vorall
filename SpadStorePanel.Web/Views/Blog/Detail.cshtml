@@ -1,7 +1,7 @@
 ﻿@model SpadStorePanel.Web.ViewModels.BlogDetailViewModel
 @using SpadStorePanel.Core.Utility
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = $"جزئیات وبلاگ {Model.Blog.Title}";
     Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
@@ -11,11 +11,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="page_title text-center">
-                    <h1>جزئیات وبلاگ</h1>
+                    <h1>@ViewBag.Title</h1>
                     <ul class="breadcrumb justify-content-center">
-                        <li><a href="/Home/Index">صفحه اصلی</a></li>
-                        <li><a href="/Blog/Index">وبلاگ</a></li>
-                        <li><span>جزئیات وبلاگ</span></li>
+                        <li><a href="/">صفحه اصلی</a></li>
+                        <li><a href="/Blog">وبلاگ</a></li>
+                        <li><span>@ViewBag.Title</span></li>
                     </ul>
                 </div>
             </div>
@@ -43,67 +43,102 @@
                         </p>
                     </div>
                     <div class="blog-tags">
-                        <span>برچسب ها:</span>
-                        <ul>
-                            @foreach (var item in Model.Tags)
-                            {
-                                <li>
-                                    <p>@item.Title</p>
-                                </li>
-                            }
-                        </ul>
+                        @if (Model.Tags.Any())
+                        {
+                            <span>برچسب ها:</span>
+                            <ul>
+                                @foreach (var item in Model.Tags)
+                                {
+                                    <li>
+                                        <a href="/Blog/Index?searchString=@item.Title">@item.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
                     </div>
                 </div>
                 @Html.Action("NewArticle", "Blog", new { take = 3 })
 
                 @*@Html.Action("SendCommentSection", "Blog", )*@
+                <div class="comments">
+                    <h3 class="title">@Model.Comments.Count() دیدگاه</h3><!-- End .title -->
 
-            <div class="leave-reply">
-                <div class="tab-title">
-                    <h6>دیدگاه خود را با ما در میان بگذارید</h6>
+                    <ul>
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li>
+                                <div class="row" style="border-bottom: 2px solid #2ab7ca">
+                                    <figure class="col-1">
+                                        <img src="/pic/anonymousUser.png" alt="img">
+                                    </figure>
+
+                                    <div class="col-11">
+                                        @*<a href="#" class="comment-reply">پاسخ</a>*@
+                                        <div class="comment-user">
+                                            <p>نام کاربر : @comment.Name</p>
+                                            <span class="comment-date"></span>
+                                        </div> <!-- End .comment-user -->
+
+                                        <div class="comment-content">
+                                            <p>
+                                                پیام :
+                                                @comment.Message
+                                            </p>
+                                        </div><!-- End .comment-content -->
+                                    </div><!-- End .comment-body -->
+                                </div><!-- End .comment -->
+                                <br>
+                            </li>
+
+                        }
+                    </ul>
+                </div><!-- End .comments -->
+                <div class="leave-reply">
+                    <div class="tab-title">
+                        <h6>دیدگاه خود را با ما در میان بگذارید</h6>
+                    </div>
+                    @*<div class="social_icon mb-3">
+                            <span>وارد شدن با:</span>
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                </li>
+                            </ul>
+                        </div>*@
+                    @using (Html.BeginForm("SendCommentSection", "Blog", FormMethod.Post, new { id = "commentform", @class = "leave-reply-form" }))
+                    {
+                        <input type="hidden" id="ArticleId" name="ArticleId" value="@Model.Blog.Id">
+                        <div class="input-5">
+                            <input required="" id="Name" name="Name" class="form-control" placeholder="نام خود را وارد کنید" value="" type="text" />
+                        </div>
+                        <div class="input-5">
+                            <input required="" id="Email" name="Email" class="form-control" placeholder="ایمیل خود را وارد کنید" value="" type="email" />
+                        </div>
+                        @*<div class="input-3">
+                                <input required="" class="form-control" placeholder="وب سایت" value="" type="text" />
+                            </div>*@
+                        <div class="input-5">
+                            <textarea required="" id="Message" name="Message" rows="4" class="form-control" placeholder="نظر شما"></textarea>
+                        </div>
+                        <div class="input-btn">
+                            <button type="submit" class="btn btn-secondary" id="btnsubmit">
+                                ارسال
+                            </button>
+                        </div>
+                    }
                 </div>
-                @*<div class="social_icon mb-3">
-            <span>وارد شدن با:</span>
-            <ul>
-                <li>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                </li>
-            </ul>
-        </div>*@
-                @using (Html.BeginForm("SendCommentSection", "Blog", FormMethod.Post, new { id = "commentform", @class = "leave-reply-form" }))
-                {
-                    <input type="hidden" id="ArticleId" name="ArticleId" value="@Model.Blog.Id">
-                    <div class="input-5">
-                        <input required="" id="Name" name="Name" class="form-control" placeholder="نام خود را وارد کنید" value="" type="text" />
-                    </div>
-                    <div class="input-5">
-                        <input required="" id="Email" name="Email" class="form-control" placeholder="ایمیل خود را وارد کنید" value="" type="email" />
-                    </div>
-                    @*<div class="input-3">
-                <input required="" class="form-control" placeholder="وب سایت" value="" type="text" />
-            </div>*@
-                    <div class="input-5">
-                        <textarea required="" id="Message" name="Message" rows="4" class="form-control" placeholder="نظر شما"></textarea>
-                    </div>
-                    <div class="input-btn">
-                        <button type="submit" class="btn btn-secondary" id="btnsubmit">
-                            ارسال
-                        </button>
-                    </div>
-                }
-            </div>
             </div>
         </div>
     </div>
@@ -154,8 +189,8 @@
     </script>
 
     @*<script>
-        $.validator.unobtrusive.parse("#commentform");
-    </script>*@
+            $.validator.unobtrusive.parse("#commentform");
+        </script>*@
 
     <script>
         function submitForm() {

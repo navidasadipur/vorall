@@ -41,7 +41,7 @@ namespace SpadStorePanel.Web.Controllers
         }
 
         // GET: Blog
-        public ActionResult Index(int pageNumber = 1, int? category = null)
+        public ActionResult Index(int pageNumber = 1, string searchString = null, int? category = null)
         {
             var articles = new List<Article>();
 
@@ -74,6 +74,13 @@ namespace SpadStorePanel.Web.Controllers
                 ViewBag.CategoryId = category;
                 ViewBag.Title = $"دسته {cat.Title}";
             }
+            else if (!string.IsNullOrEmpty(searchString))
+            {
+                articles = _articlesRepository.GetArticlesList(skip, take, searchString);
+                count = _articlesRepository.GetArticlesCount(searchString);
+                ViewBag.SearchString = searchString;
+                ViewBag.Title = $"جستجو: {searchString}";
+            }
             else
             {
                 articles = _articlesRepository.GetArticlesList(skip, take);
@@ -88,8 +95,6 @@ namespace SpadStorePanel.Web.Controllers
             var vm = new List<LatestArticlesViewModel>();
             foreach (var item in articles)
                 vm.Add(new LatestArticlesViewModel(item));
-
-
 
             ViewBag.HeaderImage = _staticContentDetailsRepo.GetStaticContentDetail((int)StaticContents.BlogBackImage).Image;
 
