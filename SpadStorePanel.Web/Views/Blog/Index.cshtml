@@ -7,7 +7,7 @@
 
 @Html.Action("HeaderShareSection", "Home")
 <!-- Start Breadcrumbs Section -->
-<section class="breadcrumbs-section background_bg" data-img-src="/pic/blog-success.jpg">
+<section class="breadcrumbs-section background_bg" data-img-src="/Files/StaticContentImages/Image/@ViewBag.HeaderImage">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -99,14 +99,16 @@
     <script>
         function submitForm() {
             // Initiate Variables With Form Content
-
-            var email = $("#email").val();
-
+            var model = {
+                Email: $("#email").val(),
+                Name: $("#name").val(),
+                Message: $("#message").val(),
+            }
 
             $.ajax({
                 type: "POST",
                 url: "/ContactUs/GetNews",
-                data: "email=" + email,
+                data: model,
                 success: function (text) {
                     if (text == "success") {
 

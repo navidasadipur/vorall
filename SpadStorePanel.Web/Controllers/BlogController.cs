@@ -1,4 +1,5 @@
-﻿using SpadStorePanel.Core.Utility;
+﻿using SpadStorePanel.Core.Models;
+using SpadStorePanel.Core.Utility;
 using SpadStorePanel.Infrastructure.Repositories;
 using SpadStorePanel.Web.ViewModels;
 using System;
@@ -19,10 +20,15 @@ namespace SpadStorePanel.Web.Controllers
 
         private readonly ArticlesTagRepositoriy _articlesTagRepositoriy;
 
-        public BlogController(ArticlesRepository articlesRepository
-        ,ArticleCategoriesRepository articleCategoriesRepository
-        ,ArticleCommentsRepository articleCommentsRepository
-        ,ArticlesTagRepositoriy articlesTagRepositoriy)
+        private readonly StaticContentDetailsRepository _staticContentDetailsRepo;
+
+        public BlogController(
+            ArticlesRepository articlesRepository
+            ,ArticleCategoriesRepository articleCategoriesRepository
+            ,ArticleCommentsRepository articleCommentsRepository
+            ,ArticlesTagRepositoriy articlesTagRepositoriy
+            , StaticContentDetailsRepository staticContentDetailsRepo
+        )
         {
             _articlesRepository = articlesRepository;
 
@@ -30,6 +36,7 @@ namespace SpadStorePanel.Web.Controllers
 
             _articlesTagRepositoriy = articlesTagRepositoriy;
 
+            _staticContentDetailsRepo = staticContentDetailsRepo;
             _articleCommentsRepository = articleCommentsRepository;
         }
 
@@ -56,6 +63,7 @@ namespace SpadStorePanel.Web.Controllers
                 });
             }
 
+            ViewBag.HeaderImage = _staticContentDetailsRepo.GetStaticContentDetail((int)StaticContents.BlogBackImage).Image;
 
             return View(list);
         }
@@ -88,6 +96,8 @@ namespace SpadStorePanel.Web.Controllers
 
             model.Tags = _articlesTagRepositoriy.GetAll();
 
+            ViewBag.HeaderImage = _staticContentDetailsRepo.GetStaticContentDetail((int)StaticContents.BlogBackImage).Image;
+
             return View(model);
         }
 
@@ -98,7 +108,38 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult SendCommentSection()
         {
-            return PartialView("SendCommentSection");
+            var model = new ArticleComment();
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendCommentSection(ArticleComment form)
+        {
+            //try
+            //{
+            //    _contactFormsRepository.Add(form);
+            //    return "success";
+            //}
+            //catch
+            //{
+            //    return "fail";
+            //}
+            form.AddedDate = DateTime.Now;
+
+            if (ModelState.IsValid)
+            {
+                _articleCommentsRepository.Add(form);
+                return RedirectToAction("ContactUsSummary");
+            }
+            return RedirectToAction("Detail");
+        }
+
+        public ActionResult ContactUsSummary()
+        {
+            ViewBag.HeaderImage = _staticContentDetailsRepo.GetStaticContentDetail((int)StaticContents.BlogBackImage).Image;
+
+            return View();
         }
 
         public ActionResult NewArticle(int take)

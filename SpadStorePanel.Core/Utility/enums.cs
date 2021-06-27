@@ -30,6 +30,7 @@ namespace SpadStorePanel.Core.Utility
         linkedin = 33,
         BlogImage = 1013,
         ContactUsBackImageAndContent = 2,
+        BlogBackImage = 35,
         companyServices = 3003,
         CopyRight = 3004,
         ImplementaitonService = 3005,

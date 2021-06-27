@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "ارتباط با ما";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
+}
+
+@Html.Action("HeaderShareSection", "Home")
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/Files/StaticContentImages/Image/@ViewBag.HeaderImage">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>@ViewBag.Title</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">صفحه اصلی</a></li>
+                        <li><span>@ViewBag.Title</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+
+<div class="container">
+    <div style="margin: 0 auto; text-align: center; padding: 200px 0">
+        <h2>پیام شما با موفقیت ثبت شد</h2>
+        <span class="sep-icon-before sep-center sep-solid"></span>
+        <span class="icon-wrap"><i class="autora-icon-build"></i></span>
+        <span class="sep-icon-after sep-center sep-solid"></span>
+        <span class="class more-link"><a href="/">بازگشت به صفحه اصلی</a></span>
+    </div><!-- /.col-md-12 -->
+</div>

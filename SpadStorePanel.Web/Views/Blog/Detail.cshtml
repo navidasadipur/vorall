@@ -6,7 +6,7 @@
 }
 
 @Html.Action("HeaderShareSection", "Home")
-<section class="breadcrumbs-section background_bg" data-img-src="/pic/blog-success.jpg">
+<section class="breadcrumbs-section background_bg" data-img-src="/Files/StaticContentImages/Image/@ViewBag.HeaderImage">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -54,9 +54,132 @@
                         </ul>
                     </div>
                 </div>
-                @Html.Action("NewArticle","Blog", new { take = 3 })
-                @Html.Action("SendCommentSection", "Blog")
+                @Html.Action("NewArticle", "Blog", new { take = 3 })
+
+                @*@Html.Action("SendCommentSection", "Blog", )*@
+
+            <div class="leave-reply">
+                <div class="tab-title">
+                    <h6>دیدگاه خود را با ما در میان بگذارید</h6>
+                </div>
+                @*<div class="social_icon mb-3">
+            <span>وارد شدن با:</span>
+            <ul>
+                <li>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                </li>
+            </ul>
+        </div>*@
+                @using (Html.BeginForm("SendCommentSection", "Blog", FormMethod.Post, new { id = "commentform", @class = "leave-reply-form" }))
+                {
+                    <input type="hidden" id="ArticleId" name="ArticleId" value="@Model.Blog.Id">
+                    <div class="input-5">
+                        <input required="" id="Name" name="Name" class="form-control" placeholder="نام خود را وارد کنید" value="" type="text" />
+                    </div>
+                    <div class="input-5">
+                        <input required="" id="Email" name="Email" class="form-control" placeholder="ایمیل خود را وارد کنید" value="" type="email" />
+                    </div>
+                    @*<div class="input-3">
+                <input required="" class="form-control" placeholder="وب سایت" value="" type="text" />
+            </div>*@
+                    <div class="input-5">
+                        <textarea required="" id="Message" name="Message" rows="4" class="form-control" placeholder="نظر شما"></textarea>
+                    </div>
+                    <div class="input-btn">
+                        <button type="submit" class="btn btn-secondary" id="btnsubmit">
+                            ارسال
+                        </button>
+                    </div>
+                }
+            </div>
             </div>
         </div>
     </div>
 </section>
+
+
+<style>
+    .my-error-class {
+        color: darkred !important; /* red */
+    }
+</style>
+@section script
+{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#commentform").validate({
+            errorClass: "my-error-class",
+            rules: {
+                Name: "required",
+                Message: "required",
+                Email: {
+                    required: true,
+                    email: true
+                },
+                //Phone: {
+                //    required: true,
+                //    number: true,
+                //    minlength: 7,
+                //    maxlength: 12,
+                //},
+            },
+            messages: {
+                Name: "نام خود را وارد کنید",
+                Message: "پیام خود را وارد کنید",
+                Email: {
+                    required: "ایمیل خود را وارد کنید",
+                    email: "ایمیل وارد شده معتبر نیست"
+                },
+                //Phone: {
+                //    required: "شماره تماس خود را وارد کنید",
+                //    number: "شماره تماس خود را وارد کنید",
+                //    minlength: "تعداد اعداد شماره تماس معتبر نیست",
+                //    maxlength: "تعداد اعداد شماره تماس معتبر نیست",
+                //}
+            }
+        });
+    </script>
+
+    @*<script>
+        $.validator.unobtrusive.parse("#commentform");
+    </script>*@
+
+    <script>
+        function submitForm() {
+            // Initiate Variables With Form Content
+            var model = {
+                Email: $("#email").val(),
+                Name: $("#name").val(),
+                Message: $("#message").val(),
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Blog/SendCommentSection",
+                data: model,
+                success: function (text) {
+                    if (text == "success") {
+
+                        $("#btnsubmit").css("color", "green");
+                        $("#email").val("");
+                    } else {
+                        $("#btnsubmit").css("color", "red");
+                    }
+                }
+            });
+        }
+    </script>
+}
