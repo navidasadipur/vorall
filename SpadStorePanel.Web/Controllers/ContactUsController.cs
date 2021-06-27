@@ -54,7 +54,7 @@ namespace SpadStorePanel.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult FormSection(ContactForm form)
+        public ActionResult FormSection(ContactForm model)
         {
             //try
             //{
@@ -65,12 +65,13 @@ namespace SpadStorePanel.Web.Controllers
             //{
             //    return "fail";
             //}
+
             if (ModelState.IsValid)
             {
-                _contactFormsRepository.Add(form);
+                _contactFormsRepository.Add(model);
                 return RedirectToAction("ContactUsSummary");
             }
-            return RedirectToAction("Contact");
+            return RedirectToAction("Index");
         }
 
         public ActionResult ContactUsSummary()

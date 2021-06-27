@@ -66,9 +66,47 @@
 <!-- End Map Section -->
 
 
+<style>
+    .my-error-class {
+        color: darkred !important; /* red */
+    }
+</style>
 @section script
 {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#commentform").validate({
+            errorClass: "my-error-class",
+            rules: {
+                Name: "required",
+                Message: "required",
+                Email: {
+                    required: true,
+                    email: true
+                },
+                Phone: {
+                  required: true,
+                  number: true,
+                  minlength: 7,
+                  maxlength: 12,
+                },
+            },
+            messages: {
+                Name: "نام خود را وارد کنید",
+                Message: "پیام خود را وارد کنید",
+                Email: {
+                    required: "ایمیل خود را وارد کنید",
+                    email: "ایمیل وارد شده معتبر نیست"
+                },
+                Phone: {
+                  required: "شماره تماس خود را وارد کنید",
+                  number: "شماره تماس خود را وارد کنید",
+                  minlength: "تعداد اعداد شماره تماس معتبر نیست",
+                  maxlength: "تعداد اعداد شماره تماس معتبر نیست",
+                }
+            }
+        });
+    </script>
     <script>
         function submitForm() {
             // Initiate Variables With Form Content
