@@ -41,31 +41,59 @@ namespace SpadStorePanel.Web.Controllers
         }
 
         // GET: Blog
-        public ActionResult Index(int page=0)
+        public ActionResult Index(int pageNumber = 1, int? category = null)
         {
-            List<BlogViewModel> list = new List<BlogViewModel>();
+            var articles = new List<Article>();
+
             var take = 9;
-            var skip = (page + 1) * take - take;
+            var skip = pageNumber * take - take;
             var count = 0;
 
-            float d = _articlesRepository.GetAll().Count() / 3f;
+            //List<BlogViewModel> list = new List<BlogViewModel>();
 
-            ViewBag.PageCount = (int)Math.Ceiling(d);
+            //float d = _articlesRepository.GetAll().Count() / 3f;
 
-            var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Skip(skip).Take(take).ToList();
+            //ViewBag.PageCount = (int)Math.Ceiling(d);
 
-            foreach (var item in test)
+            //var test = _articlesRepository.GetAll().OrderByDescending(x => x.Id).Skip(skip).Take(take).ToList();
+
+            //foreach (var item in test)
+            //{
+            //    list.Add(new BlogViewModel()
+            //    {
+            //        Blog = item,
+            //        Date = DateFormater.ConvertToPersian(item.AddedDate ?? DateTime.Now)
+            //    });
+            //}
+
+            if (category != null)
             {
-                list.Add(new BlogViewModel()
-                {
-                    Blog = item,
-                    Date = DateFormater.ConvertToPersian(item.AddedDate ?? DateTime.Now)
-                });
+                articles = _articlesRepository.GetArticlesList(skip, take, category.Value);
+                count = _articlesRepository.GetArticlesCount(category.Value);
+                var cat = _articleCategoriesRepository.Get(category.Value);
+                ViewBag.CategoryId = category;
+                ViewBag.Title = $"دسته {cat.Title}";
             }
+            else
+            {
+                articles = _articlesRepository.GetArticlesList(skip, take);
+                count = _articlesRepository.GetArticlesCount();
+                ViewBag.Title = "بلاگ";
+            }
+
+            var pageCount = (int)Math.Ceiling((double)count / take);
+            ViewBag.PageCount = pageCount;
+            ViewBag.CurrentPage = pageNumber;
+
+            var vm = new List<LatestArticlesViewModel>();
+            foreach (var item in articles)
+                vm.Add(new LatestArticlesViewModel(item));
+
+
 
             ViewBag.HeaderImage = _staticContentDetailsRepo.GetStaticContentDetail((int)StaticContents.BlogBackImage).Image;
 
-            return View(list);
+            return View(vm);
         }
 
         public ActionResult NewBlogSection(int take)

@@ -1,6 +1,6 @@
-﻿@model List<SpadStorePanel.Web.ViewModels.BlogViewModel>
+﻿@model List<SpadStorePanel.Web.ViewModels.LatestArticlesViewModel>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "وبلاگ";
     Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
@@ -12,10 +12,10 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="page_title text-center">
-                    <h1>جزئیات وبلاگ</h1>
+                    <h1>@ViewBag.Title</h1>
                     <ul class="breadcrumb justify-content-center">
-                        <li><a href="/Home/Index">صفحه اصلی</a></li>
-                        <li><a href="/Blog/Index">وبلاگ</a></li>
+                        <li><a href="/">صفحه اصلی</a></li>
+                        <li><a href="/Blog">@ViewBag.Title</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,16 +35,16 @@
                         <div class="col-xl-4 col-sm-6 grid_item">
                             <div class="news-box box-1">
                                 <div class="news-img">
-                                    <img src="~/Files/ArticleImages/Image/@item.Blog.Image" alt="news-img">
+                                    <img src="~/Files/ArticleImages/Image/@item.Image" alt="news-img">
                                     <div class="date-box text-center text-uppercase">
-                                        <h5>@item.Date</h5>
+                                        <h5>@item.PersianDate</h5>
                                     </div>
                                 </div>
                                 <div class="news-info text-center">
-                                    <h5><a href="/Blog/Detail/@item.Blog.Id">@item.Blog.Title</a></h5>
-                                    <p class="comments">ارسال شده توسط <a href="#"><i>@item.Blog.InsertUser</i></a></p>
-                                    <p class="news-text">@item.Blog.ShortDescription</p>
-                                    @Html.ActionLink("ادامه مطلب", "Detail", "Blog", new { @id = item.Blog.Id }, new { @class = "read-more" })
+                                    <h5><a href="/Blog/Detail/@item.Id">@item.Title</a></h5>
+                                    <p class="comments">ارسال شده توسط <a href="#"><i>@item.Author</i></a></p>
+                                    <p class="news-text">@item.ShortDescription</p>
+                                    @Html.ActionLink("ادامه مطلب", "Detail", "Blog", new { @id = item.Id }, new { @class = "read-more" })
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                     <div class="col-md-12">
                         <nav>
                             <ul class="pagination justify-content-center">
-                                @{
+                                @*@{
                                     int c = @ViewBag.PageCount;
                                 }
                                 @for (int i = 0; i < c; i++)
@@ -66,6 +66,38 @@
                                 @if (c != 0)
                                 {
                                     <li><a onclick="myFunction()" id="next" aria-label="Next" style="color:#fff"><i class="fa fa-angle-right"></i></a></li>
+                                }*@
+
+                                @{
+                                    if (ViewBag.CurrentPage > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class=" page-link-prev" href="/Blog?pageNumber=@(ViewBag.CurrentPage - 1)@(ViewBag.CategoryId != null ? $"&Category={ViewBag.CategoryId}" : null)@(ViewBag.SearchString != null ? $"&searchString={ViewBag.SearchString}" : null)"
+                                               aria-label="Previous" tabindex="-1"
+                                               aria-disabled="true">
+                                                <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+                                            </a>
+                                        </li>
+                                    }
+                                    for (int i = 1; i <= ViewBag.PageCount; i++)
+                                    {
+                                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : null)" aria-current="page">
+                                            <a class=" @(i == ViewBag.CurrentPage ? "active" : null)"
+                                               href="/Blog?pageNumber=@i@(ViewBag.CategoryId != null ? $"&category={ViewBag.CategoryId}" : null)@(ViewBag.SearchString != null ? $"&searchString={ViewBag.SearchString}" : null)">
+                                                @i
+                                            </a>
+                                        </li>
+                                    }
+                                    if (ViewBag.CurrentPage < ViewBag.PageCount)
+                                    {
+                                        <li class="page-item">
+                                            <a class=" page-link-next" href="/Blog?pageNumber=@(ViewBag.CurrentPage + 1)@(ViewBag.CategoryId != null ? $"&category={ViewBag.CategoryId}" : null)@(ViewBag.SearchString != null ? $"&searchString={ViewBag.SearchString}" : null)"
+                                               aria-label="Next" >
+                                                <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+</a>
+                                        </li>
+                                    }
+
                                 }
                             </ul>
                         </nav>
