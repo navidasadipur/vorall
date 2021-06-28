@@ -257,7 +257,7 @@ namespace SpadStorePanel.Infrastructure.Services
             var productDto = new ProductWithPriceDto()
             {
                 Id = product.Id,
-                //ShortTitle = product.Title,
+                ShortTitle = product.Title,
                 ProductGroupId = productGroup.Id,
                 ProductGroupName = productGroup.Title,
                 Rate = product.Rate,
@@ -281,7 +281,7 @@ namespace SpadStorePanel.Infrastructure.Services
             var productDto = new ProductWithPriceDto()
             {
                 Id = product.Id,
-                //ShortTitle = product.Title,
+                ShortTitle = product.Title,
                 ProductGroupId = productGroup.Id,
                 ProductGroupName = productGroup.Title,
                 Rate = product.Rate,
@@ -304,7 +304,7 @@ namespace SpadStorePanel.Infrastructure.Services
             var productDto = new ProductWithPriceDto()
             {
                 Id = product.Id,
-                //ShortTitle = product.Title,
+                ShortTitle = product.Title,
                 ProductGroupId = productGroup.Id,
                 ProductGroupName = productGroup.Title,
                 Rate = product.Rate,
