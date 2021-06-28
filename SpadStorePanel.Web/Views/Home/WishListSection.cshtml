@@ -190,10 +190,13 @@
 </a>*@
 
     <a href="/Cookie/WishList" data-toggle="tooltip" data-placement="top" title="" data-original-title="لیست علاقه مندی ها">
-        <i class="ion-android-favorite"></i>
         @if (Model.WishListItems != null)
         {
-            <span class="wishlist-count">@Model.WishListItems.Count()</span>
-        }
+            <div class="cart-icon">
+                <i class="ion-ios-cart"></i>
+                <span>@Model.WishListItems.Count()</span>
+            </div>
+                    }
+            <i class="ion-android-favorite"></i>
     </a>
     @*<a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>*@

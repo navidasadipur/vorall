@@ -5255,7 +5255,7 @@
     <Content Include="Views\Home\HeaderSection.cshtml" />
     <Content Include="Views\Shared\BreadCrumbSection.cshtml" />
     <Content Include="Views\ContactUs\Index.cshtml" />
-    <Content Include="Views\Shared\HeaderShareSection.cshtml" />
+    <Content Include="Views\Home\HeaderShareSection.cshtml" />
     <Content Include="Views\ContactUs\FormSection.cshtml" />
     <Content Include="Views\Home\CounterSection.cshtml" />
     <Content Include="Views\Home\CustomerCommentSection.cshtml" />

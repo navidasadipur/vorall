@@ -242,42 +242,54 @@
             });
         }
 
-        //function GetWishList() {
-        //    $.ajax({
-        //        type: 'GET',
-        //        url: '/Home/WishListSection',
-        //        success: function (data) {
-        //            var obj = JSON.parse(data);
-        //                                console.log(obj);
-        //            for (var i = 0; i < obj.WishListItems.length; i++) {
-        //                var t = ".product_" + obj.WishListItems[i].Id;
-        //                $(t).css("color", "red");
-        //            }
-        //            $("#wishListSection").html(data);
-        //        },
-        //        error: function (data) {
-        //            console.log("error");
-        //            console.log(data);
-        //        },
-        //        complete: function () {
-        //        }
-        //    });
-        //    if ($("#wishListTable") !== undefined) {
-        //        $.ajax({
-        //            type: 'GET',
-        //            url: '/Cookie/WishListTable',
-        //            success: function (data) {
-        //                $("#WishListTable").html(data);
-        //            },
-        //            error: function (data) {
-        //                console.log("error");
-        //                console.log(data);
-        //            },
-        //            complete: function () {
-        //            }
-        //        });
-        //    }
-        //}
+        function GetWishList() {
+            $.ajax({
+                type: 'GET',
+                url: '/Home/WishListSection',
+                success: function (data) {
+                    $("#wishListSection").html(data);
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: '/Cookie/WishListTable',
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+                    for (var i = 0; i < obj.WishListItems.length; i++) {
+                        var t = ".product_" + obj.WishListItems[i].Id;
+                        $(t).css("color", "red");
+                    }
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                }
+            });
+            if ($("#wishListTable") !== undefined) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Cookie/WishListTable',
+                    success: function (data) {
+                        $("#WishListTable").html(data);
+                    },
+                    error: function (data) {
+                        console.log("error");
+                        console.log(data);
+                    },
+                    complete: function () {
+                    }
+                });
+            }
+        }
 
         function AddToCart(id, mainFeature) {
             $("#preloader").show();
