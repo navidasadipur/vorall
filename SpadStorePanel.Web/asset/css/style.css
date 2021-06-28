@@ -567,6 +567,11 @@ iframe {
   position: relative;
   padding-right: 10px;
 }
+.heart-icon {
+    display: inline-block;
+    position: relative;
+    padding-right: 10px;
+}
 .cart-icon span {
   position: absolute;
   top: -4px;
@@ -579,8 +584,22 @@ iframe {
   color: #fff;
   font-weight: 500;
   border-radius: 100%;
-  right: 4px;
+  right: -2px;
 }
+    .heart-icon span {
+        position: absolute;
+        top: -22px;
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        background-color: #2ab7ca;
+        text-align: center;
+        line-height: 20px;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 100%;
+        right: -2px;
+    }
 .header-cart > a {
   font-weight: bold;
   font-size: 18px;
@@ -4549,6 +4568,11 @@ body.theme-3 {
   height: 17px;
   line-height: 18px;
 }
+    .header-options .heart-icon span {
+        width: 17px;
+        height: 17px;
+        line-height: 18px;
+    }
 .header-options .cart-icon i {
   padding: 0;
 }

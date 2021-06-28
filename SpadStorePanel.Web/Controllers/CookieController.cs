@@ -297,6 +297,28 @@ namespace SpadStorePanel.Web.Controllers
             return JsonConvert.SerializeObject(wishListModel);
         }
 
+        public ActionResult WishListPage()
+        {
+            ViewBag.BanerImage = _staticContentRepo.GetStaticContentDetail(13).Image;
+
+            return View();
+        }
+
+        public ActionResult WishListTablePage()
+        {
+            var wishListModel = new WishListModel();
+
+            HttpCookie cartCookie = Request.Cookies["wishList"] ?? new HttpCookie("wishList");
+
+            if (!string.IsNullOrEmpty(cartCookie.Values["wishList"]))
+            {
+                string cartJsonStr = cartCookie.Values["wishList"];
+                wishListModel = new WishListModel(cartJsonStr);
+            }
+
+            return PartialView(wishListModel);
+        }
+
         [HttpPost]
         public void RemoveFromWishList(int productId)
         {

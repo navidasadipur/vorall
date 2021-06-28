@@ -5290,8 +5290,8 @@
     <Content Include="Views\Shop\Checkout.cshtml" />
     <Content Include="Views\Shop\CheckoutForm.cshtml" />
     <Content Include="Views\Cookie\ConfirmOrder.cshtml" />
-    <Content Include="Views\Cookie\WishList.cshtml" />
-    <Content Include="Views\Cookie\WishListTable.cshtml" />
+    <Content Include="Views\Cookie\WishListPage.cshtml" />
+    <Content Include="Views\Cookie\WishListTablePage.cshtml" />
     <Content Include="Views\Home\WishListSection.cshtml" />
     <Content Include="Views\Blog\ContactUsSummary.cshtml" />
     <Content Include="Views\ContactUs\ContactUsSummary.cshtml" />
