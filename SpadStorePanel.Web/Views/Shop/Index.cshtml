@@ -31,9 +31,9 @@
                     @foreach (var item in Model)
                     {
                         <div class="col-md-4 col-sm-6 border my-2">
-                            <div class="product-box common-cart-box">
+                            <div class="product-box common-cart-box text-center">
                                 <div class="product-img common-cart-img">
-                                    <img src="~/Files/ProductImages/Image/@item.Image" alt="product-img" style="height:300px;">
+                                    <img src="~/Files/ProductImages/Thumb/@item.Image" alt="product-img">
                                     <div class="hover-option">
                                         <div class="add-cart-btn">
                                             <a href="javascript:void(0)" onclick="AddToCart(@item.Id)" class="btn btn-primary">افزودن به سبد خرید</a>
@@ -44,10 +44,13 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="product-info common-cart-info text-center">
-                                    @Html.ActionLink(item.ShortTitle, "Detail", "Shop", new { @id = item.Id }, new { @class = "cart-name" })
-                                    <p class="cart-price"><del>@item.Price تومان</del>@item.PriceAfterDiscount تومان</p>
-                                </div>
+                                <a href="/Shop/Detail/@item.Id" class="cart-name" id="@item.Id">
+                                    <div class="product-info common-cart-info">
+                                        @item.ShortTitle
+                                        @*@Html.ActionLink(item.ShortTitle, "Detail", "Shop", new { @id = item.Id }, new { @class = "cart-name" })*@
+                                        <p class="cart-price"><del>@item.Price تومان</del>@item.PriceAfterDiscount تومان</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     }
