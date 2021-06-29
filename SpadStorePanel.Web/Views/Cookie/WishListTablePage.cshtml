@@ -2,50 +2,51 @@
 
 
 @*<table class="table border mb-0">
+        <thead>
+            <tr>
+                <th>تصویر</th>
+                <th>نام محصول</th>
+                <th>حذف</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.WishListItems != null)
+            {
+                foreach (var item in Model.WishListItems)
+                {
+                    <tr>
+                        <td>
+                            <a href="/Shop/Product/@item.Id">
+                                <div class="product-image">
+                                    <img alt="@item.ProductName" src="/Files/ProductImages/Thumb/@item.Image">
+                                </div>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="product-title">
+                                <a href="product-page.html">@item.ProductName</a>
+                            </div>
+                        </td>
+
+
+
+                        <td>
+                            <a href="javascript:void(0)" class="btn small btn-color" onclick="removeFromWishList(@item.Id)">
+                                <i title="Remove Item From Cart" data-id="100" class="fa fa-trash cart-remove-item"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>*@
+
+
+<table class="table table-bordered text-center">
     <thead>
         <tr>
             <th>تصویر</th>
             <th>نام محصول</th>
-            <th>حذف</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.WishListItems != null)
-        {
-            foreach (var item in Model.WishListItems)
-            {
-                <tr>
-                    <td>
-                        <a href="/Shop/Product/@item.Id">
-                            <div class="product-image">
-                                <img alt="@item.ProductName" src="/Files/ProductImages/Thumb/@item.Image">
-                            </div>
-                        </a>
-                    </td>
-                    <td>
-                        <div class="product-title">
-                            <a href="product-page.html">@item.ProductName</a>
-                        </div>
-                    </td>
-
-
-
-                    <td>
-                        <a href="javascript:void(0)" class="btn small btn-color" onclick="removeFromWishList(@item.Id)">
-                            <i title="Remove Item From Cart" data-id="100" class="fa fa-trash cart-remove-item"></i>
-                        </a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>*@
-
-
-<table class="table table-wishlist table-mobile">
-    <thead>
-        <tr>
-            <th>محصول</th>
             <th>قیمت</th>
             <th>وضعیت محصول</th>
             <th></th>
@@ -66,10 +67,13 @@
                                     <img width="60px" height="60px" src="/Files/ProductImages/Thumb/@item.Image" alt="@item.ProductName">
                                 </a>
                             </figure>
-
-                            <h3 class="product-title">
+                        </div><!-- End .product -->
+                    </td>
+                    <td class="product-col">
+                        <div class="product">
+                            <p class="">
                                 <a href="/Shop/Product/@item.Id">@item.ProductName</a>
-                            </h3><!-- End .product-title -->
+                            </p><!-- End .product-title -->
                         </div><!-- End .product -->
                     </td>
                     <td class="price-col">
@@ -99,7 +103,7 @@
                         <td class="stock-col"><span class="out-of-stock">نا موجود</span></td>
                     }
                     <td class="action-col">
-                        <a class="btn btn-block btn-outline-primary-2" href="/Shop/Product/@item.Id">مشاهده محصول و خرید</a>
+                        <a class="btn-primary" href="/Shop/Product/@item.Id">مشاهده محصول و خرید</a>
                         @*<div class="dropdown">
                             <button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
@@ -113,71 +117,23 @@
                             </div>
                         </div>*@
                     </td>
-                    <td class="remove-col text-left">
+                    <td class="row-close close-2">
                         @*<button class="btn-remove">
                             <i class="icon-close"></i>
                         </button>*@
-                        <a href="javascript:void(0)" class="btn-remove" onclick="removeFromWishList(@item.Id)">
-                            <i class="icon-close"></i>
+                        <a href="javascript:void(0)" onclick="removeFromWishList(@item.Id)">
+                            <i class="ion-close-circled"></i>
                         </a>
                     </td>
                 </tr>
+
             }
         }
-                @*<tr>
-                    <td class="product-col">
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="#">
-                                    <img width="60px" height="60px" src="/Content/client/pic/p4.jpg" alt="تصویر محصول">
-                                </a>
-                            </figure>
+        <tr>
+            <td colspan="12">
+                <a href="/Shop" class="btn btn-secondary"><i class="fa fa-chevron-left"></i>ادامه خرید </a>
+            </td>
+        </tr>
 
-                            <h3 class="product-title">
-                                <a href="#">محصول</a>
-                            </h3><!-- End .product-title -->
-                        </div><!-- End .product -->
-                    </td>
-                    <td class="price-col">76,000 تومان</td>
-                    <td class="stock-col"><span class="in-stock">موجود</span></td>
-                    <td class="action-col">
-                        <button class="btn btn-block btn-outline-primary-2">
-                            <i class="icon-cart-plus"></i>افزودن به سبد خرید
-                        </button>
-                    </td>
-                    <td class="remove-col text-left">
-                        <button class="btn-remove">
-                            <i class="icon-close"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="product-col">
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="#">
-                                    <img width="60px" height="60px" src="/Content/client/pic/p8.jpg" alt="تصویر محصول">
-                                </a>
-                            </figure>
-
-                            <h3 class="product-title">
-                                <a href="#">محصول</a>
-                            </h3><!-- End .product-title -->
-                        </div><!-- End .product -->
-                    </td>
-                    <td class="price-col">52,000 تومان</td>
-                    <td class="stock-col"><span class="out-of-stock">ناموجود</span></td>
-                    <td class="action-col">
-                        <button class="btn btn-block btn-outline-primary-2 disabled">ناموجود</button>
-                    </td>
-                    <td class="remove-col text-left">
-                        <button class="btn-remove">
-                            <i class="icon-close"></i>
-                        </button>
-                    </td>
-                </tr>*@
-            </tbody>
+    </tbody>
 </table><!-- End .table table-wishlist -->
-
-
-

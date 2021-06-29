@@ -257,7 +257,6 @@
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\SocialViewModel.cs" />
     <Compile Include="ViewModels\UserViewModels.cs" />
-    <Compile Include="ViewModels\WishListItemModel.cs" />
     <Compile Include="ViewModels\WishListModel.cs" />
   </ItemGroup>
   <ItemGroup>
