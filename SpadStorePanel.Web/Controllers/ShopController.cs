@@ -53,15 +53,28 @@ namespace SpadStorePanel.Web.Controllers
         }
 
         // GET: Shop
-        public ActionResult Index(int page=0)
+        public ActionResult Index(int pageNumber = 1)
         {
-            var model = _productService.GetProductsWithPrice().OrderByDescending(x => x.Id).Skip((page - 1) * 10).Take(10).ToList();
+            //var model = _productService.GetProductsWithPrice().OrderByDescending(x => x.Id).Skip((page - 1) * 10).Take(10).ToList();
 
-            float d = _productService.GetProductsWithPrice().Count() / 10f;
+            //float d = _productService.GetProductsWithPrice().Count() / 10f;
 
-            ViewBag.PageCount = (int)Math.Ceiling(d);
+            ////ViewBag.PageCount = (int)Math.Ceiling(d);
+            ///
 
-            return View(model);
+            var products = _productService.GetProductsWithPrice().OrderByDescending(x => x.Id).ToList();
+
+            var take = 9;
+
+            var count = products.Count;
+            var skip = pageNumber * take - take;
+            int pageCount = (int)Math.Ceiling((double)count / take);
+            ViewBag.PageCount = pageCount;
+            ViewBag.CurrentPage = pageNumber;
+
+            products = products.Skip(skip).Take(take).ToList();
+
+            return View(products);
         }
 
         public ActionResult Detail(int id)

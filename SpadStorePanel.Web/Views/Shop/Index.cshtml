@@ -59,7 +59,7 @@
                     <div class="col-12">
                         <nav>
                             <ul class="pagination justify-content-center pt-2">
-                                @{
+                                @*@{
                                     int c = @ViewBag.PageCount;
                                 }
                                 @for (int i = 0; i < c; i++)
@@ -71,6 +71,37 @@
                                 @if (c != 0)
                                 {
                                     <li><a onclick="myFunction()" id="next" aria-label="Next" style="color:#fff"><i class="fa fa-angle-right"></i></a></li>
+                                }*@
+                                @{
+                                    if (ViewBag.CurrentPage > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class=" page-link-prev" href="/Shop?pageNumber=@(ViewBag.CurrentPage - 1)@(ViewBag.CategoryId != null ? $"&Category={ViewBag.CategoryId}" : null)@(ViewBag.SearchString != null ? $"&searchString={ViewBag.SearchString}" : null)"
+                                               aria-label="Previous" tabindex="-1"
+                                               aria-disabled="true">
+                                                <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+                                            </a>
+                                        </li>
+                                    }
+                                    for (int i = 1; i <= ViewBag.PageCount; i++)
+                                    {
+                                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : null)" aria-current="page">
+                                            <a class=" @(i == ViewBag.CurrentPage ? "active" : null)"
+                                               href="/Shop?pageNumber=@i@(ViewBag.CategoryId != null ? $"&category={ViewBag.CategoryId}" : null)@(ViewBag.SearchString != null ? $"&searchString={ViewBag.SearchString}" : null)">
+                                                @i
+                                            </a>
+                                        </li>
+                                    }
+                                    if (ViewBag.CurrentPage < ViewBag.PageCount)
+                                    {
+                                        <li class="page-item">
+                                            <a class=" page-link-next" href="/Shop?pageNumber=@(ViewBag.CurrentPage + 1)@(ViewBag.CategoryId != null ? $"&category={ViewBag.CategoryId}" : null)@(ViewBag.SearchString != null ? $"&searchString={ViewBag.SearchString}" : null)"
+                                               aria-label="Next">
+                                                <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+                                            </a>
+                                        </li>
+                                    }
+
                                 }
                             </ul>
                         </nav>
