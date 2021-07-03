@@ -15,9 +15,11 @@ namespace SpadStorePanel.Web.Controllers
     {
         private readonly ProductService _productService;
 
-        private readonly ProductsRepository _productRepository;
+        private readonly ProductsRepository _productsRepository;
 
-        private readonly ProductGroupsRepository _productGroupsRepository;
+        private readonly ProductGroupsRepository _productGroupsRepositor;
+
+        private readonly BrandsRepository _brandsRepository;
 
         private readonly ProductFeatureValuesRepository _productFeatureValuesRepository;
 
@@ -29,11 +31,18 @@ namespace SpadStorePanel.Web.Controllers
 
         private readonly StaticContentDetailsRepository _staticContentDetailsRepository;
 
-        public ShopController(ProductService productService, ProductsRepository productsRepository, ProductMainFeaturesRepository productMainFeaturesRepository
-        , ProductFeatureValuesRepository productFeatureValuesRepository, ProductGalleriesRepository productGalleriesRepository
-        , ProductCommentsRepository productCommentsRepository
-        , StaticContentDetailsRepository staticContentDetailsRepository
-        , ProductGroupsRepository productGroupsRepository)
+        public ShopController
+            (
+            ProductService productService
+            , ProductsRepository productsRepository
+            , ProductMainFeaturesRepository productMainFeaturesRepository
+            , ProductFeatureValuesRepository productFeatureValuesRepository
+            , ProductGalleriesRepository productGalleriesRepository
+            , ProductCommentsRepository productCommentsRepository
+            , StaticContentDetailsRepository staticContentDetailsRepository
+            , ProductGroupsRepository productGroupsRepository
+            , BrandsRepository brandsRepository
+            )
         {
             _staticContentDetailsRepository = staticContentDetailsRepository;
 
@@ -43,13 +52,15 @@ namespace SpadStorePanel.Web.Controllers
 
             _productMainFeaturesRepository = productMainFeaturesRepository;
 
-            _productRepository = productsRepository;
+            _productsRepository = productsRepository;
 
             _productGalleriesRepository = productGalleriesRepository;
 
             _productFeatureValuesRepository = productFeatureValuesRepository;
 
-            _productGroupsRepository = productGroupsRepository;
+            _productGroupsRepositor = productGroupsRepository;
+
+            _brandsRepository = brandsRepository;
         }
 
         // GET: Shop
@@ -64,9 +75,161 @@ namespace SpadStorePanel.Web.Controllers
             return View(model);
         }
 
+        [Route("ProductsGrid")]
+        public ActionResult ProductsGrid(GridViewModel grid)
+        {
+            var products = new List<Product>();
+
+            var brandsIntArr = new List<int>();
+
+            if (string.IsNullOrEmpty(grid.brands) == false)
+            {
+                var brandsArr = grid.brands.Split('-').ToList();
+                brandsArr.ForEach(b => brandsIntArr.Add(Convert.ToInt32(b)));
+            }
+
+            var subFeaturesIntArr = new List<int>();
+            if (string.IsNullOrEmpty(grid.subFeatures) == false)
+            {
+                var subFeaturesArr = grid.subFeatures.Split('-').ToList();
+                subFeaturesArr.ForEach(b => subFeaturesIntArr.Add(Convert.ToInt32(b)));
+            }
+
+            products = _productService.GetProductsGrid(grid.categoryId, brandsIntArr, subFeaturesIntArr, grid.priceFrom, grid.priceTo, grid.searchString);
+
+            #region Get Products Base on Group, Brand and Products of "offer"
+
+            var allSearchedTargetProducts = new List<Product>();
+
+            if (grid.GroupIds != null || grid.ProductIds != null || grid.BrandIds != null)
+            {
+                //search based on multiple group ids
+                if (string.IsNullOrEmpty(grid.GroupIds) == false)
+                {
+                    var groupIdsIntArr = new List<int>();
+
+                    var groupIdsArr = grid.GroupIds.Split('-').ToList();
+                    groupIdsArr.ForEach(g => groupIdsIntArr.Add(Convert.ToInt32(g)));
+
+                    var allTargetGroups = new List<ProductGroup>();
+
+                    foreach (var id in groupIdsIntArr)
+                    {
+                        var group = _productGroupsRepositor.GetProductGroup(id);
+
+                        allTargetGroups.Add(group);
+                    }
+
+                    foreach (var group in allTargetGroups)
+                    {
+                        if (group != null)
+                        {
+                            var allProductsOfOneGroup = _productsRepository.getProductsByGroupId(group.Id);
+
+                            foreach (var product in allProductsOfOneGroup)
+                            {
+                                allSearchedTargetProducts.Add(product);
+                            }
+                        }
+                    }
+                }
+
+                //search based on multiple brand ids
+                if (string.IsNullOrEmpty(grid.BrandIds) == false)
+                {
+                    var brandIdsIntArr = new List<int>();
+
+                    var brandIdsArr = grid.BrandIds.Split('-').ToList();
+                    brandIdsArr.ForEach(b => brandIdsIntArr.Add(Convert.ToInt32(b)));
+
+                    var allTargetBrands = new List<Brand>();
+
+                    foreach (var id in brandIdsIntArr)
+                    {
+                        var brand = _brandsRepository.GetBrand(id);
+
+                        allTargetBrands.Add(brand);
+                    }
+
+                    foreach (var brand in allTargetBrands)
+                    {
+                        if (brand != null)
+                        {
+                            var allProductsOfOneBrand = _productsRepository.getProductsByBrandId(brand.Id);
+
+                            foreach (var product in allProductsOfOneBrand)
+                            {
+                                allSearchedTargetProducts.Add(product);
+                            }
+                        }
+                    }
+                }
+
+                //search based on multiple product ids
+                if (string.IsNullOrEmpty(grid.ProductIds) == false)
+                {
+                    var productIdsIntArr = new List<int>();
+
+                    var productIdsArr = grid.ProductIds.Split('-').ToList();
+                    productIdsArr.ForEach(b => productIdsIntArr.Add(Convert.ToInt32(b)));
+
+                    foreach (var id in productIdsIntArr)
+                    {
+                        var product = _productsRepository.GetProduct(id);
+
+                        //if product not found in allSearchedTargetProducts
+                        if (!allSearchedTargetProducts.Contains(product))
+                        {
+                            allSearchedTargetProducts.Add(product);
+                        }
+                    }
+                }
+
+                products = allSearchedTargetProducts;
+            }
+
+            #endregion
+
+            #region Sorting
+
+            if (grid.sort != "date")
+            {
+                switch (grid.sort)
+                {
+                    case "name":
+                        products = products.OrderBy(p => p.Title).ToList();
+                        break;
+                    case "sale":
+                        products = products.OrderByDescending(p => _productService.GetProductSoldCount(p)).ToList();
+                        break;
+                    case "price-high-to-low":
+                        products = products.OrderByDescending(p => _productService.GetProductPriceAfterDiscount(p)).ToList();
+                        break;
+                    case "price-low-to-high":
+                        products = products.OrderBy(p => _productService.GetProductPriceAfterDiscount(p)).ToList();
+                        break;
+                }
+            }
+            #endregion
+
+            var count = products.Count;
+            var skip = grid.pageNumber * grid.take - grid.take;
+            int pageCount = (int)Math.Ceiling((double)count / grid.take);
+            ViewBag.PageCount = pageCount;
+            ViewBag.CurrentPage = grid.pageNumber;
+
+            products = products.Skip(skip).Take(grid.take).ToList();
+
+            var vm = new List<ProductWithPriceDto>();
+            foreach (var product in products)
+                vm.Add(_productService.CreateProductWithPriceDto(product));
+
+            return PartialView(vm);
+        }
+
         public ActionResult Detail(int id)
         {
-            var product = _productRepository.GetProduct(id);
+            var product = _productsRepository.GetProduct(id);
             var productGallery = _productGalleriesRepository.GetProductGalleries(id);
             var productMainFeatures = _productMainFeaturesRepository.GetProductMainFeatures(id);
             var productFeatureValues = _productFeatureValuesRepository.GetProductFeatures(id);
@@ -91,7 +254,7 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult CategorySection()
         {
-            return PartialView("CategorySection", _productGroupsRepository.GetAllGroupsWithProducts());
+            return PartialView("CategorySection", _productGroupsRepositor.GetAllGroupsWithProducts());
         }
 
         public ActionResult ColorsSection()
@@ -181,7 +344,7 @@ namespace SpadStorePanel.Web.Controllers
 
             foreach (var item in productsId)
             {
-                var product = _productRepository.GetProduct(Convert.ToInt32(item));
+                var product = _productsRepository.GetProduct(Convert.ToInt32(item));
                 var productGallery = _productGalleriesRepository.GetProductGalleries(Convert.ToInt32(item));
                 var productMainFeatures = _productMainFeaturesRepository.GetProductMainFeatures(Convert.ToInt32(item));
                 var productFeatureValues = _productFeatureValuesRepository.GetProductFeatures(Convert.ToInt32(item));
@@ -210,7 +373,7 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult PopupData(int id)
         {
-            var product = _productRepository.GetProduct(id);
+            var product = _productsRepository.GetProduct(id);
             var productGallery = _productGalleriesRepository.GetProductGalleries(id);
             var productMainFeatures = _productMainFeaturesRepository.GetProductMainFeatures(id);
             var productFeatureValues = _productFeatureValuesRepository.GetProductFeatures(id);

@@ -26,7 +26,10 @@
 <section class="pt_large pb_large shop-inner-section">
     <div class="container">
         <div class="row">
-            <div class="col-xl-9 col-lg-8 col-md-12">
+
+            <!--Start Product Grid-->
+            <div id="grid" class="col-xl-9 col-lg-8 col-md-12">
+
                 <div class="row">
                     @foreach (var item in Model)
                     {
@@ -72,11 +75,16 @@
                                 {
                                     <li><a onclick="myFunction()" id="next" aria-label="Next" style="color:#fff"><i class="fa fa-angle-right"></i></a></li>
                                 }
+
+
                             </ul>
                         </nav>
                     </div>
                 </div>
             </div>
+            <!--End Product Grid-->
+
+
             <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first">
                 <div class="shop-sidebar">
                     @Html.Action("CategorySection", "Shop")
