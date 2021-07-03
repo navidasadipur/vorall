@@ -58,6 +58,19 @@ namespace SpadStorePanel.Infrastructure.Repositories
         {
             return _context.ProductGroups.Where(f => f.IsDeleted == false).Include(p => p.Children).OrderByDescending(p=>p.InsertDate).ToList();
         }
+
+        public List<ProductGroup> GetAllGroupsWithProducts()
+        {
+            var allGroups = _context.ProductGroups.Where(g => g.IsDeleted == false).Include(g => g.Children).Include(g => g.Products).OrderByDescending(p => p.InsertDate).ToList();
+
+            foreach (var group in allGroups)
+            {
+                group.Products = _context.Products.Where(p => p.IsDeleted == false && p.ProductGroupId == group.Id).ToList();
+            }
+
+            return allGroups;
+        }
+
         public ProductGroup AddNewProductGroup(int parentId, string title, List<int> brandIds, List<int> featureIds)
         {
             var productGroup = new ProductGroup();

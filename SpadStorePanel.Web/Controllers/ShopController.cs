@@ -91,7 +91,7 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult CategorySection()
         {
-            return PartialView("CategorySection", _productGroupsRepository.GetAll());
+            return PartialView("CategorySection", _productGroupsRepository.GetAllGroupsWithProducts());
         }
 
         public ActionResult ColorsSection()
