@@ -16,5 +16,17 @@ namespace SpadStorePanel.Infrastructure.Repositories
             _context = context;
             _logger = logger;
         }
+
+        public List<ArticleCategory> GetAllCategoriesWithArticles()
+        {
+            var allCategories = _context.ArticleCategories.Where(c => c.IsDeleted == false).OrderByDescending(c => c.InsertDate).ToList();
+
+            foreach (var category in allCategories)
+            {
+                category.Articles = _context.Articles.Where(p => p.IsDeleted == false && p.ArticleCategoryId == category.Id).ToList();
+            }
+
+            return allCategories;
+        }
     }
 }

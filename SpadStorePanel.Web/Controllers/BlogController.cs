@@ -136,7 +136,7 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult CategorySection()
         {
-            return PartialView("CategorySection",_articleCategoriesRepository.GetAll());
+            return PartialView("CategorySection",_articleCategoriesRepository.GetAllCategoriesWithArticles());
         }
 
         public ActionResult SendCommentSection()

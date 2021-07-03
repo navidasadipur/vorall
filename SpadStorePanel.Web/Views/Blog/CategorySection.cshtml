@@ -9,7 +9,9 @@
             @foreach (var item in Model)
             {
                 <li>
-                    @Html.ActionLink(item.Title, "GetByCategory", "Blog", new { @id = item.Id }, null)
+                    <a href="/Blog/GetByCategory/@item.Id">@item.Title<span>(@item.Articles.Count())</span></a>
+
+                    @*@Html.ActionLink(item.Title, "GetByCategory", "Blog", new { @id = item.Id }, null)*@
                 </li>
             }
         </ul>
