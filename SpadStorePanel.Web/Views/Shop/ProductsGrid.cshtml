@@ -269,26 +269,7 @@
 
                 @if (Model.Any())
                 {
-    <div class="shop-options d-sm-flex justify-content-between align-items-center">
-        <div class="sorting-option">
-            <select class="sorting-items" onchange="GetGrid()" name="sort" id="sort">
-                <option value="date" selected="selected">مرتب کردن بر اساس تاریخ ثبت</option>
-                <option value="name">مرتب کردن بر اساس اسم محصول</option>
-                <option value="price-high-to-low">مرتب کردن بر اساس قیمت از زیاد به کم</option>
-                <option value="price-low-to-high">مرتب کردن بر اساس قیمت از کم به زیاد</option>
-                <option value="sale">مرتب کردن بر اساس پر فروش ها</option>
-            </select>
-        </div>
-        @*<div class="showing-items">
-            <p>نمایش نتایج</p>
-        </div>
-        <div class="shop-list_grid">
-            <div class="list_grid-btns">
-                <a href="javascript:void(0)" class="list-view"><i class="ion-navicon-round"></i></a>
-                <a href="javascript:void(0)" class="grid-view on"><i class="ion-grid"></i></a>
-            </div>
-        </div>*@
-    </div>
+
                     <div class="row">
                         @foreach (var item in Model)
                         {
@@ -323,6 +304,32 @@
                             <nav>
                                 <ul class="pagination justify-content-center pt-2">
                                     @{
+                                        if (ViewBag.CurrentPage > 1)
+                                        {
+                                            <li>
+                                                <a class=" page-link-prev" href="#" onclick="GetGrid(@(ViewBag.CurrentPage-1))" aria-label="Previous" tabindex="-1"
+                                                   aria-disabled="true">
+                                                    <i class="fa fa-angle-left"></i>
+                                                </a>
+                                            </li>
+                                        }
+                                        for (int i = 1; i <= ViewBag.PageCount; i++)
+                                        {
+                                            <li class="@(i == ViewBag.CurrentPage? "active":null)" aria-current="page">
+                                                <a class="pageNumber" href="#" onclick="GetGrid(@i)">@i</a>
+                                            </li>
+                                        }
+                                        if (ViewBag.CurrentPage < ViewBag.PageCount)
+                                        {
+                                            <li class="page-item">
+                                                <a class=" page-link-next" href="#" onclick="GetGrid(@(ViewBag.CurrentPage+1))" aria-label="Next">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+                                    @*@{
                                         int c = @ViewBag.PageCount;
                                     }
                                     @for (int i = 0; i < c; i++)
@@ -334,7 +341,7 @@
                                     @if (c != 0)
                                     {
                                         <li><a onclick="myFunction()" id="next" aria-label="Next" style="color:#fff"><i class="fa fa-angle-right"></i></a></li>
-                                    }
+                                    }*@
 
 
                                 </ul>

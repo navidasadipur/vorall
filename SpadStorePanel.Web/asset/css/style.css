@@ -2025,6 +2025,7 @@ header {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  width: 300px;
 }
 .sorting-option {
   position: relative;

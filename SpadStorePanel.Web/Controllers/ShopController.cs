@@ -95,7 +95,11 @@ namespace SpadStorePanel.Web.Controllers
                 ViewBag.ProductGroupName = selectedProductGroup.Title;
                 ViewBag.ProductGroupId = selectedProductGroup.Id;
                 ViewBag.Title = $"محصولات {selectedProductGroup.Title}";
+
             }
+
+            ViewBag.MinPrice = _productMainFeaturesRepository.GetMinPrice();
+            ViewBag.MaxPrice = _productMainFeaturesRepository.GetMaxPrice();
 
             if (searchString != null)
                 ViewBag.SearchString = searchString;

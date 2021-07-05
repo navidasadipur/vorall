@@ -26,15 +26,36 @@
 <section class="pt_large pb_large shop-inner-section">
     <div class="container">
         <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="shop-options d-sm-flex justify-content-between align-items-center">
+                    <div class="sorting-option">
+                        <select class="sorting-items" onchange="GetGrid()" name="sort" id="sort">
+                            <option value="date" selected="selected">مرتب کردن بر اساس تاریخ ثبت</option>
+                            <option value="name">مرتب کردن بر اساس اسم محصول</option>
+                            <option value="price-high-to-low">مرتب کردن بر اساس قیمت از زیاد به کم</option>
+                            <option value="price-low-to-high">مرتب کردن بر اساس قیمت از کم به زیاد</option>
+                            <option value="sale">مرتب کردن بر اساس پر فروش ها</option>
+                        </select>
+                    </div>
+                    @*<div class="showing-items">
+                            <p>نمایش نتایج</p>
+                        </div>
+                        <div class="shop-list_grid">
+                            <div class="list_grid-btns">
+                                <a href="javascript:void(0)" class="list-view"><i class="ion-navicon-round"></i></a>
+                                <a href="javascript:void(0)" class="grid-view on"><i class="ion-grid"></i></a>
+                            </div>
+                        </div>*@
+                </div>
 
-            <!--Start Product Grid-->
-            <div id="grid" class="col-xl-9 col-lg-8 col-md-12">
+                <!--Start Product Grid-->
+                <div id="grid">
 
-                
+
+                </div>
+                <!--End Product Grid-->
+
             </div>
-            <!--End Product Grid-->
-
-
             <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first">
                 <div class="shop-sidebar">
                     @Html.Action("CategorySection", "Shop")
@@ -51,9 +72,42 @@
 
 @section script
 {
+    @if (ViewBag.MinPrice != null)
+    {
+        <script>
+    var minPrice = @ViewBag.MinPrice ;
+        </script>
+    }
+    @if (ViewBag.MaxPrice != null)
+    {
+        <script>
+    var maxPrice = @ViewBag.MaxPrice ;
+    //console.log(maxPrice)
+    //console.log(minPrice)
+        </script>
+    }
+
     <script>
+            /*===================================*
+    10. PRICE FILTER JS
+    *===================================*/
+
+    $("#slider-range").slider({
+        range: true,
+        min: minPrice,
+        max: maxPrice,
+        values: [minPrice, maxPrice],
+        slide: function (event, ui) {
+            $("#amount").val("از" + ui.values[0] + "-تا" + ui.values[1]);
+
+        }
+    });
+    $("#amount").val("از" + $("#slider-range").slider("values", 0) + "-تا" + $("#slider-range").slider("values", 1));
+
+
         $("#setPrice").click(function () {
             var price = $("#amount").val().replace("از", "").replace("تا", "").split("-");
+
             window.location.href = "/Shop/SetPrice?min=" + price[0] + "&Max=" + price[1];
         });
     </script>
@@ -132,7 +186,7 @@
         var selectedGroupId = @Model.SelectedGroupId;
 
         function GetGrid(page, groupId) {
-            $("#loading").show();
+            $("#preloader").show();
             var pageNumber = 1;
             if (page != null) {
                 pageNumber = page;
@@ -143,21 +197,23 @@
             categoryId = categoryId === null ? selectedGroupId : categoryId;
             var searchString =  '@ViewBag.SearchString';
             var brands = [];
-            var priceFrom = null;
-            var priceTo = null;
-            var selectedPriceRange = $("span#filter-price-range").text().replaceAll("تومان", "");
-            if (selectedPriceRange != undefined) {
-                var priceRangeArr = selectedPriceRange.split('-');
-                 console.log(priceRangeArr);
-                if (parseInt(priceRangeArr[0]) > 0) {
-                    priceFrom = parseInt(priceRangeArr[0]);
-                    console.log(priceFrom);
-                }
-                if (parseInt(priceRangeArr[1]) > 0) {
-                    priceTo = parseInt(priceRangeArr[1]);
-                    console.log(priceTo);
-                }
-            }
+            var price = $("#amount").val().replace("از", "").replace("تا", "").split("-");
+            var priceFrom = price[0];
+            var priceTo = price[1];
+
+            //var selectedPriceRange = $("span#filter-price-range").text().replaceAll("تومان", "");
+            //if (selectedPriceRange != undefined) {
+            //    var priceRangeArr = selectedPriceRange.split('-');
+            //     console.log(priceRangeArr);
+            //    if (parseInt(priceRangeArr[0]) > 0) {
+            //        priceFrom = parseInt(priceRangeArr[0]);
+            //        console.log(priceFrom);
+            //    }
+            //    if (parseInt(priceRangeArr[1]) > 0) {
+            //        priceTo = parseInt(priceRangeArr[1]);
+            //        console.log(priceTo);
+            //    }
+            //}
 
             $("input[name='brands']").map(function() {
                 if ($(this).prop("checked") === true) {
@@ -196,7 +252,7 @@
                     console.log(data);
                 },
                 complete: function() {
-                    $("#loading").hide();
+                    $("#preloader").fadeOut(1000);
                 }
             });
         }

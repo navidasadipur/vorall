@@ -508,17 +508,17 @@ Version      : 1.3
     10. PRICE FILTER JS
     *===================================*/
 
-    $("#slider-range").slider({
-        range: true,
-        min: 10,
-        max: 500,
-        values: [10, 500],
-        slide: function (event, ui) {
-            $("#amount").val("از" + ui.values[0] + "-تا" + ui.values[1]);
+    //$("#slider-range").slider({
+    //    range: true,
+    //    min: 10,
+    //    max: 500,
+    //    values: [10, 500],
+    //    slide: function (event, ui) {
+    //        $("#amount").val("از" + ui.values[0] + "-تا" + ui.values[1]);
            
-        }
-    });
-    $("#amount").val("از" + $("#slider-range").slider("values", 0) + "-تا" + $("#slider-range").slider("values", 1));
+    //    }
+    //});
+    //$("#amount").val("از" + $("#slider-range").slider("values", 0) + "-تا" + $("#slider-range").slider("values", 1));
 
     /*===================================*
     11. SELECT2 JS
