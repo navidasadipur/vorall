@@ -174,5 +174,15 @@ namespace SpadStorePanel.Infrastructure.Repositories
             #endregion
             return productGroup;
         }
+
+        public List<ProductGroup> GetChildrenProductGroups(int? parentId = null)
+        {
+            var groups = new List<ProductGroup>();
+            if (parentId == null)
+                groups = _context.ProductGroups.Where(p => p.IsDeleted == false && p.ParentId == null).Include(p => p.Children).ToList();
+            else
+                groups = _context.ProductGroups.Where(p => p.IsDeleted == false && p.ParentId == parentId).Include(p => p.Children).ToList();
+            return groups;
+        }
     }
 }
