@@ -37,5 +37,17 @@ namespace SpadStorePanel.Infrastructure.Repositories
 
             return mainFeature;
         }
+
+        public long GetMinPrice()
+        {
+            var minPrice = _context.ProductMainFeatures.Where(f => f.IsDeleted == false && f.SubFeatureId != null).Min(f => f.Price);
+            return minPrice;
+        }
+
+        public long GetMaxPrice()
+        {
+            var maxPrice = _context.ProductMainFeatures.Where(f => f.IsDeleted == false && f.SubFeatureId != null).Max(f => f.Price);
+            return maxPrice;
+        }
     }
 }

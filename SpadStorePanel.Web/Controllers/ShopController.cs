@@ -53,7 +53,7 @@ namespace SpadStorePanel.Web.Controllers
         }
 
         // GET: Shop
-        public ActionResult Index(int pageNumber = 1)
+        public ActionResult Index(int pageNumber = 1, long minPrice = -1, long maxPrice = -1)
         {
             //var model = _productService.GetProductsWithPrice().OrderByDescending(x => x.Id).Skip((page - 1) * 10).Take(10).ToList();
 
@@ -64,6 +64,26 @@ namespace SpadStorePanel.Web.Controllers
 
             var products = _productService.GetProductsWithPrice().OrderByDescending(x => x.Id).ToList();
 
+            //if minPrice or maxPrice does not specified
+            if (minPrice == -1)
+            {
+                minPrice = _productMainFeaturesRepository.GetMinPrice();
+            }
+            if (maxPrice == -1)
+            {
+                maxPrice = _productMainFeaturesRepository.GetMaxPrice();
+            }
+
+            targetProductsPriceFilted = FilteringByPrice(model.MinPrice, model.MaxPrice, allSearchedTargetProducts);
+
+            allTargetProducts = targetProductsPriceFilted;
+
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
+
+            
+
+            //take number of products in every page
             var take = 9;
 
             var count = products.Count;
@@ -300,5 +320,28 @@ namespace SpadStorePanel.Web.Controllers
 
             return PartialView(cartModel);
         }
+
+        #region Helpers
+        private List<Product> FilteringByPrice(int minFilterPrice, int maxFilterPrice, List<Product> allTargetProducts)
+        {
+            var targetProducts = new List<Product>();
+
+            foreach (var product in allTargetProducts)
+            {
+                product.ProductMainFeatures = new List<ProductMainFeature>();
+
+                product.ProductMainFeatures = (_productMainFeaturesRepository.GetProductMainFeatures(product.Id));
+
+                var targetProductId = product.ProductMainFeatures.Where(pmf => pmf.Price >= minFilterPrice && pmf.Price <= maxFilterPrice).Select(pmf => pmf.ProductId).FirstOrDefault();
+
+                if (targetProductId != 0)
+                {
+                    targetProducts.Add(_productRepository.GetProduct(targetProductId));
+                }
+            }
+
+            return targetProducts;
+        }
+        #endregion
     }
 }
