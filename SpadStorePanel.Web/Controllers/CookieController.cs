@@ -280,7 +280,6 @@ namespace SpadStorePanel.Web.Controllers
                     string cartJsonStr = cartCookie.Values["wishList"];
                     wishListModel = new WishListModel(cartJsonStr);
                 }
-
             }
             catch (Exception e)
             {
@@ -293,7 +292,6 @@ namespace SpadStorePanel.Web.Controllers
                 Response.Cookies.Add(cartCookie);
             }
 
-            
             return JsonConvert.SerializeObject(wishListModel);
         }
 

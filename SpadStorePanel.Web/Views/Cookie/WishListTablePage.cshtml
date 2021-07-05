@@ -41,23 +41,23 @@
         </tbody>
     </table>*@
 
+@if (Model.WishListItems != null)
+{
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>تصویر</th>
+                <th>نام محصول</th>
+                <th>قیمت</th>
+                <th>وضعیت محصول</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
 
-<table class="table table-bordered text-center">
-    <thead>
-        <tr>
-            <th>تصویر</th>
-            <th>نام محصول</th>
-            <th>قیمت</th>
-            <th>وضعیت محصول</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
+        <tbody>
 
-    <tbody>
-        @if (Model.WishListItems != null)
-        {
-            foreach (var item in Model.WishListItems)
+            @foreach (var item in Model.WishListItems)
             {
                 <tr>
                     <td class="product-col">
@@ -105,22 +105,22 @@
                     <td class="action-col">
                         <a class="btn-primary" href="/Shop/Product/@item.Id">مشاهده محصول و خرید</a>
                         @*<div class="dropdown">
-                            <button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                <i class="icon-list-alt"></i>انتخاب گزینه ها
-                            </button>
+                                <button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-list-alt"></i>انتخاب گزینه ها
+                                </button>
 
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">گزینه 1</a>
-                                <a class="dropdown-item" href="#">گزینه 2</a>
-                                <a class="dropdown-item" href="#">گزینه 3</a>
-                            </div>
-                        </div>*@
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">گزینه 1</a>
+                                    <a class="dropdown-item" href="#">گزینه 2</a>
+                                    <a class="dropdown-item" href="#">گزینه 3</a>
+                                </div>
+                            </div>*@
                     </td>
                     <td class="row-close close-2">
                         @*<button class="btn-remove">
-                            <i class="icon-close"></i>
-                        </button>*@
+                                <i class="icon-close"></i>
+                            </button>*@
                         <a href="javascript:void(0)" onclick="removeFromWishList(@item.Id)">
                             <i class="ion-close-circled"></i>
                         </a>
@@ -128,12 +128,18 @@
                 </tr>
 
             }
-        }
-        <tr>
-            <td colspan="12">
-                <a href="/Shop" class="btn btn-secondary"><i class="fa fa-chevron-left"></i>ادامه خرید </a>
-            </td>
-        </tr>
 
-    </tbody>
-</table><!-- End .table table-wishlist -->
+            <tr>
+                <td colspan="12">
+                    <a href="/Shop" class="btn btn-secondary"><i class="fa fa-chevron-left"></i>ادامه خرید </a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table><!-- End .table table-wishlist -->
+}
+else
+{
+    <h4 style="margin: 0 auto;text-align:center"><a href="/Shop" class="btn btn-primary btn-block rounded-0">لیست علاقه مندی های شما خالی است <br /> بازگشت به فروشگاه</a></h4>
+
+}
