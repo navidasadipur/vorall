@@ -59,7 +59,25 @@
             <div class="col-xl-3 col-lg-4 col-md-12 order-lg-first">
                 <div class="shop-sidebar">
                     @Html.Action("CategorySection", "Shop")
-                    @Html.Action("PriceSection", "Shop")
+                    <div class="side-filter-box side-box">
+                        <div class="side-box-title">
+                            <h6>فیلترکردن</h6>
+                        </div>
+                        <div class="filter-box-detail">
+                            <div id="slider-range"></div>
+                            <div class="price_slider_amount">
+                                <div class="slider-values d-flex align-items-center">
+                                    <p>قیمت</p>
+                                    <input type="text" id="amount" name="price" placeholder="قیمت موردنظر را وارد کنید" />
+
+                                </div>
+                                <button type="button" class="btn btn-sm btn-info text-white btn-block mt-2" onclick="GetGrid()" id="setPrice">اعمال فیلتر قیمت بر کل محصولات</button>
+                                <button type="button" class="btn btn-sm btn-info text-white btn-block mt-2" onclick="reload()" style="margin-right: 0;">پاک کردن فیلتر قیمت</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    @*@Html.Action("PriceSection", "Shop")*@
                     @Html.Action("ColorsSection", "Shop")
                     @Html.Action("NewProductSection", "Shop")
                 </div>
@@ -105,11 +123,11 @@
     $("#amount").val("از" + $("#slider-range").slider("values", 0) + "-تا" + $("#slider-range").slider("values", 1));
 
 
-        $("#setPrice").click(function () {
-            var price = $("#amount").val().replace("از", "").replace("تا", "").split("-");
+        //$("#setPrice").click(function () {
+        //    var price = $("#amount").val().replace("از", "").replace("تا", "").split("-");
 
-            window.location.href = "/Shop/SetPrice?min=" + price[0] + "&Max=" + price[1];
-        });
+        //    window.location.href = "/Shop/SetPrice?min=" + price[0] + "&Max=" + price[1];
+        //});
     </script>
 
 
@@ -148,7 +166,11 @@
                 var p = Number(page) + 1;
                 window.location.href = '/Shop?page=' + p;
             }
-        }
+    }
+
+                    function reload() {
+                window.location = window.location.href.split("?")[0];
+            }
 
 
         var pageCount = document.getElementsByClassName("pageNumber").length;
