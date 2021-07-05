@@ -80,5 +80,23 @@ namespace SpadStorePanel.Infrastructure.Repositories
 
             return products;
         }
+
+        public List<Product> getProductsByGroupId(int groupId)
+        {
+            var allProducts = _context.Products.Where(p => p.IsDeleted == false).Include(p => p.ProductGroup);
+
+            var ProductIdCategory = allProducts.Where(p => p.ProductGroup.Id == groupId).OrderByDescending(p => p.Id).ToList();
+
+            return ProductIdCategory;
+        }
+
+        public List<Product> getProductsByBrandId(int brandId)
+        {
+            var allProducts = _context.Products.Where(p => p.IsDeleted == false).Include(p => p.Brand);
+
+            var allProductOfOneBrand = allProducts.Where(p => p.BrandId == brandId).OrderByDescending(p => p.Id).ToList();
+
+            return allProductOfOneBrand;
+        }
     }
 }

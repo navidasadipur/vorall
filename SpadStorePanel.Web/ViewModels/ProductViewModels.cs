@@ -52,4 +52,26 @@ namespace SpadStorePanel.Web.ViewModels
         [Display(Name = "تاریخ ثبت")]
         public string PersianDate { get; set; }
     }
+
+    public class GridViewModel
+    {
+        public GridViewModel()
+        {
+            //display 9 product in every page
+            take = 9;
+        }
+        public int? categoryId { get; set; }
+        public string searchString { get; set; }
+        public long? priceFrom { get; set; }
+        public long? priceTo { get; set; }
+        public string brands { get; set; }
+        public string subFeatures { get; set; }
+        public int pageNumber { get; set; }
+        public int take { get; set; }
+        public string sort { get; set; }
+
+        public string BrandIds { get; set; }
+        public string GroupIds { get; set; }
+        public string ProductIds { get; set; }
+    }
 }
