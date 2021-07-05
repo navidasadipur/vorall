@@ -1,4 +1,4 @@
-﻿@model List<SpadStorePanel.Infrastructure.Dtos.Product.ProductWithPriceDto>
+﻿@model SpadStorePanel.Web.ViewModels.ProductListViewModel
 @{
     ViewBag.Title = "فروشگاه";
     Layout = "~/Views/Shared/LayoutClient.cshtml";
@@ -30,57 +30,7 @@
             <!--Start Product Grid-->
             <div id="grid" class="col-xl-9 col-lg-8 col-md-12">
 
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col-md-4 col-sm-6 border my-2">
-                            <div class="product-box common-cart-box text-center">
-                                <div class="product-img common-cart-img">
-                                    <img src="~/Files/ProductImages/Thumb/@item.Image" alt="product-img">
-                                    <div class="hover-option">
-                                        <div class="add-cart-btn">
-                                            <a href="javascript:void(0)" onclick="AddToCart(@item.Id)" class="btn btn-primary">افزودن به سبد خرید</a>
-                                        </div>
-                                        <ul class="hover-icon">
-                                            <li><a href="javascript:void(0)" onclick="wish(@item.Id)" class="product_@item.Id"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="javascript:void(0)" onclick="AddToCompareList(@item.Id)" class="compare_@item.Id"><i class="fa fa-refresh"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <a href="/Shop/Detail/@item.Id" class="cart-name" id="@item.Id">
-                                    <div class="product-info common-cart-info">
-                                        @item.ShortTitle
-                                        @*@Html.ActionLink(item.ShortTitle, "Detail", "Shop", new { @id = item.Id }, new { @class = "cart-name" })*@
-                                        <p class="cart-price"><del>@item.Price تومان</del>@item.PriceAfterDiscount تومان</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <nav>
-                            <ul class="pagination justify-content-center pt-2">
-                                @{
-                                    int c = @ViewBag.PageCount;
-                                }
-                                @for (int i = 0; i < c; i++)
-                                {
-                                    <li>
-                                        @Html.ActionLink((i + 1).ToString(), "Index", "Shop", new { @page = i + 1 }, new { @class = "pageNumber" })
-                                    </li>
-                                }
-                                @if (c != 0)
-                                {
-                                    <li><a onclick="myFunction()" id="next" aria-label="Next" style="color:#fff"><i class="fa fa-angle-right"></i></a></li>
-                                }
-
-
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+                
             </div>
             <!--End Product Grid-->
 
@@ -152,5 +102,142 @@
             document.getElementById("next").style.display = "none";
         }
 
+    </script>
+
+    <script>
+        var brandIds = null;
+        var groupIds = null;
+        var productIds = null;
+    </script>
+
+    @if (ViewBag.brandIds != null)
+    {
+        <script>
+            brandIds = "@ViewBag.BrandIds";
+        </script>
+    }
+    @if (ViewBag.groupIds != null)
+    {
+        <script>
+            groupIds = "@ViewBag.GroupIds";
+        </script>
+    }
+    @if (ViewBag.productIds != null)
+    {
+        <script>
+            productIds = "@ViewBag.ProductIds";
+        </script>
+    }
+    <script>
+        var selectedGroupId = @Model.SelectedGroupId;
+
+        function GetGrid(page, groupId) {
+            $("#loading").show();
+            var pageNumber = 1;
+            if (page != null) {
+                pageNumber = page;
+            }
+            var sort = $("#sort").find(":selected").val();
+            var take = $("#take").find(":selected").val();
+            var categoryId = groupId !== undefined ? groupId : null;
+            categoryId = categoryId === null ? selectedGroupId : categoryId;
+            var searchString =  '@ViewBag.SearchString';
+            var brands = [];
+            var priceFrom = null;
+            var priceTo = null;
+            var selectedPriceRange = $("span#filter-price-range").text().replaceAll("تومان", "");
+            if (selectedPriceRange != undefined) {
+                var priceRangeArr = selectedPriceRange.split('-');
+                 console.log(priceRangeArr);
+                if (parseInt(priceRangeArr[0]) > 0) {
+                    priceFrom = parseInt(priceRangeArr[0]);
+                    console.log(priceFrom);
+                }
+                if (parseInt(priceRangeArr[1]) > 0) {
+                    priceTo = parseInt(priceRangeArr[1]);
+                    console.log(priceTo);
+                }
+            }
+
+            $("input[name='brands']").map(function() {
+                if ($(this).prop("checked") === true) {
+                    brands.push(parseInt($(this).val()));
+                }
+            });
+            var subFeatures = [];
+            $("[name='subFeatures']").map(function() {
+                if ($(this).prop("checked") === true) {
+                    subFeatures.push(parseInt($(this).val()));
+                }
+            });
+            var grid = {
+                categoryId: categoryId,
+                searchString: searchString,
+                priceFrom: priceFrom,
+                priceTo: priceTo,
+                brands: brands.join('-'),
+                subFeatures: subFeatures.join('-'),
+                pageNumber: pageNumber,
+                take: take,
+                sort: sort,
+                BrandIds: brandIds,
+                GroupIds: groupIds,
+                ProductIds: productIds,
+            }
+            $.ajax({
+                type: 'GET',
+                url: '/Shop/ProductsGrid',
+                data: grid,
+                success: function(data) {
+                    $("#grid").html(data);
+                },
+                error: function(data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function() {
+                    $("#loading").hide();
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            GetGrid();
+
+            //$("#filter-price-range").on('DOMSubtreeModified', function () {
+            //    alert("Span HTML is now " + $(this).html());
+            //    GetGrid();
+            //});
+
+            // Update Price Range
+            $('#price-slider').mouseup(function () {
+                GetGrid();
+            });
+
+            document.getElementById("reload").onclick = function() {reload()};
+
+
+        });
+                function reload() {
+                window.location = window.location.href.split("?")[0];
+            }
+
+                    function CheckPriceUpdated() {
+        var newMintxt = $('.from').text();
+        var newMaxtxt = $('.to').text();
+
+        var newMin = newMintxt.substring(1);
+        var newMax = newMaxtxt.substring(1);
+
+        if (newMin != minPrice || newMax != maxPrice) {
+            minPrice = newMin;
+            maxPrice = newMax;
+
+            searchString = "";
+            $('.search-field').val(searchString);
+
+            submitForm();
+        }
+    }
     </script>
 }

@@ -14,23 +14,14 @@ namespace SpadStorePanel.Web.Controllers
     public class ShopController : Controller
     {
         private readonly ProductService _productService;
-
         private readonly ProductsRepository _productsRepository;
-
         private readonly ProductGroupsRepository _productGroupsRepository;
-
         private readonly BrandsRepository _brandsRepository;
-
         private readonly FeaturesRepository _featuresRepository;
-
         private readonly ProductFeatureValuesRepository _productFeatureValuesRepository;
-
         private readonly ProductMainFeaturesRepository _productMainFeaturesRepository;
-
         private readonly ProductGalleriesRepository _productGalleriesRepository;
-
         private readonly ProductCommentsRepository _productCommentsRepository;
-
         private readonly StaticContentDetailsRepository _staticContentDetailsRepository;
 
         public ShopController
@@ -48,23 +39,14 @@ namespace SpadStorePanel.Web.Controllers
             )
         {
             _staticContentDetailsRepository = staticContentDetailsRepository;
-
             _productService = productService;
-
             _productCommentsRepository = productCommentsRepository;
-
             _productMainFeaturesRepository = productMainFeaturesRepository;
-
             _productsRepository = productsRepository;
-
             _productGalleriesRepository = productGalleriesRepository;
-
             _productFeatureValuesRepository = productFeatureValuesRepository;
-
             _productGroupsRepository = productGroupsRepository;
-
             _brandsRepository = brandsRepository;
-
             _featuresRepository = featuresRepository;
         }
 
@@ -136,7 +118,7 @@ namespace SpadStorePanel.Web.Controllers
             return View(vm);
         }
 
-        [Route("ProductsGrid")]
+        //[Route("ProductsGrid")]
         public ActionResult ProductsGrid(GridViewModel grid)
         {
             var products = new List<Product>();

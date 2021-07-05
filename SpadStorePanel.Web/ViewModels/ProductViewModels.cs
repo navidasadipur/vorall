@@ -55,6 +55,11 @@ namespace SpadStorePanel.Web.ViewModels
 
     public class GridViewModel
     {
+        public GridViewModel()
+        {
+            //display 9 product in every page
+            take = 9;
+        }
         public int? categoryId { get; set; }
         public string searchString { get; set; }
         public long? priceFrom { get; set; }
