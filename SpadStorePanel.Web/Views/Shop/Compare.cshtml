@@ -1,21 +1,21 @@
 ﻿@model List<SpadStorePanel.Web.ViewModels.ProductDetailViewModel>
 @{
-    ViewBag.Title = "Compare";
+    ViewBag.Title = "مقایسه کنید";
     Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
 @Html.Action("HeaderShareSection", "Home")
 <!-- Start Breadcrumbs Section -->
-<section class="breadcrumbs-section background_bg" data-img-src="/asset/image/compare.jpg">
+<section class="breadcrumbs-section background_bg" data-img-src="/Files/StaticContentImages/Image/@ViewBag.HeaderImage">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="page_title text-center">
-                    <h1>مقایسه کنید</h1>
+                    <h1>@ViewBag.Title</h1>
                     <ul class="breadcrumb justify-content-center">
                         <li><a href="/">صفحه اصلی</a></li>
                         <li><a href="/Shop">فروشگاه</a></li>
-                        <li><span>مقایسه کنید</span></li>
+                        <li><span>@ViewBag.Title</span></li>
                     </ul>
                 </div>
             </div>

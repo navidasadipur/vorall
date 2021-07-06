@@ -1,4 +1,5 @@
 ﻿using SpadStorePanel.Core.Models;
+using SpadStorePanel.Core.Utility;
 using SpadStorePanel.Infrastructure.Dtos.Product;
 using SpadStorePanel.Infrastructure.Repositories;
 using SpadStorePanel.Infrastructure.Services;
@@ -117,7 +118,9 @@ namespace SpadStorePanel.Web.Controllers
 
             ViewBag.Banner = banner;
 
-            ViewBag.BanerImage = _staticContentDetailsRepository.GetStaticContentDetail(13).Image;
+            //ViewBag.BanerImage = _staticContentDetailsRepository.GetStaticContentDetail(13).Image;
+
+            ViewBag.HeaderImage = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
 
             return View(vm);
         }
@@ -296,6 +299,9 @@ namespace SpadStorePanel.Web.Controllers
                 PriceAfterDiscount = priceAfterDiscount,
                 DiscountPercentage = (int)(priceAfterDiscount * 100 / price)
             };
+
+            ViewBag.HeaderImage = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
+
             return View(vm);
         }
 
@@ -428,6 +434,8 @@ namespace SpadStorePanel.Web.Controllers
 
                 Model.Add(vm);
             }
+
+            ViewBag.HeaderImage = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
 
             return View(Model);
         }

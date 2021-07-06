@@ -31,6 +31,7 @@ namespace SpadStorePanel.Core.Utility
         BlogImage = 1013,
         ContactUsBackImageAndContent = 2,
         BlogBackImage = 35,
+        ShopBackImage = 36,
         companyServices = 3003,
         CopyRight = 3004,
         ImplementaitonService = 3005,
