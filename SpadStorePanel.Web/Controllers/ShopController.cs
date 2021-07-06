@@ -299,6 +299,20 @@ namespace SpadStorePanel.Web.Controllers
             return View(vm);
         }
 
+        public string GetProductPrice(int productId, int mainFeatureId)
+        {
+            var product = _productsRepository.Get(productId);
+            var price = _productService.GetProductPrice(product, mainFeatureId);
+            var priceAfterDiscount = _productService.GetProductPriceAfterDiscount(product, mainFeatureId);
+            var result = new
+            {
+                price = price.ToString("##,###"),
+                priceAfterDiscount = priceAfterDiscount.ToString("##,###")
+            };
+            var jsonStr = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+            return jsonStr;
+        }
+
         public ActionResult CategorySection()
         {
             return PartialView("CategorySection", _productGroupsRepository.GetAllGroupsWithProducts());

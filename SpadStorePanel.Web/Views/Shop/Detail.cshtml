@@ -46,9 +46,38 @@
             <div class="col-md-7">
                 <div class="quickview-product-detail">
                     <h2 class="box-title">محصولات جانبی</h2>
-                    <h3 class="box-price"><del>@Model.Price تومان</del>@Model.PriceAfterDiscount تومان</h3>
+                    <del id="productPrice">@Model.Price تومان</del>
+                    <h3 class="box-price" id="productPriceAfterDiscount">@Model.PriceAfterDiscount تومان</h3>
+
+                    @*<h3 class="box-price" id="productPriceAfterDiscount"><del id="productPrice">@Model.Price تومان</del>@Model.PriceAfterDiscount تومان</h3>*@
                     <p class="box-text">@Model.Product.ShortDescription</p>
-                    <p class="stock">موجود در: <span>فروشگاه ندا</span></p>
+                    @*<p class="stock">موجود در: <span>فروشگاه ندا</span></p>*@
+                    @{
+                        var featureName = Model.ProductMainFeatures.FirstOrDefault().Feature.Title;
+
+                        var i = 0;
+                        <div class="quantity-box">
+                            <p>@featureName : </p>
+
+
+                            <div class="product-nav product-nav-thumbs" id="product-main-btn">
+                                @foreach (var item in Model.ProductMainFeatures)
+                                {
+                                    var className = "";
+                                    i++;
+
+                                    if (i == 1)
+                                    {
+                                        className = "selected";
+                                    }
+                                    <a href="javascript:void(0)" onclick="UpdateProductPrice(@item.ProductId,@item.Id, this)" class="btn btn-primary @className">
+                                        @(item.SubFeature != null ? item.SubFeature.Value : item.Value)
+                                    </a>
+                                }
+                                <input type="hidden" name="mainFeatureId" id="mainFeatureId" value="@Model.ProductMainFeatures.FirstOrDefault().Id" />
+                            </div><!-- End .product-nav -->
+                        </div>
+                    }
                     <div class="quantity-box">
                         <p>تعداد:</p>
                         <div class="input-group">
@@ -190,8 +219,60 @@
     </div>
 </section>
 
+<style>
+    a.selected {
+        background-color: #dc3545;
+    }
+
+    .my-error-class {
+        color: darkred !important; /* red */
+    }
+</style>
 
 @section script{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#commentform").validate({
+            errorClass: "my-error-class",
+            rules: {
+                Name: "required",
+                Message: "required",
+                Email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                Name: "نام خود را وارد کنید",
+                Message: "پیام خود را وارد کنید",
+                Email: {
+                    required: "ایمیل خود را وارد کنید",
+                    email: "ایمیل وارد شده معتبر نیست"
+                },
+            }
+        });
+    </script>
+    <script>
+        function UpdateProductPrice(productId, mainFeatureId, target) {
+
+            $.ajax({
+                type: 'GET',
+                url: '/Shop/GetProductPrice?productId=' + productId + '&mainFeatureId=' + mainFeatureId,
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    $("#productPrice").html(obj.price);
+                    $("#mainFeatureId").val(mainFeatureId);
+                    $("#productPriceAfterDiscount").html(obj.priceAfterDiscount);
+                },
+                error: function (data) {
+                    console.log("error");
+                    console.log(data);
+                },
+                complete: function () {
+                }
+            });
+        }
+    </script>
     <script>
         function submitForm() {
             // Initiate Variables With Form Content
@@ -218,5 +299,27 @@
                 }
             });
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            // Get the container element
+            var btnContainer = document.getElementById("product-main-btn");
+
+            // Get all buttons with class="btn" inside the container
+            var btns = btnContainer.getElementsByClassName("btn-primary");
+
+            console.log(btns)
+            // Loop through the buttons and add the active class to the current/clicked button
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function () {
+                    var current = document.getElementsByClassName("selected");
+                    console.log(current)
+                    current[0].className = current[0].className.replace(" selected", "");
+                    this.className += " selected";
+                });
+            }
+
+        });
     </script>
 }
