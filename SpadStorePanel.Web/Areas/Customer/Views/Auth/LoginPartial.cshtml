@@ -90,7 +90,7 @@
     }*@
 
 
-@using (Html.BeginForm("Login", "Auth", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "comment-form", role = "login-form", id = "form" }))
+@*@using (Html.BeginForm("Login", "Auth", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "comment-form", role = "login-form", id = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -109,7 +109,7 @@
     <div class="form-submit btn-form">
         <input id="submit" value="ورود" type="submit">
     </div>
-}
+}*@
 
 
 @using (Html.BeginForm("Login", "Auth", new { area = "Customer" }, FormMethod.Post, new { @class = "subscribe-popup-form" }))

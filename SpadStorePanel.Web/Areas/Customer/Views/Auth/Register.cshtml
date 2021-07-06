@@ -268,7 +268,7 @@
     </section>
     <!-- end blog-single-section -->*@
 
-
+@Html.Action("HeaderShareSection", "Home", new { area = "" })
 <div id="test-popup2" class="white-popup lr-popup text-center">
     <h4>ثبت نام</h4>
     @using (Html.BeginForm("Register", "Auth", new { area = "Customer" }, FormMethod.Post, new { @id = "form", @class = "subscribe-popup-form", role = "form" }))
@@ -298,8 +298,8 @@
             ثبت نام
         </button>
     }
-<h6 style="margin-top:50px">حساب کاربری دارید؟</h6>
-<a href="/Customer/Auth/Login" class="sign-up">برای ورود کلیک کنید</a>
+    <h6 style="margin-top:50px">حساب کاربری دارید؟</h6>
+    <a href="/Customer/Auth/Login" class="sign-up">برای ورود کلیک کنید</a>
 </div>
 
 

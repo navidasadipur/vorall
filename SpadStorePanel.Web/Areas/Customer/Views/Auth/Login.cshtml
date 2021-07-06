@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "ورود";
-     Layout = "~/Views/Shared/LayoutClient.cshtml";
+    Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
 
@@ -95,6 +95,7 @@
     </section>
     <!-- end blog-single-section -->*@
 
+@Html.Action("HeaderShareSection", "Home", new { area = "" })
 <div id="test-popup1" class="white-popup lr-popup text-center">
     <h4>ورود</h4>
     @if (!string.IsNullOrEmpty(ViewBag.LoginError))
@@ -112,7 +113,7 @@
     @Html.Action("LoginPartial", "Auth", new { area = "Customer" })
 
     @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-<br />
+    <br />
     <h6 style="margin-top:50px">حساب کاربری ندارید؟</h6>
     <a href="/Customer/Auth/Register" class="sign-up">برای ثبت نام کلیک کنید</a>
 </div>
