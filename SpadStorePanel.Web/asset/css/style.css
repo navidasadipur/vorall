@@ -525,13 +525,14 @@ iframe {
   position: fixed;
   right: 0;
   left: 0;
-  top: 80px;
+  top: 95px;
 }
 .nav-fixed .header-mdl {
     position: fixed;
     right: 0;
     left: 0;
     top: 0;
+    z-index: 9;
 }
 
 
@@ -540,6 +541,7 @@ iframe {
     right: 0;
     left: 0;
     top: 0;
+    z-index: 9;
 }
 
 .nav-fixed.no-sticky .header-btm {
@@ -551,7 +553,7 @@ iframe {
   background-color: #fff;
   border: 1px solid #f2f2f2;
   transition: all 0.3s ease-in-out;
-  z-index: 9;
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.12);
