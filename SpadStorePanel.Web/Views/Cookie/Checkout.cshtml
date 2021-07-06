@@ -1,4 +1,4 @@
-﻿@model drugStore7.Web.ViewModels.CartModel
+﻿@model SpadStorePanel.Web.ViewModels.CartModel
 @{
     ViewBag.Title = "ثبت نهایی";
 }
@@ -280,7 +280,7 @@
 
                         @if (ViewBag.Errors.Count < 1) // don't show checkout form if there are errors
                         {
-                            @Html.Action("CheckoutForm", "Shop", new { invoiceNumber = ViewBag.InvoiceNumber })
+                            @Html.Action("CheckoutForm", "Cookie", new { invoiceNumber = ViewBag.InvoiceNumber })
                         }
                         <aside class="col-lg-3">
                             <div class="summary">
