@@ -14,7 +14,18 @@
                 </div>
                 <div class="cart-product">
                     <a href="/Shop/Detail/@item.Id">@item.ShortTitle</a>
-                    <a href="/Shop/Detail/@item.Id" class="cp-comments"><del>@item.Price تومان</del>@item.PriceAfterDiscount</a>
+                    <a href="/Shop/Detail/@item.Id" class="cp-comments">
+                        @if (item.PriceAfterDiscount < item.Price)
+                        {
+                            <del id="productPrice">@item.Price.ToString("##,###") تومان</del>
+                            <p class="box-price" id="productPriceAfterDiscount">@item.PriceAfterDiscount.ToString("##,###") تومان</p>
+                        }
+                        else if (item.Price != 0)
+                        {
+                            <p class="box-price" id="productPriceAfterDiscount">@item.PriceAfterDiscount.ToString("##,###") تومان</p>
+                        }
+                        @*<del>@item.Price تومان</del>@item.PriceAfterDiscount*@
+                    </a>
                 </div>
             </div>
         }

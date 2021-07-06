@@ -291,7 +291,16 @@
                                         <div class="product-info common-cart-info">
                                             @item.ShortTitle
                                             @*@Html.ActionLink(item.ShortTitle, "Detail", "Shop", new { @id = item.Id }, new { @class = "cart-name" })*@
-                                            <p class="cart-price"><del>@item.Price تومان</del>@item.PriceAfterDiscount تومان</p>
+                                            @if (item.PriceAfterDiscount < item.Price)
+                                            {
+                                                
+                                                <p class="cart-price" id="productPriceAfterDiscount"><del id="productPrice">@item.Price.ToString("##,###") تومان</del>@item.PriceAfterDiscount.ToString("##,###") تومان</p>
+                                            }
+                                            else if (item.Price != 0)
+                                            {
+                                                <p class="cart-price" id="productPriceAfterDiscount">@item.PriceAfterDiscount.ToString("##,###") تومان</p>
+                                            }
+                                            @*<p class="cart-price"><del>@item.Price تومان</del>@item.PriceAfterDiscount تومان</p>*@
                                         </div>
                                     </a>
                                 </div>
