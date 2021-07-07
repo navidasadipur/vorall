@@ -268,12 +268,42 @@
     </section>
     <!-- end blog-single-section -->*@
 
+
+
+
 @Html.Action("HeaderShareSection", "Home", new { area = "" })
+
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" style="background: white;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>حساب من</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="index.html">صفحه اصلی</a></li>
+                        <li><a href="#">فروشگاه</a></li>
+                        <li><span>حساب من</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start حساب من Section -->
 <div id="test-popup2" class="white-popup lr-popup text-center">
     <h4>ثبت نام</h4>
     @using (Html.BeginForm("Register", "Auth", new { area = "Customer" }, FormMethod.Post, new { @id = "form", @class = "subscribe-popup-form", role = "form" }))
     {
         @Html.AntiForgeryToken()
+
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "نام خود را وارد کنید", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.FirstName, "")
+
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "نام خانوادگی خود را وارد کنید", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.LastName, "")
+
 
         @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "نام کاربری خود را وارد کنید", autocomplete = "off" })
         @Html.ValidationMessageFor(m => m.UserName, "")

@@ -3,8 +3,6 @@
     Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
-
-
 @*<main class="main">
         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
             <div class="container">
@@ -95,7 +93,31 @@
     </section>
     <!-- end blog-single-section -->*@
 
+
+
+
 @Html.Action("HeaderShareSection", "Home", new { area = "" })
+
+
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" @*data-img-src="/Files/StaticContentImages/Image/@ViewBag.HeaderImage"*@>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>حساب من</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="index.html">صفحه اصلی</a></li>
+                        <li><a href="#">فروشگاه</a></li>
+                        <li><span>حساب من</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start حساب من Section -->
 <div id="test-popup1" class="white-popup lr-popup text-center">
     <h4>ورود</h4>
     @if (!string.IsNullOrEmpty(ViewBag.LoginError))
