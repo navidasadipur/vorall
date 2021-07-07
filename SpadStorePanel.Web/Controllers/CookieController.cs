@@ -297,7 +297,7 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult WishListPage()
         {
-            ViewBag.BanerImage = _staticContentRepo.GetStaticContentDetail(13).Image;
+            ViewBag.HeaderImage = _staticContentRepo.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
 
             return View();
         }
@@ -468,7 +468,7 @@ namespace SpadStorePanel.Web.Controllers
             ViewBag.DiscountCode = discountCode;
             ViewBag.DiscountAmount = discountAmount;
 
-            ViewBag.BanerImage = _staticContentRepo.GetStaticContentDetail(13).Image;
+            ViewBag.HeaderImage = _staticContentRepo.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
 
             return View(cartModel);
         }
@@ -722,7 +722,7 @@ namespace SpadStorePanel.Web.Controllers
             ViewBag.DiscountCode = discountCode;
             ViewBag.DiscountAmount = discountAmount;
 
-            ViewBag.BanerImage = _staticContentRepo.GetStaticContentDetail(13).Image;
+            ViewBag.HeaderImage = _staticContentRepo.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
 
             return View(cartModel);
 

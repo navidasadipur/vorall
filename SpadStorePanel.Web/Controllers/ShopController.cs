@@ -503,7 +503,7 @@ namespace SpadStorePanel.Web.Controllers
 
         public ActionResult Cart()
         {
-            ViewBag.BanerImage = _staticContentDetailsRepository.GetStaticContentDetail(13).Image;
+            ViewBag.HeaderImage = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.ShopBackImage).Image;
 
             return View();
         }
