@@ -127,13 +127,15 @@
                 {
                 <tr>
                     <td>@item.InvoiceNumber</td>
-                    <td>@item.RegisteredDate</td>
+                    @*<td>@item.RegisteredDate</td>*@
+                    <td>@item.RegisterDate</td>
                     <td>@item.Price تومان</td>
                     @if (item.IsPayed)
                     {
                         <td><span class="text-success">پرداخت موفق</span></td>
                     }
-                    else if (DateTime.Now.Subtract(item.AddedDate).Days > 1)
+                    //else if (DateTime.Now.Subtract(item.AddedDate).Days > 1)
+                    else if (DateTime.Now.Subtract(item.RegisterDate).Days > 1)
                     {
                         <td><span class="text-warning">منقضی شده</span></td>
                     }

@@ -165,7 +165,7 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
                 }
                 #endregion
 
-                var user = new User { UserName = model.UserName, Email = model.Email, /*FirstName = model.FirstName, LastName = model.LastName*/ };
+                var user = new User { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 UserRepo.CreateUser(user, model.Password);
                 if (user.Id != null)
                 {
