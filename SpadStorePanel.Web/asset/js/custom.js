@@ -49,10 +49,12 @@ Version      : 1.3
     *===================================*/
     //Main navigation scroll spy for shadow
     if ($(window).width() >= 992) {
+        var height = $('header').height();
+
         $(window).on('scroll', function () {
             var scroll = $(window).scrollTop();
 
-            if (scroll >= 160) {
+            if (scroll >= height) {
                 $('header').addClass('nav-fixed');
             } else {
                 $('header').removeClass('nav-fixed');
