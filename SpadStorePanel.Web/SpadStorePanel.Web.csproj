@@ -5295,6 +5295,7 @@
     <Content Include="Views\Blog\ContactUsSummary.cshtml" />
     <Content Include="Views\ContactUs\ContactUsSummary.cshtml" />
     <Content Include="Views\Shop\ProductsGrid.cshtml" />
+    <Content Include="Views\Cookie\Expired.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

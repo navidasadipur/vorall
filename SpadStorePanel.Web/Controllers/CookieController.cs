@@ -533,7 +533,7 @@ namespace SpadStorePanel.Web.Controllers
                     }
                     else
                     {
-                        return Redirect("/Shop/Checkout"); // basket is empty
+                        return Redirect("/Cookie/Checkout"); // basket is empty
                     }
 
                     var cartItems = cartModel.CartItems;
@@ -549,13 +549,13 @@ namespace SpadStorePanel.Web.Controllers
                         if (mainFeature == null || (productPrice != item.Price))
                         {
                             // product features have changed
-                            return Redirect("/Shop/Checkout");
+                            return Redirect("/Cookie/Checkout");
                         }
 
                         var productStockCount = _productService.GetProductStockCount(item.Id, item.MainFeatureId);
                         if (item.Quantity > productStockCount)
                         {
-                            return Redirect("/Shop/Checkout"); // out of product 
+                            return Redirect("/Cookie/Checkout"); // out of product 
 
                         }
 
@@ -603,7 +603,7 @@ namespace SpadStorePanel.Web.Controllers
                     // using existing order
                     if (DateTime.Now.Subtract(currentInvoice.AddedDate).TotalDays > 1) // check if invoice is not expired
                     {
-                        return Redirect("/Shop/Expired");
+                        return Redirect("/Cookie/Expired");
                     }
 
                     // recalculate price for order
@@ -614,7 +614,7 @@ namespace SpadStorePanel.Web.Controllers
                         var productStockCount = _productService.GetProductStockCount(item.Id, item.MainFeatureId);
                         if (item.Quantity > productStockCount)
                         {
-                            return Redirect("/Shop/Checkout"); // out of product 
+                            return Redirect("/Cookie/Checkout"); // out of product 
                         }
                         item.Price = product.PriceAfterDiscount;
                         totalPricebeforeDiscountCode += item.Quantity * item.Price;
@@ -652,7 +652,7 @@ namespace SpadStorePanel.Web.Controllers
 
             }
 
-            return Redirect("/Shop/ConfirmOrder/?invoiceNumber=" + checkoutForm.InvoiceNumber);
+            return Redirect("/Cookie/ConfirmOrder/?invoiceNumber=" + checkoutForm.InvoiceNumber);
         }
 
         [CustomerAuthorize]
