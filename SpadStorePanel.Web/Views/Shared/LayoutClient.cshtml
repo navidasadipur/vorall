@@ -114,8 +114,7 @@
 
         function AddToCompareList(id) {
             if (!compareList.includes(id)) {
-                var t = ".compare_" + id;
-                $(t).css("color", "red");
+
 
                 if (compareList.length < 4) {
                     compareList.push(id);
@@ -124,6 +123,8 @@
                     if (compareList.length != 0) {
                         $("#compare").show();
                         $("#compare").text("مقایسه" + "(" + compareList.length + ")");
+                        var t = ".compare_" + id;
+                        $(t).css("color", "red");
                     }
                     else {
                         $("#compare").hide();

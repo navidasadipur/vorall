@@ -23,7 +23,7 @@
     </div>
 </section>
 
-<section class="compare-section pt_large pb_large">
+@*<section class="compare-section pt_large pb_large">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -124,4 +124,156 @@
             </div>
         </div>
     </div>
+</section>*@
+
+<!-- Start Compare Section -->
+<section class="compare-section pt_large pb_large">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="compare-box table-responsive">
+                    <table class="table table-bordered text-center">
+                        <tbody>
+                            <tr class="row-1">
+                                <td class="row-title">
+                                    <p> تصاویر محصول</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-img"><img src="/Files/ProductImages/Image/@item.Product.Image" alt="compare-img"></td>
+                                }
+                            </tr>
+                            <tr class="row-2">
+                                <td class="row-title">
+                                    <p>نام محصول</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="product-name"><a href="/Shop/Detail/@item.Product.Id">@item.Product.Title</a></td>
+                                }
+                            </tr>
+                            <tr class="row-3">
+                                <td class="row-title">
+                                    <p>قیمت</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="product-rate"><span>@item.Price تومان</span></td>
+                                }
+                            </tr>
+                            <tr class="row-4">
+                                <td class="row-title">
+                                    <p>توضیحات</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-text">
+                                        <p class="textalign">
+                                            @item.Product.ShortDescription
+                                        </p>
+                                    </td>
+                                }
+                            </tr>
+                            <tr class="row-5">
+                                <td class="row-title">
+                                    <p>ویژگی اصلی محصول</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-color">
+
+                                        @{
+                                            var featureName = item.ProductMainFeatures.FirstOrDefault().Feature.Title;
+
+                                            var i = 0;
+                                            <div class="">
+                                                <p>@featureName : </p>
+
+
+                                                <div class="product-nav product-nav-thumbs" id="product-main-btn">
+                                                    @foreach (var feature in item.ProductMainFeatures)
+                                                    {
+                                                        //var className = "";
+                                                        //i++;
+
+                                                        //if (i == 1)
+                                                        //{
+                                                        //    className = "selected";
+                                                        //}
+                                                        <p class="">
+                                                            @(feature.SubFeature != null ? feature.SubFeature.Value : feature.Value)
+                                                        </p>
+                                                    }
+                                                    <input type="hidden" name="mainFeatureId" id="mainFeatureId" value="@item.ProductMainFeatures.FirstOrDefault().Id" />
+                                                </div><!-- End .product-nav -->
+                                            </div>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                            <tr class="row-6">
+                                <td class="row-title">
+                                    <p>سایر مشخصات فنی</p>
+                                </td>
+                                @foreach (var item in Model)
+                                {
+                                    <td class="row-size">
+                                        @foreach (var feature in item.ProductFeatureValues)
+                                        {
+                                            <p colspan="1">@(feature.Feature != null ? feature.Feature.Title : feature.Value) :</p>
+                                            if (feature.SubFeature != null)
+                                            {
+                                                var subFeaturevalues = string.Join("، ", feature.SubFeature.Value);
+                                                <p>@subFeaturevalues</p>
+                                            }
+                                            else
+                                            {
+                                                <p>@feature.Value</p>
+                                            }
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                            @*<tr class="row-7">
+                                <td class="row-title">
+                                    <p>موجود در</p>
+                                </td>
+                                <td class="row-stock">
+                                    <p class="in-stock">فروشگاه ندا</p>
+                                </td>
+                                <td class="row-stock">
+                                    <p class="out-stock">فروشگاه صدف </p>
+                                </td>
+                                <td class="row-stock">
+                                    <p class="in-stock">فروشگاه آیلین </p>
+                                </td>
+                                <td class="row-stock">
+                                    <p class="in-stock">فروشگاه آیلین </p>
+                                </td>
+                            </tr>*@
+                        <tr class="row-8">
+                            <td class="row-title"></td>
+                            @foreach (var item in Model)
+                            {
+                                <td class="row-btn"><a href="/Shop/Detail/@item.Product.Id" class="btn-primary">مشاهده محصول و خرید</a></td>
+                            }
+                        </tr>
+                        <tr class="row-9">
+                            <td class="row-title"></td>
+                            @foreach (var item in Model)
+                            {
+                                <td class="row-options">
+                                    <ul class="hover-icon">
+                                        <li><a href="javascript:void(0)" onclick="wish(@item.Product.Id)" class="product_@item.Product.Id"><i class="fa fa-heart"></i></a></li>
+                                    </ul>
+                                </td>
+                            }
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+<!-- End Compare Section -->

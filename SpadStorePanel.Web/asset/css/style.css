@@ -525,7 +525,13 @@ iframe {
   position: fixed;
   right: 0;
   left: 0;
-  top: 95px;
+  top: 80px;
+}
+.nav-fixed .header-btm2 {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 95px !important;
 }
 .nav-fixed .header-mdl {
     position: fixed;
@@ -3026,11 +3032,12 @@ header {
 .compare-box tr td:first-child {
   width: 22%;
 }
-.compare-box tr td:nth-child(2),
-.compare-box tr td:nth-child(3),
-.compare-box tr td:nth-child(4) {
-  width: 26%;
-}
+    .compare-box tr td:nth-child(2),
+    .compare-box tr td:nth-child(3),
+    .compare-box tr td:nth-child(4),
+    .compare-box tr td:nth-child(5) {
+        width: 19.5%;
+    }
 .compare-box .row-title p {
   color: #7a7a7a;
   text-align: right;
