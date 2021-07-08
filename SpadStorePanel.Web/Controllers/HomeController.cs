@@ -222,11 +222,11 @@ namespace SpadStorePanel.Web.Controllers
         {
             List<StaticContentDetail> List = new List<StaticContentDetail>()
             {
-                _staticContentDetailsRepository.Get(28),
+                _staticContentDetailsRepository.GetStaticContentDetail(28),
 
-                _staticContentDetailsRepository.Get(29),
+                _staticContentDetailsRepository.GetStaticContentDetail(29),
 
-                _staticContentDetailsRepository.Get(30),
+                _staticContentDetailsRepository.GetStaticContentDetail(30),
             };
 
             return PartialView("EventSection", List);

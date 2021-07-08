@@ -11,15 +11,15 @@
                         <div class="event-icon">
                             @switch (i)
                             {
-                                case 0:<span class="ion-code-download"></span>
+                                case 0: <span class="ion-thumbsup"></span>
                                     break;
                                 case 1: <span class="ion-model-s"></span>
                                     break;
-                                case 2: <span class="ion-model-s"></span>
+                                case 2: <span class="ion-code-download"></span>
                                     break;
                             }
                         </div>
-                        <p class="event-title">@Model[1].Title</p>
+                        <p class="event-title">@Model[i].Title</p>
                         <p class="event-text textalign">
                             @Model[i].ShortDescription
                         </p>
