@@ -55,21 +55,24 @@ namespace SpadStorePanel.Web.Controllers
 
             FooterViewModel model = new FooterViewModel(socialViewModel);
 
-            model._SocialLinks.Facebook = _staticContentDetailsRepository.Get(11).Link;
+            model._SocialLinks.Facebook = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Facebook).Link;
 
-            model._SocialLinks.Linkdin = _staticContentDetailsRepository.Get(15).Link;
+            model._SocialLinks.Linkdin = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.linkedin).Link;
 
-            model._SocialLinks.GooglePlus = _staticContentDetailsRepository.Get(14).Link;
+            model._SocialLinks.GooglePlus = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.GooglePlus).Link;
 
-            model._SocialLinks.Pintrest = _staticContentDetailsRepository.Get(13).Link;
+            model._SocialLinks.Pintrest = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Pinterest).Link;
 
-            model._SocialLinks.twitter = _staticContentDetailsRepository.Get(12).Link;
+            model._SocialLinks.twitter = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Twitter).Link;
 
-            model.Phone = _staticContentDetailsRepository.Get(9).ShortDescription;
+            model.Phone = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Phone).ShortDescription;
 
-            model.Email = _staticContentDetailsRepository.Get(8).ShortDescription;
+            model.Email = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Email).ShortDescription;
 
-            model.Address = _staticContentDetailsRepository.Get(10).ShortDescription;
+            model.Address = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Address).ShortDescription;
+
+            ViewBag.Logo = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Logo).Image;
+            ViewBag.ShortDescription = _staticContentDetailsRepository.GetStaticContentDetail((int)StaticContents.Logo).ShortDescription;
 
             return PartialView("FooterSection", model);
         }
@@ -83,7 +86,7 @@ namespace SpadStorePanel.Web.Controllers
         {
             List<ProductViewModel> model = new List<ProductViewModel>();
 
-            var listProduct = _productService.GetLatestProductsWithPrice(10);
+            var listProduct = _productService.GetLatestProductsWithPrice(7);
 
             foreach (var item in listProduct)
             {
@@ -101,7 +104,7 @@ namespace SpadStorePanel.Web.Controllers
         {
             List<ProductViewModel> model = new List<ProductViewModel>();
 
-            var listProduct = _productService.GetPopularProductsWithPrice(10);
+            var listProduct = _productService.GetPopularProductsWithPrice(7);
 
             foreach (var item in listProduct)
             {
@@ -117,7 +120,7 @@ namespace SpadStorePanel.Web.Controllers
         {
             List<ProductViewModel> model = new List<ProductViewModel>();
 
-            var listProduct = _productService.GetTopSoldProductsWithPrice(10);
+            var listProduct = _productService.GetTopSoldProductsWithPrice(7);
 
             foreach (var item in listProduct)
             {
@@ -133,7 +136,7 @@ namespace SpadStorePanel.Web.Controllers
         {
             List<ProductViewModel> model = new List<ProductViewModel>();
 
-            var listProduct = _productService.GetProductsWithPrice().Where(x => x.Price > x.PriceAfterDiscount).OrderByDescending(x => x.Id).Take(10);
+            var listProduct = _productService.GetProductsWithPrice().Where(x => x.Price > x.PriceAfterDiscount).OrderByDescending(x => x.Id).Take(7);
 
             foreach (var item in listProduct)
             {

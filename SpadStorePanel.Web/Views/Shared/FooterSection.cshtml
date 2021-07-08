@@ -8,11 +8,11 @@
                 <div class="col-md-4 col-sm-7 mr-3">
                     <div class="footer_widget">
                         <div class="footer-logo fb-title">
-                            <a href="index.html"><img src="~/pic/logo-header.png" alt="logo" /></a>
+                            <a href="index.html"><img src="/Files/StaticContentImages/Image/@ViewBag.Logo" alt="logo" /></a>
                         </div>
                         <div class="fb-iner mb-4">
                             <p class="textalign">
-                                فروشگاه اسفدیاری ارایه دهنده بهترین محصولات جانبی موبایل
+                                @ViewBag.ShortDescription
                             </p>
                         </div>
                         <div class="footer-social social_dark">
@@ -46,12 +46,9 @@
                         <h6 class="fb-title">اطلاعات</h6>
                         <div class="fb-iner">
                             <ul class="footer-links">
-                                <li>
-                                    @Html.ActionLink("شرکت ما", "Index", "ContactUs", null, null)
-                                </li>
-                                <li><a href="#">تماس با ما</a></li>
-                                <li><a href="#">خدمات ما</a></li>
-                                <li><a href="#">همکاران ما</a></li>
+                                <li><a href="/">صفحه اصلی</a></li>
+                                <li><a href="/Home/About">درباره ما</a></li>
+                                <li><a href="/Home/ContactUs">ارتباط با ما</a></li>
                             </ul>
                         </div>
 
