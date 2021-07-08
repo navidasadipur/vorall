@@ -173,29 +173,33 @@
 
 
 @Html.Action("HeaderShareSection", "Home")
-<main class="main">
-    <div class="page-header text-center" style="background-image: url('/Files/StaticContentImages/Image/@ViewBag.HeaderImage')">
-        <div class="container">
-            <h1 class="page-title">@ViewBag.Title<span>فروشگاه</span></h1>
-        </div><!-- End .container -->
-    </div><!-- End .page-header -->
-    <nav aria-label="breadcrumb" class="breadcrumb-nav">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">خانه</a></li>
-                <li class="breadcrumb-item"><a href="/Shop">فروشگاه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
-            </ol>
-        </div><!-- End .container -->
-    </nav><!-- End .breadcrumb-nav -->
-
+<!-- Start Breadcrumbs Section -->
+<section class="breadcrumbs-section background_bg" data-img-src="/Files/StaticContentImages/Image/@ViewBag.HeaderImage">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="page_title text-center">
+                    <h1>@ViewBag.Title</h1>
+                    <ul class="breadcrumb justify-content-center">
+                        <li><a href="/">صفحه اصلی</a></li>
+                        <li><a href="/Shop">فروشگاه</a></li>
+                        <li><span>@ViewBag.Title</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Header Section -->
+<!-- Start Checkout Section -->
+<section class="checkout-inner-page pt_large pb_large">
     <div class="page-content">
         <div class="checkout">
             <div class="container">
                 <form action="/Payment/InitPay" method="post">
                     <div class="row">
                         <div class="col-lg-6 rtl">
-                            <a href="/Shop/Checkout/?invoiceNumber=@ViewBag.InvoiceNumber" class="btn-recheckout">بازگشت به صفحه قبل</a>
+                            <a href="/Shop/Checkout/?invoiceNumber=@ViewBag.InvoiceNumber" class="btn btn-secondary">بازگشت به صفحه قبل</a>
                             <h2 class="checkout-title">مشخصات مشتری</h2><!-- End .checkout-title -->
                             <div class="row">
                                 <div class="col-sm-6">
@@ -323,9 +327,9 @@
                                 <div class="accordion-summary" id="accordion-payment">
                                     <input type="hidden" name="invoiceNumber" value="@ViewBag.InvoiceNumber" readonly="readonly" required />
 
-                                    <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    <button type="submit" class="btn btn-primary btn-submit btn-next">
                                         <span class="btn-text">انتقال به درگاه بانکی</span>
-                                        <span class="btn-hover-text">پرداخت</span>
+                                        @*<span class="btn-hover-text">پرداخت</span>*@
                                     </button>
                                 </div>
                             </div><!-- End .summary -->
@@ -336,17 +340,17 @@
             </div><!-- End .container -->
         </div><!-- End .checkout -->
     </div><!-- End .page-content -->
-</main><!-- End .main -->
+    </section>
 
 
 
 
 
-@section scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section script {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 
-@section LoadingOverlay
-{
-    @Scripts.Render("~/Vendors/")
-}
+    @*@section LoadingOverlay
+        {
+            @Scripts.Render("~/Vendors/")
+        }*@
