@@ -60,7 +60,7 @@ namespace SpadStorePanel.Core.Utility
         About = 13,
         AboutProperties,
 
-        HomeTopSlider = 17,
+        Slider = 6,
         Contact = 2,
 
         Guide = 9,
