@@ -10,7 +10,7 @@
             {
                 foreach (var item in Model.CartItems)
                 {
-                    i+=@item.Quantity;
+                    i += @item.Quantity;
                 }
             }
         }
@@ -28,14 +28,16 @@
                 foreach (var item in Model.CartItems)
                 {
                     <div class="cart-prodect d-flex justify-content-between align-items-center">
-                        <div class="cart-img">
-                            <img src="~/Files/ProductImages/Thumb/@item.Image" alt="cart-img" />
-                        </div>
-                        <div class="cart-product">
-                            <a href="#">@item.ProductName (@item.Quantity)</a>
+                        <a href="/Shop/Detail/@item.Id" class="cart-name" id="@item.Id">
+                            <div class="cart-img">
+                                <img src="~/Files/ProductImages/Thumb/@item.Image" alt="cart-img" />
+                            </div>
+                            <div class="cart-product">
+                                <a href="#">@item.ProductName (@item.Quantity)</a>
 
-                            <p>@item.Price.ToString("##,###") تومان</p>
-                        </div>
+                                <p>@item.Price.ToString("##,###") تومان</p>
+                            </div>
+                        </a>
                         <a href="javascript:void(0)" onclick="RemoveFromCart(@item.Id, @item.MainFeatureId, 'true')" class="close-icon d-flex align-items-center"><i class="ion-close"></i></a>
                     </div>
                 }

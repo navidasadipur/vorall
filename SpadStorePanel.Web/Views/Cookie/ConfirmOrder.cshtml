@@ -268,10 +268,10 @@
                                         @foreach (var item in Model.CartItems)
                                         {
                                             <tr>
-                                                <td><a href="./Product/@item.Id/@item.ProductName.Replace(' ', '-')">@item.ProductName</a></td>
+                                                <td><a href="/Shop/detail/@item.Id">@item.ProductName</a></td>
                                                 <td class="product-col dt-center">
                                                     <figure class="product-media">
-                                                        <a href="/Shop/Product/@item.Id">
+                                                        <a href="/Shop/detail/@item.Id">
                                                             <img width="60px" height="60px" src="/Files/ProductImages/Thumb/@item.Image"
                                                                  alt="@item.ProductName">
                                                         </a>

@@ -259,9 +259,9 @@
                             {
                                 <tbody>
                                     <tr class="row-2">
-                                        <td class="row-close close-1" data-title="حذف"><a href="#"><i class="ion-close-circled"></i></a></td>
-                                        <td class="row-img"><img src="~/Files/ProductImages/Thumb/@item.Image" alt="@item.ProductName-img"></td>
-                                        <td class="product-name" data-title="محصول "><a href="#">@item.ProductName</a></td>
+                                        @*<td class="row-close close-1" data-title="حذف"><a href="#"><i class="ion-close-circled"></i></a></td>*@
+                                        <td class="row-img"><a href="/Shop/Detail/@item.Id"><img src="~/Files/ProductImages/Thumb/@item.Image" alt="@item.ProductName-img"></a></td>
+                                        <td class="product-name" data-title="محصول "><a href="/Shop/Detail/@item.Id">@item.ProductName</a></td>
                                         <td class="product-price" data-title="قیمت ">
                                             <p>@item.Price.ToString("##,###") تومان</p>
                                         </td>
