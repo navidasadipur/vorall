@@ -49,9 +49,9 @@
                         {
                             <tr class="font-weight-boldest">
                                 <td class="pl-0 pt-7">@item.InvoiceItem.Product.Title (@item.MainFeature)</td>
-                                <td class="text-right pt-7">@item.InvoiceItem.Price تومان</td>
+                                <td class="text-right pt-7">@item.InvoiceItem.Price.ToString("##,###") تومان</td>
                                 <td class="text-right pt-7">@item.InvoiceItem.Quantity</td>
-                                <td class="text-danger pr-0 pt-7 text-right">@item.InvoiceItem.TotalPrice تومان</td>
+                                <td class="text-danger pr-0 pt-7 text-right">@item.InvoiceItem.TotalPrice.ToString("##,###") تومان</td>
                             </tr>
                         }
                         </tbody>
@@ -76,7 +76,7 @@
                             <td>@Model.Invoice.CustomerName</td>
                             <td>@Model.Invoice.Phone</td>
                             <td>@Model.PersianDate</td>
-                            <td class="text-danger font-size-h3 font-weight-boldest">@Model.Invoice.TotalPrice تومان</td>
+                            <td class="text-danger font-size-h3 font-weight-boldest">@Model.Invoice.TotalPrice.ToString("##,###") تومان</td>
                         </tr>
                         </tbody>
                     </table>
@@ -93,6 +93,9 @@
         </div>
     </div>
 </div>
+
+
+
 @section scripts {
     <script>
 

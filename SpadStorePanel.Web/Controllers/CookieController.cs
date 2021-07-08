@@ -564,6 +564,7 @@ namespace SpadStorePanel.Web.Controllers
 
                         invoiceItem.Quantity = item.Quantity;
                         invoiceItem.Price = item.Price;
+                        invoiceItem.TotalPrice = item.Price * item.Quantity;
                         invoiceItem.ProductId = product.Id;
                         invoiceItem.MainFeatureId = item.MainFeatureId;
                         invoiceItem.InsertDate = DateTime.Now;
@@ -747,7 +748,7 @@ namespace SpadStorePanel.Web.Controllers
             CheckoutForm.Name = invoice != null ? invoice.CustomerName : customer.User.FirstName + " " + customer.User.LastName;
             CheckoutForm.PostalCode = invoice != null ? invoice.PostalCode : customer.PostalCode;
             CheckoutForm.Phone = invoice != null ? invoice.Phone : customer.User.PhoneNumber;
-            CheckoutForm.GeoDivisionId = invoice != null ? invoice.GeoDivisionId.Value : (customer.GeoDivisionId ?? 1);
+            CheckoutForm.GeoDivisionId = invoice != null ? (invoice.GeoDivisionId != null ? invoice.GeoDivisionId.Value : customer.GeoDivisionId ?? 1) : (customer.GeoDivisionId ?? 1);
             CheckoutForm.DiscountCode = invoice != null ? (invoice.DiscountCode != null ? invoice.DiscountCode.DiscountCodeStr : "") : "";
 
 
