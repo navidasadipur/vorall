@@ -2,7 +2,7 @@
 @using SpadStorePanel.Core.Utility
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "جزئیات محصولات";
     Layout = "~/Views/Shared/LayoutClient.cshtml";
 }
 
@@ -13,11 +13,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="page_title text-center">
-                    <h1>جزئیات محصولات</h1>
+                    <h1>@ViewBag.Title</h1>
                     <ul class="breadcrumb justify-content-center">
                         <li><a href="/">صفحه اصلی</a></li>
                         <li><a href="/Shop">فروشگاه</a></li>
-                        <li><span>جزئیات محصولات</span></li>
+                        <li><span>@ViewBag.Title</span></li>
                     </ul>
                 </div>
             </div>
