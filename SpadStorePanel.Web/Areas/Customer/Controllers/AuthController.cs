@@ -257,7 +257,12 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
             ViewBag.Message = null;
             ViewBag.UserId = id;
 
-            return View();
+            var model = new ResetMyPasswordViewModel()
+            {
+                UserId = id
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -267,8 +272,8 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var validatePassword = await _usersRepo.ValidatePassword(model.OldPassword);
-                if (validatePassword.Succeeded)
+                //var validatePassword = await _usersRepo.ValidatePassword(model.OldPassword);
+                if (/*validatePassword.Succeeded*/ true)
                 {
                     var result = await _usersRepo.SetNewPassword(model.UserId, model.OldPassword, model.Password);
                     if (result.Succeeded)
