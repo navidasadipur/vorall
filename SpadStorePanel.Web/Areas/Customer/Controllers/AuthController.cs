@@ -31,7 +31,7 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
             UserRepo = userRepo;
-            _usersRepo = userRepo;
+            //_usersRepo = userRepo;
         }
         public UsersRepository UserRepo
         {
@@ -272,12 +272,12 @@ namespace SpadStorePanel.Web.Areas.Customer.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var validatePassword = await _usersRepo.ValidatePassword(model.OldPassword);
-                if (/*validatePassword.Succeeded*/ true)
+                var validatePassword = await UserRepo.ValidatePassword(model.OldPassword);
+                if (validatePassword.Succeeded)
                 {
-                    var result = await _usersRepo.SetNewPassword(model.UserId, model.OldPassword, model.Password);
+                    var result = await UserRepo.SetNewPassword(model.UserId, model.OldPassword, model.Password);
                     if (result.Succeeded)
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Login");
                 }
 
                 ViewBag.Message = "رمز عبور وارد شده صحیح نیست";
