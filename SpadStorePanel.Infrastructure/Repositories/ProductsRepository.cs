@@ -72,10 +72,10 @@ namespace SpadStorePanel.Infrastructure.Repositories
             List<Product> products;
 
             if (skip == null)
-                products = _context.Products.Where(p => p.IsDeleted == false).OrderByDescending(p => p.InsertDate)
+                products = _context.Products.Where(p => p.IsDeleted == false).OrderByDescending(p => p.Id)
                 .Take(take).ToList();
             else
-                products = _context.Products.Where(p => p.IsDeleted == false).OrderByDescending(p => p.InsertDate).Skip(skip.Value)
+                products = _context.Products.Where(p => p.IsDeleted == false).OrderByDescending(p => p.Id).Skip(skip.Value)
                     .Take(take).ToList();
 
             return products;
