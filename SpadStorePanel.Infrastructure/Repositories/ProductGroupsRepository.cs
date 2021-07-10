@@ -56,7 +56,7 @@ namespace SpadStorePanel.Infrastructure.Repositories
         }
         public List<ProductGroup> GetProductGroups()
         {
-            return _context.ProductGroups.Where(f => f.IsDeleted == false).Include(p => p.Children).OrderByDescending(p=>p.InsertDate).ToList();
+            return _context.ProductGroups.Where(f => f.IsDeleted == false).Include(p => p.Children).OrderByDescending(p=>p.Id).ToList();
         }
 
         public List<ProductGroup> GetAllGroupsWithProducts()
