@@ -129,13 +129,13 @@
 
     @*@Html.TextBoxFor(x => x.UserName, null, new { @name = "email", @type = "email", @placeholder = "نام کاربری خود را وارد کنید" })
     @Html.TextBoxFor(x => x.Password, null, new { @name = "password", @type = "password", @placeholder = "رمز عبور خود را وارد کنید" })*@
-    <div class="form-check text-left">
-        <label>
+    <div class="form-check text-center">
+        @*<label>
             مرا بخاطر بسپار
             @Html.CheckBoxFor(x => x.RememberMe, new { @class = "defult-check", @type = "checkbox", @checked = "checked" })
             <span class="checkmark"></span>
-        </label>
-        <a href="#" class="forgot-password float-right">رمز عبور را فر اموش کرده‌اید؟</a>
+        </label>*@
+        <a href="/Customer/Auth/ResetMyPasswordByEmail" class="forgot-password">رمز عبور را فر اموش کرده‌اید؟</a>
     </div>
     <button class="btn btn-primary float-right" title="Login" type="submit">
         ورود
