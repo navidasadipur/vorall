@@ -382,14 +382,14 @@ namespace SpadStorePanel.Infrastructure.Services
             {
                 if (string.IsNullOrEmpty(searchString))
                 {
-                    products = _context.Products.Include(p => p.ProductMainFeatures).Include(p => p.ProductFeatureValues).Where(p => p.IsDeleted == false).OrderByDescending(p => p.InsertDate).ToList();
+                    products = _context.Products.Include(p => p.ProductMainFeatures).Include(p => p.ProductFeatureValues).Where(p => p.IsDeleted == false).OrderByDescending(p => p.Id).ToList();
                 }
                 else
                 {
                     products = _context.Products.Include(p => p.ProductMainFeatures)
                         .Include(p => p.ProductFeatureValues)
                         .Where(p => p.IsDeleted == false && (p.Title.Trim().ToLower().Contains(searchString.Trim().ToLower()) || p.Title.Trim().ToLower().Contains(searchString.Trim().ToLower())))
-                        .OrderByDescending(p => p.InsertDate).ToList();
+                        .OrderByDescending(p => p.Id).ToList();
                 }
             }
             else
@@ -398,12 +398,12 @@ namespace SpadStorePanel.Infrastructure.Services
 
                 var allChildrenGroups = GetAllChildrenProductGroupIds(productGroupId.Value);
                 foreach (var groupId in allChildrenGroups)
-                    products.AddRange(_context.Products.Where(p => p.IsDeleted == false && p.ProductGroupId == groupId).OrderByDescending(p => p.InsertDate).ToList());
+                    products.AddRange(_context.Products.Where(p => p.IsDeleted == false && p.ProductGroupId == groupId).OrderByDescending(p => p.Id).ToList());
                 if (string.IsNullOrEmpty(searchString) == false)
                 {
                     products = products
                         .Where(p => p.IsDeleted == false && (p.Title.Trim().ToLower().Contains(searchString.Trim().ToLower()) || p.Title.Trim().ToLower().Contains(searchString.Trim().ToLower())))
-                        .OrderByDescending(p => p.InsertDate).ToList();
+                        .OrderByDescending(p => p.Id).ToList();
                 }
             }
 
@@ -411,14 +411,14 @@ namespace SpadStorePanel.Infrastructure.Services
             {
                 var productsFilteredByBrand = new List<Product>();
                 foreach (var brand in brandIds)
-                    productsFilteredByBrand.AddRange(products.Where(p => p.IsDeleted == false && p.BrandId == brand).OrderByDescending(p => p.InsertDate).ToList());
+                    productsFilteredByBrand.AddRange(products.Where(p => p.IsDeleted == false && p.BrandId == brand).OrderByDescending(p => p.Id).ToList());
                 products = productsFilteredByBrand;
             }
             if (subFeatureIds != null && subFeatureIds.Any(f => f != 0))
             {
                 var productsFilteredByFeature = new List<Product>();
                 foreach (var subFeature in subFeatureIds.Where(f => f != 0))
-                    productsFilteredByFeature.AddRange(products.Where(p => p.ProductFeatureValues.Any(pf => pf.SubFeatureId == subFeature) || p.ProductMainFeatures.Any(pf => pf.SubFeatureId == subFeature)).OrderByDescending(p => p.InsertDate).ToList());
+                    productsFilteredByFeature.AddRange(products.Where(p => p.ProductFeatureValues.Any(pf => pf.SubFeatureId == subFeature) || p.ProductMainFeatures.Any(pf => pf.SubFeatureId == subFeature)).OrderByDescending(p => p.Id).ToList());
                 products = productsFilteredByFeature;
             }
 
