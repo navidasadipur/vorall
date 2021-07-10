@@ -59,9 +59,9 @@
                         <div class="header-logo">
                             <a href="/"><img src="/Files/StaticContentImages/Image/@ViewBag.Logo" alt="logo" /></a>
                         </div>
-                        @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form" }))
+                        @using (Html.BeginForm("Index", "Shop", FormMethod.Post, new { @class = "header-form" }))
                         {
-                            <input class="search-box" placeholder="جستجو..." required value="" type="search" name="search" />
+                            <input class="search-box" placeholder="جستجو..." required value="" type="search" name="searchString" />
                             <button type="submit">جستجو</button>
                         }
                         @*<form class="header-form">

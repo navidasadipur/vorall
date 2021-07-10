@@ -50,9 +50,9 @@
                 </div>
 
                 <div class="col-lg-7 col-sm-12">
-                    @using (Html.BeginForm("Search", "Shop", FormMethod.Post, new { @class = "header-form form-sm search_wrap w-100" }))
+                    @using (Html.BeginForm("Index", "Shop", FormMethod.Post, new { @class = "header-form form-sm search_wrap w-100" }))
                     {
-                        <input class="search-box" placeholder="جستجو..." required="" value="" type="search" name="search" />
+                        <input class="search-box" placeholder="جستجو..." required="" value="" type="search" name="searchString" />
                         <button type="submit">جستجو</button>
                     }
                 </div>
